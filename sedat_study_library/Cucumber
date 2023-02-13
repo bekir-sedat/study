@@ -1,0 +1,284 @@
+Cucumber
+
+Cucumber is a software tool that supports behavior-driven development (BDD).[7][8][9][10] Central to the Cucumber BDD approach is its ordinary language parser called Gherkin.
+
+Cucumber was originally written in the Ruby programming language and was originally used exclusively for Ruby testing as a complement to the RSpec BDD framework. Cucumber now supports a variety of different programming languages through various implementations, including Java[15][8] and JavaScript.[16][17] The open source port of Cucumber in .NET is called SpecFlow.
+
+
+Step definitions are hooked to feature file with cucumber annatations ex: when, then
+
+When we write the feture file :
+	Scenario: User search title verification
+	    Given User is on Google home page  ---> ask you to create the step_definition in a new java class or existing one then ties this up to that. Can run 											dryrun  to get steps definitions from console as weel 
+	    When User searches for apple
+	    Then User should see apple in the title
+
+--src
+	test
+		java
+			com.abc
+				pages --> selenium pagefactOry inut pages
+				runners --> see below
+				step_definitions
+					steps
+					hooks
+				utilities --> BrowserUtils
+						  --> ConfigurationReader(Property class from java.util.Propery)
+						  --> Driver
+
+		resources --> Feature Files here  *.feature 	
+
+--pom.xml   ---> org.seleniumhq.selenium-java:3.14, io.cucumber-java:5.7 , io.cucumber-junit:5.7 , io.github.bonigarcia:webdrivermanager : 4
+--configuration.properties
+=============================
+1. Know the files loaction above
+2. know the attributes of cukesrunner
+3. Create the ***.feature file with scenarios and steps
+4. Tie those steps above to java code 
+5. Run the cukesrunner. Can have 1 or more cukesrunner. 1 more for failed tests for example.
+6. know sure-fire plugin 
+
+
+============
+
+
+We need 4 files for BDD.
+
+	Feature File: 
+		Will be written with Gherkin syntax Given-When-Then things.. And will be human readable.
+	Step Definition File: 
+		Should be automatically generated from feature file. It will link your feature file with regex to this. So you should call/write some java codes.
+	Page File: 
+		Selenium Webdriver codes go here. Write your functions and call them from step definition file.
+	Feature Runner File: 
+		This file will be your test suite file. You should run all test scenarios with this file for CI/CD integrations. So you need to specify your feature file location (Another name is Glue)
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        plugin = {
+                "html:target/cucumber-report.html",
+                "json:target/cucumber.json",
+                "rerun:target/rerun.txt"
+        },
+        features = "src/test/resources/features",
+        glue = "com/sedat/step_definitions",
+        dryRun = false,
+        tags = ""
+)
+public class CukesRunner {
+}
+
+
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+
+        features = "@target/rerun.txt",
+        glue = "com/sedat/step_definitions"
+
+)
+public class FailedTestRunner {
+}
+
+
+- Notice rerun plugin and FailedTestRunner class --> can mention in the interview
+- Make sure the step definition is in the same package as cukes Runner, or child package (not parent or sibling)
+================================================
+
+
+- Hook Class must be in same package as stepdefinition
+
+In the world of testing, you must have encountered the situations where you need to perform the prerequisite steps before testing any test scenario. This prerequisite can be anything from: Using Cucumber annotations : @Before , @After
+
+
+@Before → runs before each cucumber scenario
+@After → runs after each scenario (It will always run no matter if scenario passes or fails)
+
+
+@Before
+			Starting a webdriver
+			Setting up DB connections
+			Setting up test data
+			Setting up browser cookies
+			Navigating to certain page
+			or anything before the test
+
+@After
+			Killing the webdriver
+			Closing DB connections
+			Clearing the test data
+			Clearing browser cookies
+			Logging out from the application
+			Printing reports or logs
+			Taking screenshots on error
+			or anything after the test
+
+Unlike TestNG Annotations, cucumber supports only two hooks (Before & After) which works at the start and the end of the test scenario. As the name suggests, @before hook gets executed well before any other test scenario, and @after hook gets executed after executing the scenario.
+
+
+Tagged Hooks
+The hook can also we used with tag. We can use @before and @after hooks with a specific test. 
+@Before ('@RegressionTest, @SmokeTest)  
+=============================================
+
+@CucumberOptions do?
+• Tag used to customize the running of the cucumber tests
+• Inside @CucumberOptions you can add:
+	o dryRun 
+	o Plugin
+		§ “Pretty”
+• Adds more info in the consoleàGives you tag, scenario, method info.
+• "html:target/cucumber report"àGenerates html report located in target/cucumber report folder
+“json:target/cucumber.json
+§ Tags
+•		 Tags must be located in feature path
+		• Can add multiple tags...tags= “@Dog, @Cat”
+	§ Features location of where feature files are
+	§ Glue where to look for step definition steps. hook class is part of glue too.
+
+=============================================================================
+
+@Given(" ^I am on page \"(.*)\"$")  ----> \"(.*)\" is the string or  \"page\" i guess
+public void goToPage(String page){
+	
+
+
+}
+
+=============
+
+Scenario: Verify some scenario 
+Given something
+When user do something 
+Then user should have following
+| Test1 |
+| Test2 |
+| Test3 |
+| Test4 | 
+
+
+Then("^user should have following$")
+public void user_should_have_following(List<String> testData) throws Throwable {
+ #TODO user your test data as desired
+ }
+
+
+ I tnink aboe is equal
+
+Then user should have following "Test1"
+and
+Then user should have following "Test2"
+and
+Then user should have following "Test3"
+and 
+Then user should have following "Test4"
+
+========================
+
+How to run Cucumber with JUnit?
+• Add cucumber JUnit dependency
+• Adding @RunWith (Cucumber.class) on top of cukesRunner class
+
+How to run Cucumber with TestNG?
+• Add cucumber testNG dependency
+• Make CukesRunner extend to AbstractTestNG CucumberTests
+
+
+
+==========================================
+
+What is Background?
+• Cucumber has their own before method
+• The one in hooks is for java
+• A step that runs BEFORE a scenario inside the feature file
+• Can only put on top, before all scenarios
+• Cannot put pipelines in backgrounds (Only in scenario outline)
+
+
+=================
+
+
+How to rerun the failed tests again in Cucumber?
+● we use the re-run option in the CukesRunner.
+● Add the rerun to cukes runner.
+● This option will create a file with a list of failed tests
+● Create a second runner class which points to file with a list of failed tests
+
+
+==================================
+
+How to rerun the failed tests again in Jenkins?
+● In Jenkins there are plugin that re run the failed tests Unit cases.
+● So you can configure your Maven build execution on Jenkins using the option:
+● Dsurefire.rerunFailingTestsCount=2
+
+=========================================
+
+
+Second plugin is maven-surefire-plugin
+this plugin executes tests in parallel. in this plugin configuration, we indicate which runner files we want to run. we can also indicate how may simultaneous tests we want to run.
+
+<include>**/runners/*TestRunner*.java</include>. --> plugin will run these files 
+<threadCount>10</threadCount> --> this shows how many browsers we want to have in at the same time. 
+<parallel>classes</parallel> -> this line tells that cukes runner classes must run in parallel
+
+How to run?
+- we can execute tests in parallel in our framework only by running tests as a maven command o mvn verify --> this will run the tests and generate reports
+- mvn clean verify --> will first delete the target folder, then runs tests, then generate reports
+
+===============
+
+
+- How do you take screenshots incucumber?
+	In my After method(hook)  I use a code:
+        I use TakeScreenShot interface
+        You can store screenshot as a byte or file
+@After
+public void tearDown(Scenario scenario) { 
+if(scenario.isFailed()) {  ------------------> 1
+	//taking a screenshot
+final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES); ------> 2
+	//adding the screenshot to the report 
+scenario.embed(screenshot, "image/png"); -----------> 3
+}
+
+===============
+
+Scenrio Outline. Same test case  multiple data to test. DDT(data driven testing)
+
+Scenario in cucumber runs once.
+
+		Scenario: Eat 5 out of 12
+		  Given there are 12 cucumbers
+		  When I eat 5 cucumbers
+		  Then I should have 7 cucumbers
+
+		Scenario: Eat 5 out of 20
+		  Given there are 20 cucumbers
+		  When I eat 5 cucumbers
+		  Then I should have 15 cucumbers
+
+  Scenario Outlines allow us to more concisely express these examples through the use of a template with placeholders
+  The Scenario Outline steps provide a template which is never directly run. A Scenario Outline is run once for each row in the Examples section beneath it (except for the first header row).
+
+  		Scenario Outline: Eating
+			  Given there are <start> cucumbers
+			  When I eat <eat> cucumbers
+			  Then I should have <left> cucumbers
+
+			  Examples:
+			    | start | eat | left |
+			    |  12   |  5  |  7   |
+			    |  20   |  5  |  15  |
+
+
+
+If the amount of data is not that huge, then I use Cucumber Scenario outline with Examples table.
+If the amount of data is not that huge, then I use Cucumber Scenario outline with Examples table.
+And other times I maintain test data in Excel files, and I use Apache POI library to read and write data
+============
+
+
+How do I limit the types of variables I can pass?
+• In the gherkin parenthesis you can add (Collaboration | Sales | Marking, etc.)
+• Ex: @When("^I hover over the (Collaboration | Sales | Marketing | Activities | All ) menu$")

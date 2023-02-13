@@ -1,0 +1,491 @@
+Docker:
+
+Docker was mainly invented to make programs OS-agnostic in order to facilitate development and deployment. A data scientist, for instance, can write his program on macOS and run it using Docker on the client’s IT infrastructure no matter its OS (macOS, linux, Windows, …).
+================
+Docker introduces different notions:
+• Dockerfile: a set of actions that are executed with caching in the written order
+• Docker image: the system of files and installation (from the Dockerfile) you will need to run your program without any attached process
+• Docker container: is an instance of the image hosting a copy of all the files and the needed programs with an attached and interactive process through a terminal
+• .dockerignore: a file hosting all the paths of elements you don’t want to host on your docker image
+• entrypoint.sh: a cmd file that determines the commands to be launched when running the container
+===========================
+Docker also provides Dockerhub, a cloud service that can host shared Docker images that can be pushed and pulled by teams. It also hosts official language images such as Python’s.
+
+=====================
+$ docker pull <image>
+$ docker ps -a ---> show list of ll containers
+$ docker 
+=====================
+
+$ docker --help
+
+-Benefits 
+	Environmet consistnt
+	Ship software faster
+	Onboarding process for new hiree
+	can work wth many frameworks and languages s
+
+For Mac and Windows need to download Docker Desktop(These using different engines (WSL2 for windows) to run Docker)
+	provides image, container tools
+	Once we have this app, we can do whatever we need to do with Docker
+
+For Linux: 
+	Docker is actually a Linux technology.
+	Linux can run Docker engine
+
+
+The new `docker sbom` CLI command displays the SBOM (Software Bill Of Materials) of any Docker image. This feature outputs the SBOM in a table or can be exported into SPDX and CycloneDX formats.
+
+
+Image is the recipe. 
+
+Container is the isolated thing knows nothing about environment and use its own resources.
+
+Docker is a tool to start run manage these images and containers 
+
+$ docker ps -a ---> show list of ll containers
+$ docker stop <container_id>  ---> stops runing related container. TIP: writing a few first digits of id is enough for docker to find related container from its id
+$ docker rm  <container_id> ----> removes this container from Docker's scope
+
+==
+
+Once the container is running(app is in container) --> to enter container environment via commmand line:
+
+ $ docker exec -it <container_id> sh
+ to exit back --> $ exit
+
+ ====
+
+ Docekr file is converted to an image. use docker commands to build an image 
+ once we have the image, we can run it locally but can be made portable wirh Docker hub
+
+ =======
+
+ Underdtanding Docker File
+
+ 	code --> compiler ---> genenrates binary
+
+ 	dockerfile works like above:
+
+ 	Dockerfile: is a. text document that contains all the commands  user call on the command line to assamble an image  :
+
+ 	Dockerfile ---> Docker build --> Docker Image
+
+ 	Docker file is like a layered pasta where is layer has a different instruction
+
+ Dockerfile:(layers) -----> Go to hub.docker.com  for base image
+ 		Each Layer buolt on top of previous layer(instruction)
+ 		Can get coomands from : https://docs.docker.com/engine/reference/builder/
+ 	1. FROM: Base layer always FROM instruction
+ 		This is the **** base image *****
+ 		Go to hub.docker.com for diffrent options
+ 		ex: FROM asp.net
+ 			FROM node:alpine --> current version  or certain version : node:15.0-alpine  . Good practice to use certain version for future conflicts
+ 			FROM java
+
+ 	2. LABEL: Next you want to see some metadata about docker file
+ 		can put any key:value 
+
+ 		ex: LABEL author = "Sedat"
+
+ 	3. ENV: Can define environment variables
+
+ 		ex: ENV NODE_ENV = production
+ 			ENV PORT=3000
+
+ 	4. WORKDIR: Working directory in the linux container.
+ 		When running a base image like Node or ASP.NET Core or Java, there will be al ot of directorier in the container when it is running
+
+ 		ex: WORKDIR /var/www
+
+ 	5. COPY: This one is important. A lot of times you need to COPY in configuration files or settings or code:
+ 		these can be binaries, compiled code or scripted language like javascript.
+ 	   COPY instruction has a where am i strting from, that's the dot on the left
+ 	   copy from left dir to right dir
+ 	    COPY . .  ---> two dots. Left is from the root where i am now, right dot means WORKDIR == /var/www in this case.
+
+ 	    ex: Copy all my application files :
+ 	    	COPY . .  ==  COPY . ./  ==  COPY . /var/www  ---> all same
+
+ 	    ex: COPY package.json ./   ---> copy package.json from my application folder to image when i build this dockerfile
+
+ 	6. RUN: We can run also differnt command. "RUN"
+ 	Anythng you want to run as a command
+ 	 		if we need to install npm packages for node.js application
+ 	 		ex: RUN npm install
+
+ 	7. EXPOSE:   ---> port this container listening on 
+ 		ex: EXPOSE 3000
+
+ 	8. ENTRYPOINT: What is the first command we are going to run to start this up?
+
+ 			ex: ENTRYPOINT ["node", "server.js"]
+
+
+we can access environment variables useing $ sign
+
+ex: ENV PORT = 3000
+	EXPOSE $PORT
+
+
+===========
+
+EX: 
+
+FROM 		node:15.9.0-alpine
+
+LABEL 		author="sedat"
+
+ENV 		NODE_ENV=prod
+ENV 		PORT=3000
+
+WORKDIR 	/var/www
+COPY 		package.json package-lock.json ./
+RUN 		npm install
+
+COPY 		. ./
+EXPOSE 		$PORT
+
+ENTRYPOINT 	["npm", "start"]
+
+ ==============
+
+ In your application root, create the dockerfile.(It may be in diiferent folder but need to adjust relative path etc.) It may not be like *.dockerfile. It can be anything but to seperate:
+
+ 			Default ---> Dockerfile
+
+ 			ex: app1.dockerfile
+
+ 			if you use custon dockerfile:
+ 				$ docker build -t my_image -f app1.dockerfile .    ---> . is important
+
+
+
+ =========
+
+ .dockerignore  file  ----> ignores these once creating image. 
+ 	ex: dont include node_modules ---> may take long time to build an image 
+ 		node_modules/
+ 		.DS_Store
+ 		.certs/
+ 		.idea/
+ 		.settings/
+ 		.build/
+ 		*.iml
+
+ ====================
+
+ Building Imagefrom docker file:
+ 	simplest was:
+ 		$ docker build -t <new_image_name> .   
+ 		--> -t is == --tag	
+ 		--> . -> build context. Where is the docker file relative to where you are running this command?
+ 				Just go where docker file is and run above coammnd  from there
+
+ ==============
+
+ You want to register this image somewhere.
+ 	- Internal Registry
+ 	- Docker Hub
+ 	- Amazon ECR
+ 	- Azure Container Registry
+ 	- Google Container Registry
+ 	- etc.
+
+ 	$ docker build -t <registry>/<image_name>:<tag> .
+ 	$ docker build -t sedats_docker_hub/sentinentapp:1.0 . 
+
+ 	<registry> --> defsault to dockerhub
+
+========
+
+$ docker images   --> list images
+$ dockr  rmi  <image_id>  ---> remove image
+
+======
+
+docker login 
+
+======
+
+Images are immutable. Can't Update an image. You need to make a new Image if you want to update
+
+
+===============
+Pushing an image to a registry such as Docker Hub
+	$ docker push <user name>/<image>:<version_tag>
+	<version_tag> == alpine is the smalest sized image
+
+
+===
+Pulling
+
+===========
+
+Containers can be run:
+	- in your machine
+	- on a server at work
+	- in the cloud
+
+
+	1. Pull image from registered hub
+	2, Run 
+	3. Access log info about the runtime detaila
+		docker logs
+	4. How to store data in the container persistatly using "volumes". Storing data outside of the container
+
+======
+
+2. Run:
+	Once you have an image on your machine, you can run it as a container 
+
+	$ docker run -p <externalPort>:<internalPort> <image_name>
+
+	(docker run --help)
+
+	-p  -->publish a  container's port(s) to the host
+	externalPort --> port hit outside of the container to interact with
+					 ex: localhost:8080  8080 --> externalPort
+					 
+	internalPort --> container and whatever running in the container is listening on (defined in EXPOSE layerr)
+					 ex: EXPOSE 3000
+
+	external is what external useers or systems call.Then forwards it to the internal port inside of running container
+
+
+
+==========
+
+$ docker ps -a ---> shows images hanging around docker
+
+to remove the :
+	$ docker rm <id> --> doesn't delete images. Removes Container
+
+	To delete images --> $ docker rmi <image_id>
+
+=========================
+
+View Container Logs:
+	useful for debug
+	details whats going in the container
+
+	$ docker logs <image_id>
+
+==============
+
+Using Container Volumes:
+
+	Store logs ouside of the container.
+
+	$ docker run -p <ports> -v /var/www/logs <image_name>
+		-v /var/www/logs ---> docker, i have a /var/www/logs folder. Take anything written to here and actually write it over to the default host.
+		      				  This will create the directory structure that you need on the host
+
+
+	Defining a host Location (Mac/Linux)
+
+		$ docker run -p <ports> -v $(pwd):/var/www/logs <image_name>
+			$(pwd) ---> pwd == where i am now
+						ex: i am in temp folder
+
+	Defining a host Location (Windows)
+		$ docker run -p <ports> -v ${PWD}:/var/www/logs <image_name>
+
+
+
+=================
+
+Creating a Bridge Network
+	
+	You have multiple containers need to talk to each other --> can communicate over a network
+	(caching server ?) 
+
+	We create bridges between containers to talk them to each other
+	Bridge network ---> easiest one. Threre are more. Check docs.docker.com/network
+						ie. : host
+							  overlay
+							  macvlan
+							  none
+							  Network plugins
+
+	To create a network:
+		$ docker network create --driver bridge <network_name>
+=====
+		$ docker network ls  ---> list the networks
+		$ docker network rm <network_name>  ---> removes network
+
+================
+
+So far: Say there is database container and stock_app container
+	1. Create dockerfile  sedat.dockerfile
+	2. $ docker build -f sedat.dockerfile -t bekirsedat/stock_app:1.0 .
+	3. $ docker network create --driver bridge isolated_network
+	4. docker run -d --net=isolated_network --name sedat_database mongo  --> didn't give -p port because mongo runs on a specific port. We will use default one =27017
+	5. docker run -d --net=isolated_network --name sedat_stock_app -p 3000:3000 -v $(pwd)/logs:var/wwww/logs bekirsedat/stock_app
+
+	OLD WAY: (Legacy linking. May see this somewhere. Not recommended)
+
+	1. $ docker run -d --name sedat_database mongo	
+	2. $ docker run -d -p 3000:3000 --link sedat_database:mongo --name sedat_stock_app bekirsedat/stock_app
+
+
+===================
+
+Running Shell commands in the container:
+	$ docker exec -it <container_id or container_name> sh     ---> -it inteeractive tty = intreactive terminal mode
+															  ---> sh type of the shell. This depends on the container
+															  			Linux   --> sh, bash, etc..
+															  			Windows --> PowerShell
+															  			Need to look at what container supports
+
+
+============================
+
+Building and Running Multiple Containers with Docker Compose:
+	Favarote tool
+	Can build services with one command. Services defined in YAML.
+	Can start services with one command
+	Can tear down services with one command
+	Services are containers. We call containers as services in Docker Compose World.
+	To build Multiple images, to run multiple containers. Logo is octopus
+	Docker Compose defines services using YAML configuration files
+	A service really equates to a container at runtime.
+	We can start and stop services
+	View status of running services 
+	Stream log output of running services
+
+
+	Creating Services via docker-compose.yaml file: (yaml higher level of JSON). Indentation matterrs. with YAML
+	Content of this file:
+
+		version: '3.3'
+
+		services:
+			app:
+				networks:
+					- odeapp-network
+				image : sedat_app
+				container_name: sedat
+				build: 
+					context: .
+					dockerfile: sedat.dockerfile
+				ports:
+					- "3000:3000"
+				depends_on:
+					- mongodb
+
+			mongodb:
+				container_name: mongodb
+				image: mongo
+				networks:
+					- nodeapp-network
+			
+
+		networks:
+			nodeapp-network:
+				driver: bridge
+
+
+		Can look at docs.docker.com/compose for YAML docker-compose properties		
+
+	We do the same thing as we did imperaively on the command line, With yaml file we do it declerativlely
+	depends_on --> build other first
+
+	Notice: There is no "build" for mongodb.
+		Look locally for an image called mongo. (If there is image thats fine).
+		Then go to whatever registered as default on your machine for a registry. Probably gets it from there
+			ex: registered Docker-hub
+
+	$ docker-compose build --> will look at services > app > build section
+
+
+	Key Docker-Compose Commands:
+		
+		1. $ docker-compose build   ---> builds images
+
+		2. Once the images are available:
+			$ docker-compose up
+
+		3. Once we done, tear down everthing
+			$ docker-compose down
+
+
+	Do Yaml file once and work with this if a lot of containers , images involves
+
+	Can do a lot with docker-compose. Can bring a lot of services
+
+
+
+
+
+================================================SAMPLE AI PYTHON ==================
+
+
+docker file ( for image definition):
+
+Each service has its own Dockerfile:
+
+Dockerfile of Data Science API:
+		FROM python:3.7-slim-buster
+		RUN mkdir /ds_api
+		WORKDIR /ds_api
+		ADD . /ds_api
+		RUN pip install virtualenv
+		RUN virtualenv api_vir_env
+		RUN . api_vir_env/bin/activate
+		RUN pip install -r requirements.txt
+		EXPOSE 8080
+		ENTRYPOINT ["python"]
+		CMD ["app.py"]
+
+Dockerfile of the frontend:
+		FROM python:3.7-slim-buster
+		RUN mkdir /frontend_dir
+		WORKDIR /frontend_dir
+		ADD . /frontend_dir
+		RUN pip install virtualenv
+		RUN virtualenv front_vir_env
+		RUN . front_vir_env/bin/activate
+		RUN pip install -r requirements.txt
+		EXPOSE 8501
+		ENTRYPOINT ["streamlit", "run"]
+		CMD ["app.py"]
+
+The DS API is exposed on the port 8080 while the frontend is exposed on the port 8501
+
+To manage both of the services at the same time, we will need to create a docker-compose.yml
+
+		version: '3'
+		services:
+		  datascience_api:
+		    container_name: datascience_api
+		    hostname: datascience_api
+		    build:
+		      context: ./datascience_api
+		      dockerfile: Dockerfile
+		    ports:
+		      - 8080:8080
+		    restart: unless-stopped
+		  front:
+		    container_name: frontend
+		    hostname: frontend
+		    build:
+		      context: ./frontend
+		      dockerfile: Dockerfile
+		    ports:
+		      - 8501:8501
+		    restart: unless-stopped
+		    depends_on:
+		      - datascience_api
+
+
+
+
+NB1: The frontend service depends_on the datascience API, which need to be run at first.
+
+NB2: The frontend call the DS API using its container’s name through http protocol:
+
+requests.post(“http://datascience_api:8080/add", params=query).json()
+
+
+

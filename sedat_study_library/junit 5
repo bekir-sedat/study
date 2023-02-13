@@ -1,0 +1,352 @@
+JUNIT 5
+
+https://junit.org/junit5/docs/current/user-guide/#writing-tests
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class MyFirstJUnitJupiterTests {
+
+    private final Calculator calculator = new Calculator();
+
+    @Test
+    void addition() {
+        assertEquals(2, calculator.add(1, 1));
+    }
+
+}
+=====
+Assertions
+Set-up, Tear dowm 				--> @BeforeAll, @BeforeEach , 
+					  				@AfterAll, @AfterEach
+
+Parametrized test 				--> @ParameterizedTest (instead @Test)
+
+Organization(markers) 			--> @Tag("smoke")
+
+Test run order 					--> @Order(1)
+
+Disable test 					--> @Disabled("for demonstration purposes")
+
+Stop test after   				--> @Timeout(5)
+
+Test DisplayName            	--> @DisplayName("A special test case")
+
+EnabledOnOs(MAC)				--> @EnabledOnOs(MAC) or @EnabledOnOs(value = MAC)
+
+EnabledOnOs(WINDOWS)			--> @EnabledOnOs(WINDOWS) or @EnabledOnOs(value = WINDOWS, architectures = "aarch64") (also architecture)
+
+EnabledIfEnvironmentVariable    --> @EnabledIfEnvironmentVariable(named = "ENV", matches = "staging-server")
+
+
+
+@ParameterizedTest + one of below
+	@ValueSource
+	@MethodSource
+	@EnumSource
+	@CsvSource
+	@CsvFileSource
+	@ArgumentsSource
+
+
+=====================================
+
+Annotations:
+	@Test --> Denotes that a method is a test method. Unlike JUnit 4’s @Test annotation, this annotation does not declare any attributes, since test extensions 		  in JUnit Jupiter operate based on their own dedicated annotations. Such methods are inherited unless they are overridden.
+	@ParameterizedTest --> Denotes that a method is a parameterized test. Such methods are inherited unless they are overridden.
+	@RepeatedTest --> Denotes that a method is a test template for a repeated test. Such methods are inherited unless they are overridden.
+	@TestFactory --> Denotes that a method is a test factory for dynamic tests. Such methods are inherited unless they are overridden.
+
+
+	@Disabled --> Used to disable a test class or test method; analogous to JUnit 4’s @Ignore
+	@Timeout --> Used to fail a test, test factory, test template, or lifecycle method if its execution exceeds a given duration
+	@TempDir --> Used to supply a temporary directory via field injection or parameter injection in a lifecycle method or test method
+
+
+=========
+
+Meta-Annotations and Composed Annotations:
+	JUnit Jupiter annotations can be used as meta-annotations. That means that you can define your own composed annotation that will automatically inherit the semantics of its meta-annotations.
+
+	For example, instead of copying and pasting @Tag("fast") throughout your code base (see Tagging and Filtering), you can create a custom composed annotation named @Fast as follows. @Fast can then be used as a drop-in replacement for @Tag("fast").
+
+	Custom annotiation:
+		import java.lang.annotation.ElementType;
+		import java.lang.annotation.Retention;
+		import java.lang.annotation.RetentionPolicy;
+		import java.lang.annotation.Target;
+
+		import org.junit.jupiter.api.Tag;
+
+		@Target({ ElementType.TYPE, ElementType.METHOD })
+		@Retention(RetentionPolicy.RUNTIME)
+		@Tag("fast")
+		public @interface FastSedat {
+		}
+
+
+   Now we have a annoation @FastSedat
+
+===============
+Set-up:
+	@BeforeAll --> Denotes that the annotated method should be executed before ALL (once) @Test, @RepeatedTest, @ParameterizedTest, and @TestFactory methods in the 				   current class; analogous to JUnit 4’s @BeforeClass. Such methods are inherited – unless they are hidden, overridden
+
+	@BeforeEach --> Denotes that the annotated method should be executed before EACH(every time) @Test, @RepeatedTest, @ParameterizedTest, or @TestFactory method in the 					current class; analogous to JUnit 4’s @Before. Such methods are inherited – unless they are overridden or superseded 
+
+Tear down: 
+	@AfterAll --> Denotes that the annotated method should be executed after all @Test, @RepeatedTest, @ParameterizedTest, and @TestFactory methods in the 					  current class; analogous to JUnit 4’s @AfterClass. Such methods are inherited – unless they are hidden, overridden, or superseded
+
+	@AfterEach --> Denotes that the annotated method should be executed after each @Test, @RepeatedTest, @ParameterizedTest, or @TestFactory method in the 					   current class; analogous to JUnit 4’s @After. Such methods are inherited – unless they are overridden or superseded 
+
+
+==================
+
+Test methods and lifecycle methods may be declared locally within the current test class, inherited from superclasses, or inherited from interfaces (see Test Interfaces and Default Methods). In addition, test methods and lifecycle methods must not be abstract and must not return a value (except @TestFactory methods which are required to return a value).
+
+==================
+
+
+
+	@Test
+    @Disabled("for demonstration purposes")
+    @DisplayName("A special test case")  --> can be used over class too. (For all test methods)
+    void skippedTest() {
+        // not executed
+    }
+
+
+
+  ============
+
+  Third-party Assertion Libraries
+  	Even though the assertion facilities provided by JUnit Jupiter are sufficient for many testing scenarios, there are times when more power and additional functionality such as matchers are desired or required. In such cases, the JUnit team recommends the use of third-party assertion libraries such as AssertJ, Hamcrest, Truth, etc. Developers are therefore free to use the assertion library of their choice.
+
+ =========
+
+
+ Assumptions:
+ 	JUnit Jupiter comes with a subset of the assumption methods that JUnit 4 provides and adds a few that lend themselves well to being used with Java 8 lambda expressions and method references. All JUnit Jupiter assumptions are static methods in the org.junit.jupiter.api.Assumptions class.
+
+	import static org.junit.jupiter.api.Assertions.assertEquals;
+	import static org.junit.jupiter.api.Assumptions.assumeTrue;
+	import static org.junit.jupiter.api.Assumptions.assumingThat;
+
+ 	@Test
+    void testOnlyOnCiServer() {
+        assumeTrue("CI".equals(System.getenv("ENV")));
+        // remainder of test
+    }
+
+    @Test
+    void testOnlyOnDeveloperWorkstation() {
+        assumeTrue("DEV".equals(System.getenv("ENV")),
+            () -> "Aborting test: not on developer workstation");
+        // remainder of test
+    }
+
+
+=======================
+
+Environment Variable Conditions:
+	The value supplied via the matches attribute will be interpreted as a regular expression.
+
+	@Test
+	@EnabledIfEnvironmentVariable(named = "ENV", matches = "staging-server")
+	void onlyOnStagingServer() {
+	    // ...
+	}
+
+	@Test
+	@DisabledIfEnvironmentVariable(named = "ENV", matches = ".*development.*")
+	void notOnDeveloperWorkstation() {
+	    // ...
+	}
+=======
+
+Operating System and Architecture Conditions:
+	@Test
+	@EnabledOnOs(MAC)
+	void onlyOnMacOs() {
+	    // ...
+	}
+
+	@Test
+	@DisabledOnOs(WINDOWS)
+	void notOnWindows() {
+	    // ...
+	}
+
+
+Conditional execution based on architecture:
+
+	@Test
+	@EnabledOnOs(architectures = "aarch64")  ---> another --> @EnabledOnOs(value = MAC, architectures = "aarch64")
+	void onAarch64() {
+	    // ...
+	}
+
+=========
+
+Java Runtime Environment Conditions:
+
+	@Test
+	@EnabledOnJre({ JAVA_9, JAVA_10 })
+	void onJava9Or10() {
+	    // ...
+	}
+
+	@Test
+	@EnabledForJreRange(min = JAVA_9, max = JAVA_11)
+	void fromJava9to11() {
+	    // ...
+	}
+
+===============
+Custom Conditions:
+	As an alternative to implementing an ExecutionCondition, a container or test may be enabled or disabled based on a condition method configured via the @EnabledIf and @DisabledIf annotations. A condition method must have a boolean return type and may accept either no arguments or a single ExtensionContext argument.
+
+
+===========
+
+
+Tagging and Filtering:
+	@Tag("fast")
+	@Tag("model")
+
+==========
+
+Test Execution Order:
+	By default, test classes and methods will be ordered using an algorithm that is deterministic but intentionally nonobvious. This ensures that subsequent runs of a test suite execute test classes and test methods in the same order, thereby allowing for repeatable builds.
+
+
+=======
+
+
+Method Order
+ @Order(1)
+
+
+===================
+
+
+Parameterized Tests:  --> no @Test only @ParameterizedTest
+
+	Parameterized tests make it possible to run a test multiple times with different arguments. They are declared just like regular @Test methods but use the @ParameterizedTest annotation instead. In addition, you must declare at least one source that will provide the arguments for each invocation and then consume the arguments in the test method.
+			@ValueSource
+			@MethodSource
+			@EnumSource
+			@CsvSource
+			@CsvFileSource
+			@ArgumentsSource
+
+	@ParameterizedTest
+	@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+	void palindromes(String candidate) {
+	    assertTrue(StringUtils.isPalindrome(candidate));
+	}
+
+---
+
+	@ParameterizedTest
+	@MethodSource("stringProvider")
+	void testWithExplicitLocalMethodSource(String argument) {
+	    assertNotNull(argument);
+	}
+
+	static Stream<String> stringProvider() {
+	    return Stream.of("apple", "banana");
+	}
+---
+	@ParameterizedTest
+	@EnumSource(ChronoUnit.class)
+	void testWithEnumSource(TemporalUnit unit) {
+	    assertNotNull(unit);
+	}
+---
+
+	@ParameterizedTest
+	@CsvSource({
+	    "apple,         1",
+	    "banana,        2",
+	    "'lemon, lime', 0xF1",
+	    "strawberry,    700_000"
+	})
+	void testWithCsvSource(String fruit, int rank) {
+	    assertNotNull(fruit);
+	    assertNotEquals(0, rank);
+	}
+
+
+----
+
+
+@ParameterizedTest
+@CsvFileSource(files = "src/test/resources/two-column.csv", numLinesToSkip = 1)
+void testWithCsvFileSourceFromFile(String country, int reference) {
+    assertNotNull(country);
+    assertNotEquals(0, reference);
+}
+
+-------
+
+
+
+
+============
+Timeouts
+	The @Timeout annotation allows one to declare that a test, test factory, test template, or lifecycle method should fail if its execution time exceeds a given duration. The time unit for the duration defaults to seconds but is configurable.
+
+	@BeforeEach
+    @Timeout(5)
+    void setUp() {
+        // fails if execution time exceeds 5 seconds
+    }
+
+    @Test
+    @Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
+    void failsIfExecutionTimeExceeds500Milliseconds() {
+        // fails if execution time exceeds 500 milliseconds
+    }
+=========
+
+Configuration parameters to execute all tests in parallel:
+	By default, JUnit Jupiter tests are run sequentially in a single thread. Running tests in parallel
+
+- Configuration parameters to execute all tests in parallel
+	junit.jupiter.execution.parallel.enabled = true
+	junit.jupiter.execution.parallel.mode.default = concurrent
+
+
+===================
+
+
+
+
+
+From JUnit 4.7 onwards you can run your tests in parallel. To do this, you must set the parallel parameter, and may change the threadCount or useUnlimitedThreads attribute
+<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M7</version>
+        <configuration>
+          <parallel>methods</parallel>
+          <threadCount>10</threadCount>
+        </configuration>
+</plugin>
+
+
+
+- mvn -D(VariableName) = testname à Run specific tests based on the parameter, with sure fire plugin. -- > mvn -Dtest=SimpleGetRequest test, 
+																										   mvn test -Dcucumber.options="--tag @smoke”
+
+
+===================
+
+
+How to run Cucumber with JUnit?
+• Add cucumber JUnit dependency
+• Adding @RunWith (Cucumber.class) on top of cukesRunner class
+
+How to run Cucumber with TestNG?
+• Add cucumber testNG dependency
+• Make CukesRunner extend to AbstractTestNG CucumberTests																										   

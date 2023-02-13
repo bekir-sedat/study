@@ -1,0 +1,234 @@
+JavaScript ---> 
+JavaScript: Getting Started
+by Mark Zamoyta
+
+======
+Quick :
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Overview
+
+NativeScript --->  for app development
+====
+
+Continue from starting "Program Flow" section. I completed up to this point  
+
+
+	programminng lanuage of wesites
+	under <script src="./utils.js"></script> ---> runs utils.js 
+	// is for comments
+	alert("messege" ===> alert is a javascript function
+	conslole.log("messgae") --> writes to console --. find consolue website+inspect
+	_ --> for private $ --> auto-generated variables
+	variables can on;y start with _,$ or letter. Can't start with number
+
+	variable ---> let price = 10; let name = 'sedat';
+	constants --> const price = 10  --> can't change the value. Needs to inialize otherwise error
+	let and const --> relativelt new keywords to javascript. var was used more before. var has some problems. bettre to use let and const
+	when used var --> we can't see the errors 
+		ex: alert(message)
+			var message = 'error'
+
+		above example won't show any error but if we write:
+			alert(message)
+			let message = 'error'
+
+			we will get error message -> trying to access before iniatailizeing or something like that
+
+			solution don't use var 
+
+			Types in Javascript:
+				Number, String, Boolean, null, undefined, Object, Symbol
+
+
+			let price = 10
+			typeof price ---> number
+			typeof --> valuable operator
+
+			let price2 = '10'
+			typeof price2 ---> string
+
+			string ---> sinle '' or double quotos " " or `` (backticks)
+			backticks is like format in python ---> `hello ${price}` --- > hello 10
+			using backticks --> we can add spaces, new lines etc.
+			All spaces converted to a single space when we work with header tags, paragraghs in HTML
+
+			string methods same as in Java.
+
+			number to string ==> price.toString()
+			let price3 = '12.33'  ---> string
+
+			undefined and null is a value
+
+			let a = undefined == let a  
+			let a ---> a is not initailized == undefined
+			to reset value a programmer use a = null. undefined and null are almost same. we use null. never use undefined.
+
+			Javascript object ---> let person = {fisrtName: 'Sedta', number: 109625}
+								   person.number ---> 109625	
+			string to number ==> use Number class --> Number.parseFloat(price3) ---> 12.33
+			objects created inside { }
+
+			boolean is like python --> 0 == false '' == false 
+
+			1.1 + 1.3 != 2.4 == 2.40000000004
+
+			(1.1 + 1.3).toFixed(2) ===> string '2.4'
+			+(1.1 + 1.3).toFixed(2) ===> Number 2.4
+
+
+			=== and == in javascript
+				=== is for type and value
+				== javascript convert things to string
+
+				1 === "1" ===> false
+				1 == "1"  ===> true
+
+				1 !== "1"  ===> true
+				1 != "1"  ===> false
+
+
+			ternary:
+				let message = (price > 10 ) ? "more" : "less" ; 
+
+
+			for loop
+				for ( let i = 0;i < 3;i++){
+
+
+				}
+
+
+			ternary :
+				(condition) ? <true_output> : <false_output>
+
+
+=========================
+			Two ways of making and calling function
+			1. function declaration:
+				create a function in tradiatioanl way:
+			       function printName(name){
+			       		console.log(name)
+			       }
+			     printName();
+
+			2. function expression: name of the function is optianal
+				let myFunc = function printName(name){  // or function () {}  // best practice is give name. We cant call with printName() in this case
+			       					console.log(name)
+			       			}
+			     myFunc();
+
+			ex:
+
+			function print_names(first, second){
+					console.log(first, second)
+
+			}
+
+			print_names("sedat", "bekir")  ---> sedat bekir
+			print_names("sedat")  ---> sedat undefined   ---> notice no exception
+
+
+			Another function can be defined in a funnction. Be careful about the local variable scopes.
+				Funxtuon chose closesest varible to local scope.
+
+=========
+			Objects:
+			DOM (Document object model) is the object (whole webpage)  accessed by name : document
+
+			let person = { name:'sedat', 
+							id = 109625,
+
+							getName: function(){
+								return this.name;
+							}
+						 }
+
+		   accesing to properties in 2 ways:
+		   	1. person.id
+		   	2. person['id']  // key is always string
+
+		   	person.getName()  ----> return
+
+
+		   	Symbol: kind of hiding info when tried to be accesesd from class that use this symbol
+		   	ex:
+		   		ley mySymbol = Symbol()
+		   		let person = { name:'sedat', 
+							id = 109625,
+							[mySymbol] = 'someSecretValueSuchasSalary'
+						 }
+
+				can't access Salary from person. I think it can be accesed from mySymbol
+
+
+
+===========
+
+
+===========
+
+
+
+Cypress: (In Javascript)
+
+opensource
+Fast, easy reliable end to end testing for anything that runs on the browser.
+
+Unit test --> test the unit(code)
+integration--> has a dependency on something(small)
+end to end --> test application from end user perspective
+
+Cypress features:
+	show what happended in each time. You can travel back to each step state. --> good for debugging
+	built-in Stubs, spy, clocks  --> let yoy control beghaviour of function and server responses
+	 clock --> modify application's time using lock function which allows you to manipulate things like set timers, set interbak, date asn 			  so on
+	 Automatic waiting --. never wait or sleep in tests
+
+	 running tests without any involvement server--> simply stub network traffic based on your use case
+	 run dast, can screenshot and video.
+
+Cypress Tradeoffs:
+	Jacascript is the only supported language ---> harder to communicate with backend(but possible). (Runs in browser)
+	No multi-tabs. (But this is not an issue for testing)
+	No visiting different domains(url) in the same test. ---> seperate tests
+
+	doesn't support native browser and mobile events
+	limited iframe support
+	No pupport for hover() commnannd  --> but workaround using: triggers, invoke or wrap commands instead to show the eenemnt before you 										  perform the action
+	No tab support  --> there is some workarounds
+	Testing file upload/download is app specific
+Before Cypress:
+	Framework ---> Mocha, Jasmine, Karma
+	Assertion Library --> Chai, Expect.js
+	Install Selenium
+	Selenium Wrapper --> Protractor, Nightwatch
+	Others --> Sinon , TestDouble
+After Cypress:
+	Cypress includes all
+
+
+SAMPLE PROJECT SETUP:
+1. Open Conduit-cypress Before on Visual studio
+2. Install some pulgins:
+	Press extensions in visual 
+	install Prettier-Code formatter(Esben ..) --> writing formatted code
+	install cypress snippets (Andrew ..) ---> cyprees code writing suggetion.
+
+3. Info about project
+	client folder ---> front end sources. React is used here and Redux reducer are placed in reducers folder
+	server folder  ---> server code. Contains all backend calls and APIs
+
+4. All work will be in cypress folder for tests
+
+5. package.json ---> file for entire project. Contains all dependendies and scripts
+
+6. Start installition:
+	Press terminal: Run Task : select npm:install  --> installs clent, server, cypress dependencies
+												   --> server we use is node --> downloads node.js
+
+7. To test , run client and server:
+	Run task:
+		sudo npm:start  ---> starts both client and server
+
+
+
+==========

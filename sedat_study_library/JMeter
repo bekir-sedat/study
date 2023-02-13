@@ -1,0 +1,676 @@
+JMETER  (Apache JMeter)
+
+- Performance testing tool (One of popular Load testing tool)
+- Open source
+- first relaesed in 1998
+- Developed in Java --> so it uses java threads to simulate users
+					  each user sends request to server and gets the response	
+					  different versions of JMeter supports diffenet versions of Java
+- test many different types of servers in almost every way you can imagine can test web servers, LDAP, mail servers. JMeter can conduct load and performance 	  test for many different server types − Web - HTTP, HTTPS, SOAP, Database via JDBC, LDAP, JMS, Mail - POP3, etc.
+- app passes unit then funcional tests ---> next performance test
+- Performance testing should start early and continue through each development(iteration) process
+- You can manually build your tests or record it from your browser
+- Can use plugins to extend teh behavior of JMeter
+- JMeter store its test plans in XML format. This means you can generate a test plan using a text editor.
+- Its full multi-threading framework allows concurrent sampling by many threads and simultaneous sampling of different functions by separate thread groups.
+- It can also be used to perform automated and functional testing of the applications.
+
+=======
+
+How JMeter Works?
+JMeter simulates a group of users sending requests to a target server, and returns statistics that show the performance/functionality of the target server/application via tables, graphs, etc.
+
+===========
+Set Java Environment
+	Set the JAVA_HOME environment variable to point to the base directory location, where Java is installed on your machine. For example −
+
+Windows	--> Set the environment variable JAVA_HOME to C:\Program Files\Java\jdk1.7.0_25
+Linux	--> export JAVA_HOME=/usr/local/java-current
+Mac	    --> export JAVA_HOME=/Library/Java/Home
+
+===============
+
+for running JMeter:
+		CPU : 4 or more  cores (means more thread(user))
+		Memory: 16 gb ram is ideal
+		Network : good bandwidth (gigabit ethernet) so network doesn't become a bottleneck
+
+simulate:
+works at protocol(HTTP, FTP, SMTP) level
+	simulates network request according to the workflow you define in your test scripts
+	with JMeter, yu can simulate thousands of users (up to limit of your machine where you run JMeter)
+
+Course Outline:
+	- What is performance testing
+	- How test are structured in JMeter
+	- How to record tests using Script Recorder
+	- How to configure dynamic tests.
+	- How to interpret and collect results
+
+Versions : JMeter 5.1.1 ( 5.0 --> 5.4.3)
+
+High level:
+	define requirements(how a system performs under a certain load)
+	pick a load : users or number of request 
+	choose what type of test --> smoke, load, stress, spike , endurance
+	Performance metrics: Response time, throughput, reliability, scalibility
+
+
+======================================================
+
+The protocols supported by JMeter are −
+
+	- Web − HTTP, HTTPS sites 'web 1.0' web 2.0 (ajax, flex and flex-ws-amf)
+
+	- Web Services − SOAP / XML-RPC
+
+	- Database via JDBC drivers
+
+	- Directory − LDAP
+
+	- Messaging Oriented service via JMS
+
+	- Service − POP3, IMAP, SMTP
+
+	- FTP Service
+
+===============
+Performance is measured in terms of:
+	 - response time
+	 - throughput
+	 - reliability
+	 - scalability
+
+
+First define the requiremets:
+	1. From a document from above person
+	2. you define:
+					- The average/maximum response time should be __________ . (800ms)
+					- The systen should be able to support ________ pages per second. ( 100 pages)
+					- The system should be capable of supporting at least _____ users per hour .(10000 users)
+
+Once requiremnts are set follow :
+Testing steps:
+	1. Design and Build tests: (Know you application and what you will be expecting)
+			You have to know the application and its usage patterns. (funtioanlity in terms of functional testin)
+				Ex : how many book reviews are we expecting per hour
+				Ex: on average how many users will be browsing the book catalog at any given time
+
+	2. Prepere the test environmen : 
+			In this step configure a test environment similar to the production environmet and every other thing you need to run test
+
+	3. Run the tests:
+			Fisrt thing you need to do is validating the test script and test data to see if they work correctly
+			During the execution test monitor server logs and test results to se if everything is going okay
+			High errors is indication not good 
+
+	4. Analysze the test results
+			identify the issues that need o be adresssed .
+			Try to find the root cause
+
+	5 Optimize( for performance testing only i think)
+			WRT 4th step above,
+			optimize database querries
+			increase memory available to application
+			add indexes to database table etc...
+
+	6. Retest after each change to see new performance
+
+	7 Repeat (1-6 )until performance requirements are met
+
+===============================
+
+
+
+Performance testing (app fast working or nor):
+
+	Tests how an application or resource(database, read/write i think) performs under a given load to see its impact.
+	Helps to locate bottlenecks or performance issues
+	Should be done after functional testing
+	Performance testing is not all about testing speed:
+		Performance is measured in terms of:
+			 - response time
+			 - throughput
+			 - reliability
+			 - scalability
+
+Response time: Time the application takes to respond to our request 
+				--> Request Time + Processing Time + Response Time
+					Request Time --> Time the request reach to server
+					Request Time and Response Time --> depends on Network latency(time it takes data to travel over a network)
+					Processing Time --> depends on compexity of request and server hardware
+			   click on link + wait response from server + displays what you click 
+
+Throughput 	 :  Can be measured in two ways:
+					1. Number of transactions per seconds/miiliseconds  (request/ response)/(millisecons/seconds)
+					2. (K)bytes per seconds/miiliseconds   (sent/received)/(millisecons/seconds)
+
+					the more the better
+
+Reliability  :  Perentage of errors
+				A performance test can measure how well he application detects and handles errors in terms of:
+					-  number of errors/number of requests
+
+				the less is the better
+
+Scalibility  : how previous metrics vary when we change the hardware or sytem config
+				this is not just one measure
+			   Scalibility tells how well the system expands its CAPACITY WHEN additional resources are added in terms of 
+			   			-  response time, throughput, Percentageof errors 
+
+			   	Vertical Scalability    --> by adding more memory, CPU, (EXPAND HARDWARE)
+			   	Horizontal Scalability  --> by adding servers to a cluster
+
+=======
+
+Sometimes performance requirements are given by service level agreements or contracts
+Otherwise tester must identify the performance requirements of the applicationbefore testing. Somee examples:
+					- The average/maximum response time should be __________ . (800ms)
+					- The systen should be able to support ________ pages per second. ( 100 pages)
+					- The system should be capable of supporting at least _____ users per hour .(10000 users)
+
+
+============
+
+Testing steps:
+	1. Design and Build tests: (Know you application and what you will be expecting)
+			You have to know the application and its usage patterns. (funtioanlity in terms of functional testin)
+				Ex : how many book reviews are we expecting per hour
+				Ex: on average how many users will be browsing the book catalog at any given time
+
+	2. Prepere the test environmen : 
+			In this step configure a test environment similar to the production environmet and every other thing you need to run test
+
+	3. Run the tests:
+			Fisrt thing you need to do is validating the test script and test data to see if they work correctly
+			During the execution test monitor server logs and test results to se if everything is going okay
+			High errors is indication not good 
+
+	4. Analysze the test results
+			identify the issues that need o be adresssed .
+			Try to find the root cause
+
+	5 Optimize( for performance testing only i think)
+			WRT 4th step above,
+			optimize database querries
+			increase memory available to application
+			add indexes to database table etc...
+
+	6. Retest after each change to see new performance
+
+	7 Repeat (1-6 )until performance requirements are met
+=======
+
+JMeter  --> mature and robust load tetsing tool
+
+Performance test: 
+	A group of many types of tests
+
+	In general performance tests evaluate an appliction under a certain amount of load BUT 
+		different types of tests generate the load in different ways
+
+	There are two main ways to generate the load for a test:
+		1. Increaese the number of users that access the application at the same time
+		2. Increase the number of request the application has to handleindependently of the number of users
+
+		Once you decide which type of load better suites your needs, next decide what type of performance test you are going to execute.
+
+		Types of tests:
+			1. Smoke test     --> a test with light load to verify that the test works corrctly
+			2. Load test      --> a test performed at a specific load level. Usually test at many different load levels to monitor behaviour of system
+			3. Stress test	  --> a test that tests the application with loads beyond its normal usage to see upto which point it stays stable and responsive
+								  in tis test, you can add users in steps or constantly over a period of time or you can just add a lot of users during that long period to see at what point the application stops working
+			4. Spike test     --> where the applicatio is suject to brief periods of sudden increments in load beyond its maximum capacity to see if the 							  application is robust enough to work correctly during and after the spike
+
+			5. Endurance test --> where the application is subjected to load within its limits but for a long duration, ie hours or days in some cases to see if the application has memory leaks or doesn't properly close database or network connections	
+
+
+=======
+
+Use Thread (user)--> Ultimate group element to get say 1000 user requetsing somethin at the same time. Use "Ultimate group element "
+				Ramp-up means within this time, users will be ready
+
+		While configurimg the settings --> UI shows the how grapgh will look like. Check again the graphs of the types of the test in section 2 , part[-2]
+
+
+
+====================
+
+Installition:
+ download from web.
+
+
+Running JMeter:
+	two modes to run. (GUI may use a lot of memory. Suggested to use terminal when running)
+		1. Gui --> should be used creating and validating test scripts or running simple tests
+		       --> Open bin folder. Open press jmeter for mac, press jmeter.bat filr for windows
+ 					jmeter or jmeter.bat calls the ApacheJMeter.jar file with default options to open JMeter in GUI mode
+
+		2. terminal --> (brew install jmeter --> fisrt ?????)(brew is old may need newer )
+						$ jmeter -n -t testFile.jmx  (-n : non Gui mode, -t specify test file). Jmeter files saved as XML with a jmx extension
+
+						other passable arguments:
+						 -l results.csv  --> to log results in a csv file
+						 -j lofFile.log  --> to specify JMeter's log file
+						 -e  -o outputfolder  ---> to generate a report(-e) and outputs report (-o) to a specified folder 
+
+						 -h --> help
+						 -? --> list all the cli's 
+
+
+					--> in bin folder :
+							jmeter-n.cmd     --> allows youu to drop a JMeter file on it to run the file in command line mode
+							jmeter-n-r.cmd   --> allows youu to drop a JMeter file on it to run the file in command line mode remotely
+							jmeter-server    --> to start JMeter in server mode when testing multiple machines remotely
+							jmeter-t.cmd     --> drop a JMeter file on it to run test in command lime mode
+							jmeterw.cmd      --> to run JMeter in GUI mode both without the console
+
+
+Configureing Some Plugins:
+	JMeter has a lot of features
+	We can extend its capability by intsalling plugins
+	JMeter plugins in Google Code is one of the most popuar plugin projects.
+		These plugings originally hosted in Google Code but can be found in jmeter-plugins.org
+	Plugins are distrubuted as jar files
+	JMeter automatically finds classes from the JAR files in the "lib" folder of JMeter's installed directory
+	Use JMeter Plugins Manager(Another Plugin. Need to install first. Then Under Options can be found) to download plugins OR copy plugin JAR into lib/ext folder manually
+	(download plugins to lib/ext folder)
+			lib --> utility or dependency jar files
+			lib/ext --> for JMeter components and plugins
+			after copying JAR file of plugin into lib/ext, restart Jmeter
+
+	Suggested Plugins(Minimum):
+		Custom Thread Group  	 --> provides a set of thread groups with advanced options for configuring users
+		3 Basic Graphs       	 --> provides real time gras for average response time, active threads, sucessful/failed transaction
+		Througput Shaping Timer  --> automatically configures the exact number of threads and delays to produce the desired number of request per second
+		Dummy sampler			 --> generates sample values to quickly test or debug a script
+
+		(https://jmeter-plugins.org/stats/  ----> see most used plugins by user count)
+
+
+================================
+What is a Test Plan?
+	- A Test Plan can be viewed as a container for running tests. It defines what to test and how to go about it. A complete test plan consists of one or more elements such as thread groups, logic controllers, sample-generating controllers, listeners, timers, assertions, and configuration elements. A test plan must have at least one thread group.
+
+	- Components of a test are organized in a tree structure where each component has a SCOPE that specifies to what other components it can be applied or has access to
+
+	Step 1 : Start JMeter
+	Step 2: Add/Remove Elements
+		Elements (which will be discussed in the next chapter Test Plan Elements) can be added to a test plan by right-clicking on the Test Plan node and choosing a new element from the "add" list.
+
+		Alternatively, you can load an element from a file and add it by choosing the "merge" or "open" option.
+
+	Step 3: Configuring the Tree Elements
+		Any element in the Test Plan can be configured using the controls present in JMeter's right-hand side frame. These controls allow you to configure the behavior of that particular test element. For example, the Thread Group can be configured for a number of users, ramp up periods, etc.
+
+==============
+
+										TestPlan
+											|
+-------------------------------------------------------------------------------------------------------------------											
+				|								|											|					|
+	Configuration Element				  Thread Group 									Listener			Test Fragment
+				|								|
+	-user defined vars				-------------------------
+	-HTTP request defaults			|						|
+	-etc.						Sampler				    Controller
+									|						|
+								  Timer				 	  Sampler
+								  							|
+								  					 ----------------	
+								  					|				|
+								  				Pre/Post 		Assertions	
+								  				Processing		 			
+
+
+
+Test Fragment --> allow us tio reuse parts of the script 
+==============================================================
+
+
+Test Plan Configs:(Right Click on the Test Plan)
+	- Run Thread Groups Consequtively or in parallel
+	- Run tearDown Thread Groups after shutdown of main  threads
+	- Functional test mode  ---> In this mode JMeter will save information to results files
+								 These results files can grow quicly, increases the resources needed to run the test and impact JMeter performance
+								 Activate this option for only small test
+	- Option for adding directory or jar files to JMeter's classpath --> these will be loaded just for the test script 
+
+
+
+------>  Configuration Elements:
+				- used to set-up deafault configuration in test scope(for other component access to these varables)
+				- You can add these element to any component but stays in that scope
+				- 4 main types:
+					- Defaults
+					- Managers ex: HTTP Cookie Manager --> has two functions. 
+														   1. For eachuser it stores and sends a cookie like a web browser
+														   2. It alows you to manually add a cookie that will be shared by all users
+								ex: HTTP Cache Manager --> use to add cache functionality to HTTP Request. Each users has its own cache
+														   If the requested document hasn't changed since it was cached, the response body will be empty	 
+					- Configurations ex: JDBC Connection Congiguration, Login Config element
+					- CSV Data Set Config, Counter, Random Variable, User defined Variables
+
+------>   Thread Groups :
+
+				- Entry point of a test
+				- It must be the child of a Test Plan
+				- Controls he number of threads(users)
+				- You can have more than one thread group, each represents a test case.
+
+					Test Plan -> Add --> Threads --> setUp Thread Group is aspecial thread group used to perform actions before JMeter starts executing REGULAR thread group.
+					Test Plan -> Add --> Threads --> tearDown Thread Group is executed after the test finishes
+
+
+				- Thread Group Config:
+					- Actions to be taken after a Sampler error --> chhose option
+					- Number of Threads
+					- Ramp-up Period --> Time JMeter should take to create users
+					- Loop count --> how many time repeat from top to buttom of the "Test Plan
+					- Delay Thread creation until needed --> you can tell JMeter to create the thread(user) until when they are needed
+					- Specify Thread Lifetime --> Jmeter runs the thread group until either number of loops or duration is reached whicever occurs first
+												  HOWEVER JMeter won't interrupt any request waiting for a response, so the duration may be delayed	
+							Duration(seconds):
+							Startip delay(seconds) 
+
+
+			------------> Logic Controllers :  if the condition happens run its children samplers (ex: if a conidtion occurs send POST request)
+
+			------------> Samplers			: 	plain sampleer without a logic controller. These are the Requests to test EX: HTTP Request, JDBC Request, FTP request, LDAP Request, or *.sampler which allows you to write your own custom samplers with a scripting language (Ex: BeanShell Sampler)
+
+								- Logic Controllers and Samplers are children of Thread Groups
+								- Logic Controllers:
+										- If controller 			--> if certain condition happens
+										- Loop Controller 			--> loop through its children a certain number of times
+										- Transactional Controller  --> allows you to measure the overall time taken to perform its nested elements
+										- While Contoller           --> runs its children until the condition becomes false
+
+									Transactional Controller is a good one.
+												Transactional Controller Config : Select --> Generate parent sample --> individual request configured in this controller will appear as nested 												 elements of the controller
+
+									
+
+
+------> Timers :
+					- JMeter executes requests in sequence and witout pauses.
+					- Timers allows you to intriduce a delay (pausew) between requests(each sampler) in the scope
+					- Simulates the time user takes to perform an action on a web page
+					- This avoids overwhelming the server with an unrealistic load
+					- Timers can be added at any level of the tree but usually as the children of the samplers(requests) or controllers
+					- Notice timers are only in conjuction with a sampler
+					- If there is no samplers in the scope of a timer, thet won'y be executed
+
+					- Timer Types:
+						- Constant timer: pause same amount between each request
+						- Randomly --> Uniform Random Timer, Gaussian Random Timer, Poisson Random Timer
+						- Throughput Timers --. ensures a target throughput reached. ex: Precise Throughput Timer, Constant Throughput Timer
+
+
+					- If you have more than one timer, JMeter takes the sum of the timers and makes a pause for the sum amount before executing the samplers.
+
+
+
+
+Assertions:
+	- Once got the result assert the it
+	- Many assertions available.
+		- Response Assertion
+		- JSON Assertion --> for JSON documents
+		- Size and Duration Assertions --> test that each response was received within a given amout of time and a specified size
+		- JSR223 and BeanShell Assertions --> allow you to check the response using a scripting language
+		- XPath Assertion tests an XML documentt against a DTD or a XPath expression
+		- XML and HTML --> only test XML and they are well formed
+
+	- XPATH, XML , HTML assetions are no t recommended as they use a lot of resources
+	- Most Assertions only apply to main sampler or request
+		- if you select "Main sample and sub-samples" --> you validate sub-samples as well
+													  --> validating subsamples can be useful when retrieving all the embedded resources of a page and you want to validate if they have a certain size for example
+													  --> If a sub-sample assertion fails and the main sample is sucessful, the main sample will be set to a failed status
+
+
+
+Listeners: 
+	- JMeter collect information about the request it performs
+	- Listeners allow us to see those information
+	- Listeners listens the responses and aggregate the metrics
+	- Can be added at any levek but will be in that scope only
+	- Will collect info about element at the same level or below level elements
+
+	- Most used Listeners:
+		- View Results Tree --> shows a tree of all the responses received during the test
+		- Summary Report   --> creates a table and for each request in the test it provides many statistics and aggregate report
+		- Aggregate Report  --> Similar to Summary report but uses more memory
+
+	- All listeners can output reults into a file.
+			- can configure which fields to save, format (XML or CSV), etc...
+			- CAN GIVE EXISTING FILE HERE TO DISPLAY PREVIOUS RESULTS 
+
+	- All listeners save the same data, the only difference is the way the data is presented
+	- Listeners can use a lot of memory when there are a lot of responses 
+
+=============
+Execution Order of Test Elements:
+	- Ordered:
+			-Controllers and Samplers
+	
+	- Hierarchical (scoped)
+			- Evertthin else (config elements, assertions, timers, etc)
+
+
+
+=========
+
+	Execution Order of Test Elements
+		Following is the execution order of the test plan elements −
+
+				Configuration elements
+				Pre-Processors
+				Timers
+				Logic Controlers/ Samplers
+				Post-Processors (unless SampleResult is null)
+				Assertions (unless SampleResult is null)
+				Listeners (unless SampleResult is null)
+
+				- Post-Processors, Assertions, Listeners wont be executed if there is no response from the server
+				- Timers, Assertions, pre/post processors are only executed if there is a Sampler to which they apply
+
+				- Configuration Elements 2 rules to remember:
+						1. "User Defined Variables" is processes at the start of the test, no matter where it is placed. Even in a child childs child tree, this will run before evertyhing(before running a samopler above for exxample)
+						2. A configuration element inside a tree branch has higher precedence than another element of the same type in a outer branch
+							- Configuration Default elements are merged, Managers are not
+
+				- Elements are rearanged according to the order of execution
+				- Outer elements are executed before inner elements of the same type
+				- Some elements are executed before or after each samopler in their  scope
+				- Timers, Assertions are executed either beffor or after each sampler in their scope
+					- if thers is more than one element of the same type in the scope, all of them will be processes before or after the sampler
+
+
+Examples:
+
+	Example1 :  Test Plan
+					ThreadGroup
+						Response Assertion
+						View Results Tree
+						Uniform Random Timer
+						Sampler(ex: request to get home page)
+						Constant Timer
+
+			JMeter will rearrange these elements so it will be executed in below order:
+				Test Plan
+					ThreadGroup
+						Uniform Random Timer
+						Constant Timer
+						Sampler(ex: request to get home page)
+						Response Assertion
+						View Results Tree
+
+	----------------------------------
+	Example2 : Test Plan
+					Thread Group
+						Post-processor1
+						Sampler Request1(Home)
+							Timer
+							Post-processor2
+						Sampler Request2(Login)
+							Assertion
+							Post-processor3
+							View Results Tree
+
+
+
+					Start from Sampler Request 1 (what to do pre/after running this request)
+
+					there are two request here. order as follows
+
+					Timer --> Sampler Request1(Home) --> Post-processor1 --> Post-processor2
+								then next Sampler runs
+					Sampler Request2(Login) --> Post-processor1 --> Post-processor3 --> Assertion --> View Results Tree
+
+
+	---------------------
+	Example3 : Test Plan
+					Thread Group
+						Sampler Request1(Home)
+						Timer1
+						Sampler Request2(Login)
+						Timer2	
+
+					- Timers executed before requests
+
+						Timer1 --> Timer2 --> Sampler Request1(Home) --> Timer1 --> Timer2 --> Sampler Request2(Login)
+
+			- Thinking samplers(requests) will be executed before Timers is a common mistake.
+				- If you want to run samplers before timer ---> USE "Think Times"	
+				- To add, right click on "Thread Group" --> Select "Add Think Times to children"
+				- A Think time is a combination of a sampler of the "Flow Control Action" configured to pause the thread and a timer("Pause" option of this element) as its child. 
+
+				Think Time is a "Flow Control Action Sampler" defines as it name Think Time 
+				Think Time is a Sampler with Pause
+
+				Example4 : Test Plan
+								Thread Group
+									Sampler Request1(Home)
+									ThinkTime1
+										Pause1
+									Sampler Request2(Login)
+									ThinkTime2
+										Pause2	
+
+
+								order : Sampler Request1(Home) --> 	Pause1 --> ThinkTime1	--> Sampler Request2(Login) --> Pause2	 --> ThinkTime2
+
+
+-----------
+
+Example5 :  Test Plan
+					Thread Group
+						HOME_Request(Sampler)
+						Transactional Controller
+							CATALOG_Request(Sampler)
+							BOOK_Request(Sampler)
+						LOGIN_Request(Sampler)	
+
+
+			HOME_Request(Sampler) --> CATALOG_Request(Sampler) --> BOOK_Request(Sampler) --> LOGIN_Request(Sampler)	
+
+
+-------------
+
+Example6 :  Test Plan
+					Thread Group
+						HOME_Request(Sampler)
+							ResponseAssertion1
+						Transactional Controller(Act as contaner with some features i guess)
+							CATALOG_Request(Sampler)
+							BOOK_Request(Sampler)
+							ResponseAssertion2	
+
+
+						HOME_Request(Sampler)     --> 	ResponseAssertion1 then;
+						CATALOG_Request(Sampler)  --> 	ResponseAssertion2 then;
+						BOOK_Request(Sampler)     --> 	ResponseAssertion2 
+
+-----------------------
+
+Example7 :  Test Plan
+					Thread Group
+						Transactional_Controller1
+							HTTP_Request_Defaults_1
+							HOME_Request(Sampler)
+
+						Transactional Controller2
+							LOGIN_Request(Sampler)
+							USER_DEFINED_VARIABLES
+
+						HTTP_Request_Defaults_2
+
+
+						Order: I think, i did this
+
+	USER_DEFINED_VARIABLES --> HTTP_Request_Defaults_2 --> HTTP_Request_Defaults_1 --> HOME_Request(Sampler) --> HTTP_Request_Defaults_2 --> LOGIN_Request(Sampler)
+
+=========================================
+
+
+Running the Test:
+	1.Go to Run: Start Or
+			   Start no pauses ---> this doen't run Timers	
+
+	2. From UI Green arrows
+
+	3. Right Click on Thread Group --> 
+		   here also there is a feature "Validate" --> runs the thread group with one thread, one iteration, no timers and no start of delay
+
+
+	4. Running from terminal:  $ jmeter -n -t test1.jmx	 
+
+
+=================
+
+To see how to use element select elemet and press help button or book icon in UI
+
+
+
+
+=============================
+
+Recording A Test : 
+
+	- this is actually a proxy server that you have to configure in your browser
+	- JMeter comes with a script recorder to help you build your test scripts. 
+	- This recorder is actually a proxy server that you have to configure in your browser. 
+	- So when you perform the steps of the scenario you want to test, the proxy intercepts and records the request from the browser and forwards them to the server. 
+	- When the server responds, the proxy intercepts and records the response to forward it back to the browser. 
+	- In this module, you are going to learn how to configure your browser to use the script recorder, how to configure the recorder, how to organize the recorded test, and how to record a secure HTTPS website. 
+
+
+
+
+
+
+================
+https default port --> 443
+http --> 80
+
+Most browsers make HTTP requests on ports 80 and 443 by default.
+
+In computer networking, a port or port number is a number assigned to uniquely identify a connection endpoint and to direct data to a specific service
+
+=============================== 
+Add cookoie manager to top when testing website UI
+
+===========
+When we hit login --> click on login(api)--> returns a token= qwq21e12qweqq in the response. We can capture this token by:
+						1. Right click on API test --> add --> Post Processor --> Regular Expression Extractor (we caputure the token and save as environment paramete named as authToken). Usae setting  below:
+									name of created variable : authToken
+									Regular expression       : "Auth_Token: (.+?)"  --> this is how it is in the response.
+									Template                 : $1$    ----> if above("Regular expression ") is more than one value i guess
+									Match no                 : 1
+									Default Value            : 0 
+
+						Now we can use 	"authToken"  in the below as { "token" : "$ {authToken} " }							
+
+=========
+
+If we set up a proxy server in Postman and if we capture this port in JMeter, we can mak econnection..????

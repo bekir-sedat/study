@@ -1,0 +1,41 @@
+My Project:
+	- I was in a team building a new ETL Automation Application
+	- Team was a subgroup of a bigger team maintaing the Bank's Metadata Server.
+
+	- The project goal was to replace jobs running on a third party ETL tool called Informatica with this new in-house application developed by my team.
+
+	- Application was getting the data from all sorts of sources and storing them into the staging tables, 
+	  than it was performing pre-defined transformations defined in the metadata and
+	  finally loading these transformed data to their final target DataMart Tables.	
+
+	- I was responsible for testing this Application during each phase of this ETL process. 
+	- I make sure extraction of data from different sources, Transferering and Loading these datas to their target tables are in 100%  match.
+
+
+
+====
+
+Multiple target tables (one two many relation)
+
+HARDEST ONES WERE THE JOINS DUE TO their dependencies. Needed assistetand from their product SMEs 
+
+API integration for Sapiens
+
+Filtering – loading only certain attributes into the data warehouse. Some data supposed to be filtered but deveploer didnn't
+
+Sometimes sourece not available
+
+N/A  was srting supposed to be NULL
+
+https://tutorialshut.com/test-scenarios-for-etl-testing/ =======> LOOOOKKKK AT THIS
+
+
+source--> staging--> datamart
+
+	Extract: The first stage in the ETL process is to extract data from various sources such as transactional systems, spreadsheets, and flat files. This step involves reading data from the source systems and storing it in a staging area.
+
+
+	Transform: In this stage, the extracted data is transformed into a format that is suitable for loading into the data warehouse. This may involve cleaning and validating the data, converting data types, combining data from multiple sources, and creating new data fields.
+
+
+	Load: After the data is transformed, it is loaded into the data warehouse. This step involves creating the physical data structures and loading the data into the warehouse.

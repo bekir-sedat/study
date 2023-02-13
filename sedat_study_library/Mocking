@@ -1,0 +1,42 @@
+Mocking
+
+Test Doubles == Mock Object, Fake Object, Dummy Object, Test Spy, Test Stub
+
+In general people call Test Double as Mock
+
+
+Test Stub Example:
+ Scenaio: Alarm class call Sensor class, checks the value, Fires Alarm if tire pressure goes down below.
+ 		Alarm.check(). ---> Sensor.get_presure()
+
+ 		Alarm has direct reference to Sensor()
+
+ 		Test check() method --> inconvenient to use acual tire Sensor
+
+ 		Solution: Alarm(sensor = None) init : self.sensor = sensor or Sensor()
+ 					Now Alarm accect a StubSensor 
+ 						class StubSensor:
+ 							def get_presure():
+ 								return 15
+
+
+  Instead of creating our own Stud --> we can use Mock framework in unittest framework
+  	this way easier to read
+  	stub ==~ real object
+
+  		stub_sensor = Mock(Sensor)
+
+
+ Fake ---> Fake of all class method implementation unlike stub has one method
+
+ 	ex: In python. --> File --> use StringIO
+ 					   Database ---> in memory database
+ 					   Server   ---> light-weight web server
+
+ 					   up fakes may exist somewhere in production and we can use them in our tests 	
+  		stub_sensor.get_pressure.return_value = 15
+  		alarm = Alarm(stub_sensor)
+
+
+
+everything double does completely configurable by the test

@@ -1,0 +1,699 @@
+SQL
+
+-SQL language is divided into four types of primary language statements: DML, DDL, DCL and TCL.
+
+	DML (Data Manipulation Language) --> SELECT, UPDATE , INSERT INTO , DELETE --> DML statements affect records in a table.
+	DDL (Data Definition Language)   ---> CREATE, ALTER, DROP , TRUNCATE --> DDL statements are used to alter/modify a database or table structure and schema.
+	DCL (Data Control Language)  ----> GRANT REVOKE --> DCL statements control the level of access that users have on database objects.
+	TCL (Transaction Control Language) ---> BEGIN, TRAN, COMMIT, ROLLBACK --> TCL statements allow you to control and manage transactions to maintain the integrity of data within SQL statements.
+
+
+-A database schema is a structure that represents the logical storage of the data in a database. It represents the organization of data and provides information about the relationships between the tables in a given database
+In actual, the data is physically stored in files that may be in unstructured form, but to retrieve it and use it, we need to put it in a structured form. To do this, a database schema is used. It provides knowledge about how the data is organized in a database and how it is associated with other data.
+- A database schema object includes the following:
+		Consistent formatting for all data entries.
+		Database objects and unique keys for all data entries.
+		Tables with multiple columns, and each column contains its name and datatype.
+
+- A database is a structured collection of data. 
+
+
+
+- Data types:
+	CHAR(size) -> A FIXED length string (can contain letters, numbers, and special characters). The size parameter specifies the column length in characters - 				  can be from 0 to 255. Default is 1
+
+	VARCHAR(size) -> A VARIABLE length string (can contain letters, numbers, and special characters). The size parameter specifies the maximum column length in 				 characters - can be from 0 to 65535
+	BINARY(size) , VARBINARY(size)
+	TINYBLOB, MEDIUMBLOB, LONGBLOB
+	TINYTEXT, MEDIUMTEXT, LONGTEXT
+	BIT(size), INT(size), FLOAT(size, d), DOUBLE(size, d) ..
+	DATE, DATETIME(fsp), TIMESTAMP(format), TIME(format), YEAR
+
+- Database Management System (DBMS) is a  software application that interacts with the user, applications, and the database itself to capture and analyze data. DBMS allows a user to interact with the database. The data stored in the database can be modified, retrieved and deleted and can be of any type like strings, numbers, images, etc.
+
+- There are two types of DBMS:
+	1. Relational Database Management System: The data is stored in relations (tables). Example – MySQL
+	2. Non-Relational Database Management System: There is no concept of relations, tuples and attributes.  Example – MongoDB
+
+	Relational Database Management System : row-based table structure that links related data components
+	RDBMSes use the ACID(atomicity, consistency, isolation, and durability) model to organize their data and assure consistency.
+
+	Non-relational databases (also called NoSQL databases) refer to a family of different database types that share one commonality: they do not store data as row records in tables. NoSQL databases were primarily built for unstructured data, such as streams of events, video data, or rich text documents
+
+	NoSQL database provides much more flexibility when it comes to handling data. There is no requirement to specify the schema to start working with the application. Also, the NoSQL database doesn't put a restriction on the types of data you can store together. It allows you to add more new types as your needs change
+
+(INNER) JOIN: Returns records that have matching values in both tables
+LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table
+
+LEFT JOIN keyword returns all records from the left table (Customers), even if there are no matches in the right table (Orders).
+
+HAVING clause in SQL is used to filter records in combination with the GROUP BY clause. It is different from WHERE, since the WHERE clause cannot filter aggregated records.
+
+
+- List the different types of relationships in SQL.
+		There are different types of relations in the database:
+
+		One-to-One – This is a connection between two tables in which each record in one table corresponds to the maximum of one record in the other.
+
+		One-to-Many and Many-to-One – This is the most frequent connection, in which a record in one table is linked to several records in another.
+
+		Many-to-Many – This is used when defining a relationship that requires several instances on each sides.
+
+		Self-Referencing Relationships – When a table has to declare a connection with itself, this is the method to employ.
+
+- What is OLTP?  ---> huge data process via huge user interaction via internet
+OLTP, or online transactional processing, allows huge groups of people to execute massive amounts of database transactions in real time, usually via the internet. A database transaction occurs when data in a database is changed, inserted, deleted, or queried.
+
+- What are the differences between OLTP and OLAP?
+OLTP stands for online transaction processing, whereas OLAP stands for online analytical processing. OLTP is an online database modification system, whereas OLAP is an online database query response system.
+
+
+===============
+
+RANK VS DENSE_RANK
+
++---+------------+------+------------+
+| V | ROW_NUMBER | RANK | DENSE_RANK |
++---+------------+------+------------+
+| a |          1 |    1 |          1 |
+| a |          2 |    1 |          1 |
+| a |          3 |    1 |          1 |
+| b |          4 |    4 |          2 |
+| c |          5 |    5 |          3 |
+| c |          6 |    5 |          3 |
+| d |          7 |    7 |          4 |
+| e |          8 |    8 |          5 |
++---+------------+------+------------+
+
+
+- What is the usage of the NVL() function?
+You may use the NVL function to replace null values with a default value. The function returns the value of the second parameter if the first parameter is null. If the first parameter is anything other than null, it is left alone.
+
+This function is used in Oracle, not in SQL and MySQL. Instead of NVL() function, MySQL have IFNULL() and SQL Server have ISNULL() function.
+
+Select NVL(firstName, 'No defined') from Customers.
+
+The COALESCE() function is a generalization of the NVL() function. --> returns the first Not null value.
+ex: if city is Null, overwrite to "Kirsehir"
+ Select COALESCE(city, "Kirsehir") from Cities
+
+SELECT COALESCE(NULL, NULL, NULL, 'W3Schools.com', NULL, 'Example.com');  ---> returns 'W3Schools.com'
+
+
+===================
+
+You can use the CASE expression to rewrite the query :
+
+SELECT
+  order_id,
+  CASE
+    WHEN first_name IS NOT NULL
+    THEN first_name
+    ELSE 'Not Assigned'
+  END
+FROM
+  orders ....
+=========================
+1. Procedures: A procedure is a combination of SQL statements written to perform specified tasks. It helps in code re-usability and saves time and lines of code. 
+
+2. Triggers: A trigger is a special kind of procedure that executes only when some triggering event such as INSERT, UPDATE, or DELETE operations occur in a table. 
+
+
+CREATE PROCEDURE PROCEDURE_NAME
+CREATE TRIGGER TRIGGER_NAME
+
+TRigger example:
+		create trigger [trigger_name] 
+		[before | after]  
+		{insert | update | delete}  
+		on [table_name]  
+		[for each row]  
+		[trigger_body] 
+
+		create trigger stud_marks   ----> after insertina a new student ---> calculates things again
+		before INSERT 
+		on 
+		Student 
+		for each row 
+		set Student.total = Student.subj1 + Student.subj2 + Student.subj3, 
+			Student.per = Student.total * 60 / 100;
+
+
+Advantages of Procedures:
+
+	A Stored Procedure can be used as modular programming, which means that it can be created once, stored, and called multiple times as needed. This allows for speedier execution.
+	Reduces network traffic 
+	Improving data security
+	Easy to maintain because the stored procedure scripts are all in one place and hence, it is easy to update and track dependencies when schema changes occur.
+	Testing can be carried out independent of the application.
+
+Advantages of Triggers:
+
+	Protection of data
+	Inhibits transactions that are not valid
+	It also keeps the different tables in sync.
+	Referential integrity is enforced with the use of triggers. 
+	Triggers can also be used in event logging and auditing.
+
+differences:  
+We cannot return values in a trigger. Also, as an input, we cannot pass values as a parameter.	We can return 0 to n values. However, we can pass values as parameters.
+
+When an event occurs, a trigger helps to execute an action automatically.	A procedure helps to perform a specified task when it is invoked.
+
+Triggers are used to maintain referential integrity by keeping a record of activities performed on the table.	Procedures are used to perform tasks defined or specified by the users.
+
+Transaction statements such as COMMIT, ROLLBACK, and SAVEPOINT are not allowed in triggers.	All transaction statements such as COMMIT and ROLLBACK are allowed in procedures.
+
+=============================
+
+- What is a UNIQUE constraint?
+The UNIQUE Constraint prevents identical values in a column from appearing in two records. The UNIQUE constraint guarantees that every value in a column is unique.
+
+======================
+
+-What are UNION, MINUS and INTERSECT commands?
+	The UNION operator is used to combine the results of two tables while also removing duplicate entries. 
+
+	The MINUS operator is used to return rows from the first query but not from the second query. 
+
+	The INTERSECT operator is used to combine the results of both queries into a single row.
+	Before running either of the above SQL statements, certain requirements must be satisfied –
+
+-------------------------------------------
+
+How to find duplicate names in employees?
+
+	● SELECT first_name, COUNT (first_name) FROM employees GROUP BY first_name HAVING (COUNT(first_name) >1);
+
+-------------------------------------------
+
+How to find employees whose salaries are below the saverage?
+
+	● SELECT first_name, salary FROM employees WHERE salary<= (SELECT AVG(salary) FROM employees);
+
+-------------------------------------------
+
+- ArithmeticExpressions
+● You use the operators in any clause (except the From clause)
+● With Date and Timestamp - can only use addition and subtraction
+● Add (+), Subtract (-), Multiply (*), Divide (/)
+
+
+-Have you worked with non-relational databases?
+● I don’t have hands on experience, but I know that it is like JSON format
+
+==================================
+
+CREATE PROCEDURE test_display 
+	   AS
+	   SELECT FirstName, LastName FROM tb_test; 
+EXEC test_display;
+
+====================
+
+- ORACLE CONSTRAINTS
+		PRIMARY KEY
+		FOREIGN KEY
+		UNIQUE
+		CHECK
+		NOT NULL
+
+
+
+- CREATE TABLE ot.persons(
+					    person_id NUMBER GENERATED BY DEFAULT AS IDENTITY,
+					    first_name VARCHAR2(50) NOT NULL,
+					    last_name VARCHAR2(50) NOT NULL,
+					    SSN  INT UNIQUE,
+
+					    PRIMARY KEY(person_id),
+					    FOREIGN KEY(SSN)
+);
+
+
+- The ALTER TABLE statement allows you to:
+
+		Add one or more columns
+		Modify column definition
+		Drop one or more columns
+		Rename columns
+		Rename table
+
+		EX: 	ALTER TABLE persons 
+				ADD birthdate DATE NOT NULL;   
+
+				-- ADD (phone VARCHAR(20),email VARCHAR(100)); for multiple
+
+		EX:     ALTER TABLE persons
+				MODIFY birthdate DATE NULL;
+
+				ALTER TABLE persons 
+				MODIFY(
+				    phone VARCHAR2(20) NOT NULL,
+				    email VARCHAR2(255) NOT NULL
+				);
+
+		EX: 	ALTER TABLE persons
+				DROP 
+	  				COLUMN birthdate;
+
+	  			-- DROP(email, phone)  for multiple colums
+
+		EX: 	ALTER TABLE persons 
+				RENAME COLUMN first_name TO forename;
+
+
+		EX: 	ALTER TABLE persons 
+				RENAME TO people;
+
+- DROP TABLE persons;  --> DELETES EVERTHING
+
+- DELETE AND TRUNCATE:
+	When you want to delete all data from a table, you use the DELETE statement without theWHERE clause as follows:
+	DELETE FROM table_name;  ---> DELETES everyhing
+
+	For a table with a small number of rows, the DELETE statement does a good job. However, when you have a table with a large number of rows, using the DELETE statement to remove all data is not efficient:
+		Oracle introduced the TRUNCATE TABLE statement that allows you to delete all rows from a big table.
+
+
+
+- INSERT:  - > INSERT INTO <table> (col1,col2) VALUES (val1,val2)
+	If the value list has the same order as the table columns, you can skip the column list although this is not considered as a good practice:
+		if thsi is the case: INSERT INTO parts VALUES ('tristique neque',3,62,1,....);
+
+	INSERT INTO parts (part_name,lead_time,cost,status) VALUES ('tristique neque',3,62,1);
+	INSERT INTO parts (part_name,lead_time,cost,status) VALUES ('dolor quam,',16,82,1);
+	INSERT INTO parts (part_name,lead_time,cost,status) VALUES ('nec, diam.',41,10,1);
+
+- UPDATE
+		ex:
+			UPDATE
+			    parts
+			SET
+			    lead_time = 30,
+			    cost = 120,
+			    status = 1
+			WHERE
+			    part_id = 5;
+
+		ex:	    	
+			UPDATE
+    			parts
+
+				SET
+				    cost = cost * 1.05;     ---> all costs updated
+
+
+- 	The HAVING clause is an optional clause of the SELECT statement. It is used to filter groups of rows returned by the GROUP BY clause. This is 		why the HAVING clause is usually used with the GROUP BY clause.
+
+	If you use the HAVING clause without the GROUP BY clause, the HAVING clause works like the WHERE clause.
+
+	Note that the HAVING clause filters groups of rows while the WHERE clause filters rows. This is a main difference between the HAVING and WHERE clauses.
+
+
+
+0. What are UNION, MINUS and INTERSECT commands?
+		The UNION operator is used to combine the results of two tables while also removing duplicate entries.
+		The MINUS operator is used to return rows from the first query but not from the second query.
+		The INTERSECT operator is used to combine the results of both queries into a single row.
+
+		Before running either of the above SQL statements, certain requirements must be satisfied –
+		Within the clause, each SELECT query must have the same amount of columns.
+		The data types in the columns must also be comparable.
+		In each SELECT statement, the columns must be in the same order.
+
+00. Note that with a UNION, the data types of both columns must be the same, but the column names can be different.
+	Must call same number of columns
+000. If you'd like to drop duplicate values, you need use UNION DISTINCT.
+
+0000. USE OF WITH ... AS
+
+			WITH CHILD_LESS_THAN_5_YEARS_OLD AS (
+                
+					SELECT NAME FROM PERSONS WHERE AGE < 5
+                )
+
+
+        SELECT NAME, ID FROM CHILD_LESS_THAN_5_YEARS_OLD
+
+
+
+
+1. What is a Self-Join?
+	A self-join, also known as an inner join, is a structured query language (SQL) statement where a queried table is joined to itself. The self-join statement is necessary when two sets of data, within the same table, are compared.
+
+
+2. SQL is a standard language which stands for Structured Query Language based on the English language
+
+3. MySQL is an RDMS (Relational Database Management System) such as SQL Server, Orcle....
+
+4. What are the different subsets(categories) of SQL?
+	1. DDL(Data Definition Language)   --> CREATE, ALTER, DROP, TRUNCATE
+	2. DML(Data Manipulation Language) --> INSERT, UPDATE, DELETE , SELECT
+	3. DCL(Data Control Language)      --> GRANT , REVOKE ---> control access to the database
+	4. TCL(Transaction Control Language)-> BEGIN, TRAN, COMMIT, ROLLBACK
+
+
+5. What is the case when in SQL Server?
+The CASE statement is used to construct logic in which one column’s value is determined by the values of other columns.
+
+
+
+
+1. Data integrity is the overall accuracy, completeness, and consistency of data. Data integrity also refers to the safety of data in regard to regulatory compliance — such as GDPR compliance — and security. It is maintained by a collection of processes, rules, and standards implemented during the design phase.
+
+2. Write a SQL query to display the current date?
+	In SQL, there is a built-in function called GetDate() which helps to return the current timestamp/date.
+	Ex: SELECT GETDATE(); ---> 2023-01-05 14:43:21.310
+
+3. What is the difference between DROP and TRUNCATE commands?
+	DROP command removes a table and it cannot be rolled back from the database whereas TRUNCATE command removes all the rows from the table.
+
+4. PostgreSQL has achieved significant appeal among developers because to its fault-tolerant characteristics.
+It’s a very reliable database management system, with more than two decades of community work to thank for its high levels of resiliency, integrity, and accuracy. Many online, mobile, geospatial, and analytics applications utilise PostgreSQL as their primary data storage or data warehouse.
+
+
+5. What is SQL Injection?
+
+SQL injection is a sort of flaw in website and web app code that allows attackers to take control of back-end processes and access, retrieve, and delete sensitive data stored in databases. In this approach, malicious SQL statements are entered into a database entry field, and the database becomes exposed to an attacker once they are executed. By utilising data-driven apps, this strategy is widely utilised to get access to sensitive data and execute administrative tasks on databases
+
+
+6. SQL provides seven (7) aggregate functions, which are given below:
+
+	AVG(): returns the average value from specified columns.
+	COUNT(): returns the number of table rows, including rows with null values.
+	MAX(): returns the largest value among the group.
+	MIN(): returns the smallest value among the group.
+	SUM(): returns the total summed values(non-null) of the specified column.
+	FIRST(): returns the first value of an expression.
+	LAST(): returns the last value of an expression.
+
+7.What are the syntax and use of the COALESCE function?
+	The SQL server's Coalesce function is used to handle the Null values. The null values are replaced with user-defined values during the expression evaluation process. This function evaluates arguments in a particular order from the provided arguments list and always returns the first non-null value
+	COALESCE (city_name, 'Undefined'). ---> if city_name == Null return  Undefined here/.
+
+	From a succession of expressions, the COALESCE function returns the first non-NULL value. 
+	The syntax of COALESCE function ---> COALESCE (exp1, exp2, …. expn) 
+
+
+
+8. What do you mean by “Trigger” in SQL?
+Trigger in SQL is are a special type of stored procedures that are defined to execute automatically in place or after data modifications. It allows you to execute a batch of code when an insert, update or any other query is executed against a specific table.
+
+9. Are NULL values same as that of zero or a blank space? 
+	A NULL value is not at all same as that of zero or a blank space. NULL value represents a value which is unavailable, unknown, assigned or not applicable whereas a zero is a number and blank space is a character.
+
+10. What is the main difference between ‘BETWEEN’ and ‘IN’ condition operators?
+BETWEEN operator is used to display rows based on a range of values in a row whereas the IN condition operator is used to check for values contained in a specific set of values.
+	SELECT * FROM Students where ROLL_NO BETWEEN 10 AND 50;
+	SELECT * FROM students where ROLL_NO IN (8,15,25);
+
+11. What is CLAUSE in SQL?
+	SQL clause helps to limit the result set by providing a condition to the query. A clause helps to filter the rows from the entire set of records.
+
+12. What is the difference between ‘HAVING’ CLAUSE and a ‘WHERE’ CLAUSE?
+	HAVING clause can be used only with SELECT statement. It is usually used in a GROUP BY clause and whenever GROUP BY is not used, HAVING behaves like a WHERE clause.
+
+	Having Clause is only used with the GROUP BY function in a query whereas WHERE Clause is applied to each row before they are a part of the GROUP BY function in a query.
+
+	For example – WHERE, HAVING clause.
+
+
+
+13. The primary purpose of SQL is to retrieve, manipulate, update, delete, and perform complex operations like joins on the data present in the database.
+
+14. where name like 'C%'. ----> WHERE NAME STARTS WITH C
+	WHERE name LIKE 'C_ _ _'. ---> where name starts with C and eaxctly 4 characters
+	WHERE name LIKE 'S%t'.    ---> starts with S ends with t. ----> Sedat
+	WHERE name LIKE '%T'	 ----> ENDS WITH t
+
+15. CREATE VIEW <view name > AS SELECT * FROM
+
+16. concat: use || 'anycHARS' || 
+	EX: SELECT first_name || ' ' || last_name AS FullName From table
+
+17. Select LOWER(name) fromm Table ----> prints name in lower
+	Select UPPER(name) fromm Table ----> prints name in upper
+	Select SUBSTR(first_name, 0, 1) from Table. ---> gets name Initial  ----> SUBSTRING(name, A, B) for sql server  --> START AT Ath index 1 == begin
+	SELECT SUBSTR(first_name, 0, 1) || '.' SUBSTR(midde_name, 0, 1) || '.' || SUBSTR(last_name, 0, 1). ===> B.S.Y
+
+
+18. Find 14th highest Salary. ---> use LIMIT 14
+
+	A = SELECT * FROM PERSONS ORDER BY SALARY DESC LIMIT 14
+
+	  = SELECT MIN(SALARY) FROM (A)
+
+
+19. SELECT
+		UNION   ---> DISTINCT ROWS, NO DUBLICATES
+	SELECT
+
+	 SELECT
+		UNION ALL  ---> ALLOW DUBLICATES
+	SELECT
+
+
+	SELECT
+		UNION DISTINCT  ---> REMOVES DUBLICATES
+	SELECT
+
+
+20. https://www.kaggle.com/code/alexisbcook/analytic-functions
+
+	1) Analytic aggregate functions
+		As you might recall, AVG() (from the example above) is an aggregate function. The OVER clause is what ensures that it's treated as an analytic (aggregate) function. Aggregate functions take all of the values within the window as input and return a single value.
+
+21. SELECT CONCAT(first_name, ' ', last_name) FROM EMPLOYEES  ----> SAME AS SELECT first_name || ' ' || last_name FROM EMPLOYEES
+
+- SELECT first_name, last_name FROM patients where weight between 100 and 120   --> 120 inclusive  or
+	SELECT first_name, last_name FROM patients where weight >= 100 and weight <= 120
+
+		MIN() (or MAX()) - Returns the minimum (or maximum) of input values
+		AVG() (or SUM()) - Returns the average (or sum) of input values
+		COUNT() - Returns the number of rows in the input
+
+	2) Analytic navigation functions
+		Navigation functions assign a value based on the value in a (usually) different row than the current row.
+
+		FIRST_VALUE() OVER()  (or LAST_VALUE() OVER()) - Returns the first (or last) value in the input
+		LEAD() (and LAG()) - Returns the value on a subsequent (or preceding) row
+
+	3) Analytic numbering functions
+		Numbering functions assign integer values to each row based on the ordering.
+
+		ROW_NUMBER() - Returns the order in which rows appear in the input (starting with 1)
+		RANK() - All rows with the same value in the ordering column receive the same rank value, where the next row receives a rank value which increments by the number of rows with the previous rank value.
+
+
+========
+Single Row Function in SQL
+	Single row function in SQL are the ones who work on a single row and return one output per row.
+
+	Single row function in SQL can be character, numeric, date, and conversion functions. these functions are used to modify data items. These functions need one or more input and operate on each row, thereby returning one output value for each row.
+
+
+
+	UPPER function converts a string to upper case.
+	LOWER function converts a string to lower case.
+	INITCAP function converts only the initial letters of a string to upper case.
+
+
+	CONCAT function is used to concatenates two string values.
+	LENGTH function returns the length of the input character.
+	SUBSTR function returns a part of a string from a given start point to an endpoint.
+	INSTR function returns the numeric position of a character or a string in a given order.
+	LPAD and RPAD functions pad the given string up to a specific length with a given type.
+	TRIM function trims the data input from the start or end.
+	REPLACE function replaces characters from the input character.
+
+========
+
+6: What is the difference between COUNT(*), COUNT(expression), and COUNT(DISTINCT expression)?
+
+COUNT(*) returns the number of rows, including duplicate rows and rows with NULL values.
+
+This is different from COUNT(expression), which returns only the number of rows with non-NULL values. It also counts rows with duplicate values.
+
+===================
+2a: Find the total number of streams by date.
+
+SELECT date,
+     SUM(number_of_streams) AS total_number_of_streams
+		 FROM movie_streaming
+		 GROUP BY date;
+
+=======
+
+
+2b: Find the total number of streams by date and director
+
+
+SELECT date, director, SUM(number_of_streams) 
+												AS total_number_of_streams
+												FROM movie_streaming
+												GROUP BY date, director;
+
+=======
+
+2c: Find the total number of streams by date and director. Show only dates with a total number of streams above 740.
+
+SELECT date,
+     director,
+     SUM(number_of_streams) AS total_number_of_streams
+		FROM movie_streaming
+		GROUP BY date, director
+		HAVING SUM(number_of_streams) > 740;
+
+
+
+======
+
+
+5: What functions can be used with GROUP BY?
+
+The GROUP BY clause is usually used with SQL’s aggregate functions. These take values from  individual rows, perform a calculation, and return a single value. Some of the most used aggregate functions are:
+
+Sum of something belong to a group
+Average of something belong to a group
+Minimum of something belong to a group
+Maximum of something belong to a group
+
+SUM() – Adds up all the row values.
+COUNT() – Counts the number of rows.
+AVG() – Returns the average value.
+MIN() – Returns the smallest value.
+MAX() – Returns the largest value.
+
+==================================
+
+
+7: What happens to NULLs when you use GROUP BY?
+
+The GROUP BY clause doesn’t ignore NULL values. Therefore, if you use it and there are  NULL values in the column, all the rows with NULL column values will be treated as one group.
+
+============
+
+8: What will this code return?
+This code will throw an error because the column month is not written in the GROUP BY. The error occurs because all the columns appearing in the SELECT statement must appear in the GROUP BY
+
+SELECT department,
+       month,
+ 			AVG(salary) AS average_salary
+			FROM salaries
+			GROUP BY department;
+
+
+need to but month into --> GROUP BY department,month
+==========
+9: What are GROUP BY extensions? What GROUP BY extensions do you know?
+
+These extensions are ROLLUP, CUBE, and GROUPING SETS.
+
+
+
+====================
+
+
+========
+SELECT DISTINCT YEAR(birth_date) AS birth_year FROM patients ORDER BY birth_year;
+same as above
+SELECT YEAR(birth_date) FROM patients GROUP BY year(birth_date)
+=======
+
+
+
+
+
+SQL FUNCTIONS:
+String Functions:
+	ASCII
+	CHAR
+	CHARINDEX
+	CONCAT
+	Concat with +
+	CONCAT_WS
+	DATALENGTH
+	DIFFERENCE
+	FORMAT
+	LEFT
+	LEN
+	LOWER
+	LTRIM
+	NCHAR
+	PATINDEX
+	QUOTENAME
+	REPLACE
+	REPLICATE
+	REVERSE
+	RIGHT
+	RTRIM
+	SOUNDEX
+	SPACE
+	STR
+	STUFF
+	SUBSTRING
+	TRANSLATE
+	TRIM
+	UNICODE
+	UPPER
+
+Numeric Functions:
+	ABS
+	ACOS
+	ASIN
+	ATAN
+	ATN2
+	AVG
+	CEILING
+	COUNT
+	COS
+	COT
+	DEGREES
+	EXP
+	FLOOR
+	LOG
+	LOG10
+	MAX
+	MIN
+	PI
+	POWER
+	RADIANS
+	RAND
+	ROUND
+	SIGN
+	SIN
+	SQRT
+	SQUARE
+	SUM
+	TAN
+Date Functions:
+	CURRENT_TIMESTAMP
+	DATEADD
+	DATEDIFF
+	DATEFROMPARTS
+	DATENAME
+	DATEPART
+	DAY
+	GETDATE
+	GETUTCDATE
+	ISDATE
+	MONTH
+	SYSDATETIME
+	YEAR
+
+Advanced Functions:
+	CAST
+	COALESCE
+	CONVERT
+	CURRENT_USER
+	IIF
+	ISNULL
+	ISNUMERIC
+	NULLIF
+	SESSION_USER
+	SESSIONPROPERTY
+	SYSTEM_USER
+	USER_NAME

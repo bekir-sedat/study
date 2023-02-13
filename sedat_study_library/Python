@@ -1,0 +1,1050 @@
+Python:  --> Nice Interview question prep
+
+scripting and programming language == interpreted == not compiled == no machine code beforehand
+
+A scripting language is a programming language that is interpreted. It is translated into machine code at runtime, rather than beforehand. Scripting languages are often used for short scripts over full computer programs. JavaScript, Python, and Ruby are all examples of scripting languages.
+
+ex of scripting languages: bash. powershell, python, groovy
+
+1. There are eight native datatypes in Python.
+
+		Boolean --> There are 2 boolean values- True and False.
+		Numbers  --> integers, floating-point numbers, and complex number
+		Strings --> A sequence of characters is called a string. 
+		Bytes & Byte Arrays
+		Lists  --> An ordered sequence of items is called a list. The elements of a list may belong to different data types. Eg. [5,’market’,2.4]
+		Tuples --> It is also an ordered sequence of elements. Unlike lists , tuples are immutable, which means they can’t be changed
+		Sets  --> Sets are a collection of unique items that are not in order.
+		Dictionaries --> A dictionary stores values in key and value pairs where each value can be accessed through its key. The order of items is not important.
+
+==========dictioanry=========
+	for key,value in myDictionary.items():
+
+	keys_list = list(myDictionary.keys())
+	values_list = list(myDictionary.values()
+
+	addding   ----> myDictionary[key] = value
+	removing  ----> myDictionary.pop(key)  or del myDictionary[key]
+=============================================
+
+set.add(key)
+set.remove(key) , set.discard(key) ---> remove may raise exception, discard not raise  
+set.pop()  ---> removes a random element
+set.union(other)
+set.intersection(other)
+set.diffrence(other)
+
+list.append(key)
+list.remove(key)
+list.count(key)
+
+============================
+Python has a set of built-in functions.
+
+Function	Description
+abs()	Returns the absolute value of a number
+all()	Returns True if all items in an iterable object are true
+any()	Returns True if any item in an iterable object is true
+ascii()	Returns a readable version of an object. Replaces none-ascii characters with escape character
+bin()	Returns the binary version of a number
+bool()	Returns the boolean value of the specified object
+bytearray()	Returns an array of bytes
+bytes()	Returns a bytes object
+callable()	Returns True if the specified object is callable, otherwise False
+chr()	Returns a character from the specified Unicode code.
+classmethod()	Converts a method into a class method
+compile()	Returns the specified source as an object, ready to be executed
+complex()	Returns a complex number
+delattr()	Deletes the specified attribute (property or method) from the specified object
+dict()	Returns a dictionary (Array)
+dir()	Returns a list of the specified object's properties and methods
+divmod()	Returns the quotient and the remainder when argument1 is divided by argument2
+enumerate()	Takes a collection (e.g. a tuple) and returns it as an enumerate object
+eval()	Evaluates and executes an expression
+exec()	Executes the specified code (or object)
+filter()	Use a filter function to exclude items in an iterable object
+float()	Returns a floating point number
+format()	Formats a specified value
+frozenset()	Returns a frozenset object
+getattr()	Returns the value of the specified attribute (property or method)
+globals()	Returns the current global symbol table as a dictionary
+hasattr()	Returns True if the specified object has the specified attribute (property/method)
+hash()	Returns the hash value of a specified object
+help()	Executes the built-in help system
+hex()	Converts a number into a hexadecimal value
+id()	Returns the id of an object
+input()	Allowing user input
+int()	Returns an integer number
+isinstance()	Returns True if a specified object is an instance of a specified object
+issubclass()	Returns True if a specified class is a subclass of a specified object
+iter()	Returns an iterator object
+len()	Returns the length of an object
+list()	Returns a list
+locals()	Returns an updated dictionary of the current local symbol table
+map()	Returns the specified iterator with the specified function applied to each item
+max()	Returns the largest item in an iterable
+memoryview()	Returns a memory view object
+min()	Returns the smallest item in an iterable
+next()	Returns the next item in an iterable
+object()	Returns a new object
+oct()	Converts a number into an octal
+open()	Opens a file and returns a file object
+ord()	Convert an integer representing the Unicode of the specified character
+pow()	Returns the value of x to the power of y
+print()	Prints to the standard output device
+property()	Gets, sets, deletes a property
+range()	Returns a sequence of numbers, starting from 0 and increments by 1 (by default)
+repr()	Returns a readable version of an object
+reversed()	Returns a reversed iterator
+round()	Rounds a numbers
+set()	Returns a new set object
+setattr()	Sets an attribute (property/method) of an object
+slice()	Returns a slice object
+sorted()	Returns a sorted list
+staticmethod()	Converts a method into a static method
+str()	Returns a string object
+sum()	Sums the items of an iterator
+super()	Returns an object that represents the parent class
+tuple()	Returns a tuple
+type()	Returns the type of an object
+vars()	Returns the __dict__ property of an object
+zip()	Returns an iterator, from two or more iterators
+
+
+
+
+===========================================
+
+map(func, *iterables) built in 
+ex:
+		def myfunc(a):
+		  return len(a)
+
+		x = map(myfunc, ('apple', 'banana', 'cherry'))
+
+		print(x) ---> <map object at 0x056D44F0>
+
+		#convert the map into a list, for readability:
+
+		print(list(x))  ---> =[5,6,6]
+
+
+map(func, *iterables) --> map object
+useful when you need to apply a transformation function to each item in an iterable and transform them into a new iterable.
+ |  
+ |  Make an iterator that computes the function using arguments from
+ |  each of the iterables.  Stops when the shortest iterable is exhausted.
+
+================
+
+
+reverse a stiring ---> 'Hello World'[::-1]
+
+============
+
+list is not iterator. Its iterable
+
+list1 = [2,3]
+
+next(list1) --> exceptiopn list is not iterator
+next(iter(list1))   ----> 2
+
+======
+
+2. num = int(input("Enter the number of people travelling:"))
+
+3. File Handling
+	File Handling refers to those operations that are used to read or write a file.
+
+	To perform file handling, we need to perform these steps:
+
+			Open File
+			Read / Write File
+			Close File
+
+			must have exactly one of create/read/write/append mode
+
+	Opening A File
+			Python has a built-in function open() to open a file
+			This function returns a file object, also called a handle, as it is used to read or modify the file accordingly
+
+	Read:
+			file = open("C:/Users/Edureka/Hello.txt", "r")  -> # must have exactly one of create/read/write/append mode
+			// text = file.readlines() ---> returns list of lines
+			for line in file:
+   				print (line)
+   	Write:
+   			with open("C:/Users/Edureka/Writing_Into_File.txt", "w") as f
+				f.write("First Line")
+				f.write("Second Line")
+
+
+
+4. Context manager. Resources are limite in OS. Linux tpycally allows you to open about 1000 files at a time. Need to manage these reaoureces(close). Automatically closes file. Auto calls closing not manual like in ---> finally closoe()
+	context manafer protocal:
+		_ _ enter _ _ ===> returns the resource (optional)
+		_ _ exit  _ _  ==> clean-up ex: close 
+
+	when python hit with statement, it calls objects _ _ enter _ _ method
+	if _ _ enter _ _ method returns an object, python binds this object to target value in the context( as file) file is target value
+	runs th blsck under with
+	once block ends, python calls _ _ exit _ _ method of the context manager. this method takes arguments related to exceptions might occur
+
+
+5 . Python an interpreted language. Explain.
+		Ans: An interpreted language is any programming language which is not in machine-level code before runtime. Therefore, Python is an interpreted language.
+
+
+
+6. A decorator is a design pattern in Python that allows a user to add new functionality to an existing object without modifying its structure. Decorators are usually called before the definition of a function you want to decorate.
+best ---> https://www.datacamp.com/tutorial/decorators-python
+
+ex: 
+def uppercase_decorator(function):
+    def wrapper():
+        func = function()
+        make_uppercase = func.upper()
+        return make_uppercase
+
+    return wrapper
+
+@uppercase_decorator
+def say_hi():
+    return 'hello there'
+
+say_hi()  ----> 'HELLO THERE'
+
+
+ex ; 
+def split_string(function):
+    def wrapper():
+        func = function()
+        splitted_string = func.split()
+        return splitted_string
+
+    return wrapper
+
+@split_string
+@uppercase_decorator
+def say_hi():
+    return 'hello there'
+
+say_hi()  ----> 'HELLO THERE'  --> ['HELLO', 'THERE']
+
+
+7. What are the benefits of using Python?
+
+	Easy to use– Python is a high-level programming language that is easy to use, read, write and learn.
+	Interpreted language– Since python is interpreted language, it executes the code line by line and stops if an error occurs in any line.
+	Dynamically typed– the developer does not assign data types to variables at the time of coding. It automatically gets assigned during execution.
+	Free and open-source– Python is free to use and distribute. It is open source.
+	Extensive support for libraries– Python has vast libraries that contain almost any function needed. It also further provides the facility to import other packages using Python Package Manager(pip).
+	Portable– Python programs can run on any platform without requiring any change.
+	The data structures used in python are user friendly.
+	It provides more functionality with less coding.
+
+8. Namespaces:
+
+	A namespace is a naming system used to make sure that names are unique to avoid naming conflicts.
+
+	1.The Built-In Namespace
+		The built-in namespace contains the names of all of Python’s built-in objects. These are available at all times when Python is running. You can list the objects in the built-in namespace with the following command:
+			$ dir(__builtins__)
+		EX: sorted, str, int , len, int, globals, True, False, Errors, _ _ name _ _, round, min, max
+		import ---> keyword not built-in 
+		The Python interpreter creates the built-in namespace when it starts up. This namespace remains in existence until the interpreter terminates.
+	2. The Global Namespace
+		The global namespace contains any names defined at the level of the main program. Python creates the global namespace when the main program body starts, and it remains in existence until the interpreter terminates.
+		Strictly speaking, this may not be the only global namespace that exists. The interpreter also creates a global namespace for any module that your program loads with the import statement.
+	3. The Local and Enclosing Namespaces
+		the interpreter creates a new namespace whenever a function executes. That namespace is local to the function and remains in existence until the function terminates.
+
+	order for lookinh a variable x --> 1. Local 2. Enclosing 3.Global 4. Build-in
+
+	ex: 
+	x = 'global'
+
+	def f():
+     	x = 'enclosing'
+     	def g():
+         	x = 'local'
+         	print(x)
+     	g()
+
+
+	$ f()  ----> local
+
+	local may be a function in another function.
+
+Python Namespace Dictionaries
+	Earlier in this tutorial, when namespaces were first introduced, you were encouraged to think of a namespace as a dictionary in which the keys are the object names and the values are the objects themselves. In fact, for global and local namespaces, that’s precisely what they are! Python really does implement these namespaces as dictionaries.
+
+	The globals() function
+		The built-in function globals() returns a reference to the current global namespace dictionary. You can use it to access the objects in the global namespace. Here’s an example of what it looks like when the main program starts:
+
+		$ globals()
+			{'__name__': '__main__', '__doc__': None, '__package__': None,
+			'__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': None,
+			'__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>}
+
+		globals()['__name__'] = '__main__'
+
+
+		ex: globals()['y'] = 100  ---> creates a new global variable
+
+		The locals() function:
+			Python also provides a corresponding built-in function called locals(). It’s similar to globals() but accesses objects in the local namespace instead:
+
+		A Subtle Difference Between globals() and locals()  
+		---> g = globols()
+			 x =3
+			 y=4
+			 g() --> will show x and y
+			 if the same thing done with locals in a function it wont add or updated value
+
+
+	   The global Declaration
+			What if you really do need to modify a value in the global scope from within f()? This is possible in Python using the global declaration:	
+
+						x = 20
+						def f():
+						  global x
+						  x = 40
+						 print(x)
+
+						>>> f()
+						40
+						>>> x
+						40
+
+
+					OR
+						x = 20
+						def f():
+						 globals()['x'] = 40
+						 print(x)
+
+						>>> f()
+						40
+						>>> x
+						40
+
+		
+		nonlocal x --> WHEN USED IN INNER FUNCTION this will update the x in the outer(enclosed) function				
+
+					my_list = ['foo', 'bar', 'baz']
+					def f():
+					    my_list[1] = 'quux'
+					f()    ---->   my_list -->['foo', 'quux', 'baz']
+
+				but
+
+					my_list = ['foo', 'bar', 'baz']
+					def f():
+					    my_list = ['qux', 'quux']
+					f()    ---->   my_list -->['foo', 'bar', 'baz']  
+								   But if f() tries to reassign my_list entirely, then it will create a new local object and won’t modify the global my_list:
+
+
+9. What is the difference between .py and .pyc files?
+
+	Ans: The .py files are the python source code files. While the .pyc files contain the bytecode of the python files. .pyc files are created when the code is imported from some other source. The interpreter converts the source .py files to .pyc files which helps by saving time.
+
+
+
+10. Python Literals:
+		A literal in python source code represents a fixed value for primitive data types. There are 5 types of literals in python:
+
+		String Literals   (character literal)?  STRING "" OR ''  CHAR ''
+		Numeric Literals  int float complex
+		Boolean Literals  0, 1 or True False
+		Special Literals  None is a special literal defined in Python to specify the end of a list or to represent a NULL value.
+		Collection Literals  --> Beside Lists, Python supports Tuples and Dictionary to store a collection of literals in a single variable.
+
+11. What is the difference between list and tuples in Python?
+	Lists are mutable i.e they can be edited , TuPLES NOT
+	Lists are slower than tuples.
+	[10, ‘Chelsea’, 20] VS (10, ‘Chelsea’, 20)
+
+12. PEP ==> Python Enhancement Proposal
+
+13. What is slicing in Python?
+		Slicing is used to access parts of sequences like lists, tuples, and strings. Set is not indexable
+		[start:end]  or [start:end:step_size] 
+		reverse a list ---> [ : : -1]
+
+14. How is memory managed in Python? (Python private heap space, developer don' have access)
+
+	Memory is managed in Python in the following ways:
+
+	1. Memory management in python is managed by Python private heap space. All Python objects and data structures are located in a private heap. The programmer does not have access to this private heap. The python interpreter takes care of this instead.
+	2. The allocation of heap space for Python objects is done by Python’s memory manager. The core API gives access to some tools for the programmer to code.
+	3. Python also has an build-in garbage collector, which recycles all the unused memory and so that it can be made available to the heap space.
+
+
+15. What is PYTHONPATH? (It is an environment variable)
+	when we type import statement then it looks at directories
+		Ans: It is an environment variable which is used when a module is imported. Whenever a module is imported, PYTHONPATH is also looked up to check for the presence of the imported modules in various directories. The interpreter uses it to determine which module to load.
+
+16. What are python modules? Name some commonly used built-in modules in Python?
+		os
+		sys
+		math
+		random
+
+17. What is type conversion in Python? ord('a')  ---> 97  ord('A')  --> 65
+
+		Type conversion refers to the conversion of one data type into another.
+
+			int() – converts any data type into integer type
+
+			float() – converts any number type into float type
+
+			ord() – converts characters into integer
+
+			hex() – converts integers to hexadecimal
+
+			oct() – converts integer to octal
+
+			tuple() – This function is used to convert to a tuple.
+
+			set() – This function returns the type after converting to set.
+
+			list() – This function is used to convert any data type to a list type.
+
+			dict() – This function is used to convert a tuple of order (key, value) into a dictionary.
+
+			str() – Used to convert integer into a string.
+
+			complex(real,imag) – This function converts real numbers to complex(real,imag) number.
+
+
+18. Python does not have built-in support for Arrays, but Python Lists can be used instead.
+
+19. What is a lambda function? (anonymous function - one line of statement only)
+	Ans: An anonymous function is known as a lambda function. This function can have any number of parameters but, can have just one statement.
+
+	a = lambda x,y : x+y
+	print(a(5, 6))   ---> 11
+
+20 What is self in Python?
+	 Self is an instance or an object of a class. In Python, this is explicitly included as the first parameter on instance methods.
+
+
+21. How can you randomize the items of a list in place in Python?  shuffle(list)
+		from random import shuffle
+
+22. What are iterators?
+		Iterators are objects which can be traversed though or iterated upon.
+
+23. What is the difference between range & xrange?
+	Ans: For the most part, xrange and range are the exact same in terms of functionality. They both provide a way to generate a list of integers for you to use, however you please. The only difference is that range returns a Python list object and x range returns an xrange object.
+
+	This means that xrange doesn’t actually generate a static list at run-time like range does. It creates the values as you need them with a special technique called yielding. This technique is used with a type of object known as generators. That means that if you have a really gigantic range you’d like to generate a list for, say one billion, xrange is the function to use.
+
+	Generator functions use the Python yield keyword instead of return. Recall the generator function you wrote earlier
+
+	This is especially true if you have a really memory sensitive system such as a cell phone that you are working with, as range will use as much memory as it can to create your array of integers, which can result in a Memory Error and crash your program. It’s a memory hungry beast.
+
+
+		ex:
+		a = range(5)
+		list(a)   ---> [0,1,2,3,4]
+
+		range returns list xrange returns a iterator
+
+
+24. What is pickling and unpickling?
+		Ans: Pickle module accepts any Python object and converts it into a byte stream and dumps it into a file by using dump function, this process is called pickling. While the process of retrieving original Python objects from the stored string representation is called unpickling(load).
+
+25. What are the generators in python?
+		Ans: Functions that return an iterable set of items are called generators.
+		Generators are useful when we want to produce a large sequence of values, but we don't want to store all of them in memory at once.
+
+26. How will you capitalize the first letter of string?  capitalize()
+
+27. What is the purpose of ‘is’, ‘not’ and ‘in’ operators?
+	Ans: Operators are special functions. They take one or more values and produce a corresponding result.
+
+	is: returns true when 2 operands are true  (Example: “a” is ‘a’)
+	not: returns the inverse of the boolean value
+	in: checks if some element is present in some sequence
+
+28. What is the usage of help() and dir() functions in Python?
+
+		dir ---> returns list of the attributes and methods of any object 
+
+		help ---> displays the documentation of modules, functions, classes, keywords, etc.
+
+		dir(int)  ---> ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+
+
+		Help() function: The help() function is used to display the documentation string and also facilitates you to see the help related to modules, keywords, attributes, etc.
+
+
+29. How can the ternary operators be used in python?
+	x = 2
+	y = 5
+	d = x if x<y else y
+	d ---> 2
+
+
+30. What does this mean: *args, **kwargs? And why would we use it?
+	We use *args and **kwargs when we aren’t sure how many arguments are going to be passed to a function
+	We access them using for loop
+
+			ex: def multiplyNumbers(*numbers):
+				    product=1
+				    for n in numbers:
+				        product*=n
+				    return product
+				 
+				print("product:",multiplyNumbers(4,4,4,4,4,4)) ----> product:4096
+
+			ex: def makeSentence(**words):
+				    sentence=''
+				    for word in words.values():
+				        sentence+=word
+				    return sentence
+			 
+				print('Sentence:', makeSentence(a='Kwargs ',b='are ', c='awesome!')) ----> Sentence:Kwargs are awesome! 
+
+# [‘Google uses Angular’, ‘Facebook uses react’, ‘Microsoft uses .NET’]
+
+
+31. Explain split(), sub(), subn() methods of “re” module in Python.
+	To modify the strings, Python’s “re” module is providing 3 methods. They are:
+		split() – uses a regex pattern to “split” a given string into a list.
+		sub() – finds all substrings where the regex pattern matches and then replace them with a different string
+		subn() – it is similar to sub() and also returns the new string along with the no. of replacements.
+
+
+32.	What are Python packages?
+		Ans: Python packages are namespaces containing multiple modules.
+
+33. How is Multithreading achieved in Python?
+
+	1. Python has a multi-threading package (thread, threading) but if you want to multi-thread to speed your code up, then it’s usually not a good idea to use it.
+
+	2.Python has a construct called the Global Interpreter Lock (GIL). The GIL makes sure that only one of your ‘threads’ can execute at any one time(that allows only one thread to hold the control of the Python interpreter ...). A thread acquires the GIL, does a little work, then passes the GIL onto the next thread.
+
+	3.This happens very quickly so to the human eye it may seem like your threads are executing in parallel, but they are really just taking turns using the same CPU core.
+
+	4.All this GIL passing adds overhead to execution. This means that if you want to make your code run faster then using the threading package often isn’t a good idea.
+
+34. What is monkey patching in Python?
+		Ans: monkey patching refers to modifying or updating a piece of code or class or any module at the runtime. In simple words, we can change the behavior or working of a class/ module at the runtime without changing the whole python code
+
+		When is monkey patching used?
+			1. During testing to mock the behavior of libraries, modules, classes or any objects.
+			2. To extend or modify the behavior of third-party or built-in libraries or methods at runtime without touching the original code.
+			3. To quickly fix some issues if we do not have the time or resources to roll-out a proper fix to the original software.
+
+35. deque()
+	The Python deque() is a double-ended queue which allows us to add and remove elements from both the ends.
+
+36. byte must be in range(0, 256)
+	x = b"Hello"  ---> this is byte ???
+
+37. collection module
+	This module implements specialized container datatypes providing alternatives to Python’s general purpose built-in containers, dict, list, set, and tuple.
+
+
+38. import argparse
+ 
+	# Initialize parser
+	parser = argparse.ArgumentParser()
+	 
+	# Adding optional argument
+	parser.add_argument("-o", "--Output", help = "Show Output", default = '')
+	 
+	# Read arguments from command line
+	args = parser.parse_args()
+	 
+	if args.Output:
+		myOutput = args.Output
+	    print("Displaying Output as: % s" % args.Output)	
+
+39. Iterate dics, sets
+
+40. What is a frozenset?
+	Frozen set is just an immutable version of a Python set object. While elements of a set can be modified at any time, elements of the frozen set remain the same after creation. Due to this, frozen sets can be used as keys in Dictionary or as elements of another set.
+
+41. Type-checking can be done at two stages -
+
+		Static - Data Types are checked before execution.
+		Dynamic - Data Types are checked during execution.
+			Python is an interpreted language, executes each statement line by line and thus type-checking is done on the fly, during execution. Hence, Python is a Dynamically Typed Language.
+			Programs written in an interpreted language runs directly from the source code, with no intermediary compilation step.
+
+42. range --->	Represents an immutable sequence of numbers generated during execution.
+    str	  ---> Immutable sequence of Unicode code points to store textual data.
+
+43. Packages allow for hierarchial structuring of the module namespace using dot notation. As, modules help avoid clashes between global variable names, in a similar manner, packages help avoid clashes between module names.
+
+44. What are global, protected and private attributes in Python?
+
+	1. Protected attributes are attributes defined with an underscore prefixed to their identifier eg. _sara. They can still be accessed and modified from outside the class they are defined in but a responsible developer should refrain from doing so.
+	2. Private attributes are attributes with double underscore prefixed to their identifier eg. __ansh. They cannot be accessed or modified from the outside directly and will result in an AttributeError if such an attempt is made.
+	3. Global variables are public variables that are defined in the global scope. To use the variable in the global scope inside a function, we use the global keyword.
+
+
+45. Shallow Copy : References are tied. If A mutable reference updated in Shallow Copied == copy(list1) then both change(same reference). Numbers not updated
+	Deep Copy : all seperate even refereances to mutable items in the list
+
+	[2, 3, [4, 5], 7]   == original list1
+	[2, 3, [4, 5], 7]   ==> list2 = copy(list1)
+
+	list2[-1] = 99
+	list2[2].append(222)
+
+	now --> list1 = [2, 3, [4, 5,222], 7]
+			list2 = [2, 3, [4, 5,222], 99]
+
+
+46. 	
+	1. In Python, dunder methods are methods that allow instances of a class to interact with the built-in functions and operators of the language. The word “dunder” comes from “double underscore”, because the names of dunder methods start and end with two underscores.
+
+	2.Typically, dunder methods are not invoked directly by the programmer, making it look like they are called by magic. That is why dunder methods are also referred to as “magic methods” sometimes.
+
+	3. Dunder methods are not called magically, though. They are just called implicitly by the language, at specific times that are well-defined, and that depend on the dunder method in question.
+		ex :  item in myList   ---> calls implicitly myList.__contains__(item)  
+								--> it actually turns that into a call to the appropriate dunder method __contains__, which means that Python actually runs the expression container.__contains__(value).
+
+		ex ; _init__ is called implicitly by the language when you created your instance.
+		ex : hash(obj)  --> calls __hash__
+		ex : del obj[key]   ---> __delitem__
+		ex: iter(obj) / for ... in obj (iterating over) ----> __iter__
+		ex: with obj (enter context manager)  --> __enter__
+			with obj (exit context manager)  --> __exit__
+		ex: int(obj)  --- > __int__
+		ex:  obj + ...  --> __add__
+		ex: obj += ...  ---> __iadd__
+		ex: obj % ...  ---> __mod__
+
+
+	4. The two underscores in the beginning and end of the name of a dunder method do not have any special significance. In other words, the fact that the method name starts and ends with two underscores, in and of itself, does nothing special. The two underscores are there just to prevent name collision with other methods implemented by unsuspecting programmers.
+
+	5. All Python operators, like +, ==, and in, rely on dunder methods to implement their behaviour.
+
+
+47. ====================
+
+word = "Hello World"
+
+word.find("H") --> 0 
+word.count('l') ---> 3
+word.index("World") -- > 6
+word.replace("Hello", "Goodbye")  --> 'Goodbye World'
+word.split(' ') --->  ['Hello', 'World']
+word.startswith("H") --> True
+word.endswith("d") --> True
+word.upper() --> HELLO WORLD
+word.lower() --> hello world
+word.title() --> Hello World
+word.capitalize() --> Hello world
+word.swapcase() --> hELLO wORLD
+word.isalpha() --> False. There is space in the string
+word.isspace()  ---> False
+' '.isspace()   ---> True
+
+
+String Join Method:
+	The string join() method returns a string by joining all the elements of an iterable (list, string, tuple), separated by the given separator.
+
+	''.join(reversed(word))  --> dlroW olleH
+	"." * 10  -->  ..........
+
+	text = ['Python', 'is', 'a', 'fun', 'programming', 'language']
+	print(' '.join(text))  ----> Python is a fun programming language
+
+
+	ex: s1 = 'abc'
+		s2 = '123'
+		print('s1.join(s2):', s1.join(s2))   ----> 1abc2abc3
+
+================
+Some of the example of iterables are:
+
+Native data types - List, Tuple, String, Dictionary and Set.
+File objects and objects you define with an __iter__() or __getitem()__ method.
+
+===========================================
+word.isalnum() #check if all char are alphanumeric 
+word.isalpha() #check if all char in the string are alphabetic
+word.isdigit() #test if string contains digits
+word.istitle() #test if string contains title words
+word.isupper() #test if string contains upper case
+word.islower() #test if string contains lower case
+word.isspace() #test if string contains spaces
+
+=======================
+Exception
+
+try:
+    from _pickle import (
+        PickleError,
+        PicklingError,
+        UnpicklingError,
+        Pickler,
+        Unpickler,
+        dump,
+        dumps,
+        load,
+        loads
+    )
+except ImportError:
+    Pickler, Unpickler = _Pickler, _Unpickler
+    dump, dumps, load, loads = _dump, _dumps, _load, _loads
+
+
+
+=========
+
+single-asterisks (*) unpacks an iterable into the arguments in a function call:
+* unpacks a list into arguments, and ** unpacks a dictionary into keyword arguments
+* and ** is the equivalent to ... in some other languages, if you want reference to that too.
+
+
+========
+
+First of all, let’s create a connection with the PostgreSQL database using “create_engine()” function based on a URL. A URL usually consists of dialect, driver, username, password, hostname, database name as well as optional arguments for additional configuration. The typical form of a database URL looks like “dialect+driver://username:password@host:port/database”. For example, “mssql+pyodbc://username:password@host:port/database” for Microsoft SQL Server, “mysql+mysqlconnector://username:password@host:port/database” for MySQL and “postgresql+psycopg2://username:password@host:port/database” for PostgreSQL.
+
+dialect+driver://username:password@host:port/database
+“dmysql+mysqlconnector://username:password@host:port/database”    ---> mysqlconnector == driver
+“postgresql+psycopg2://username:password@host:port/database”    ---> 
+
+
+
+
+- from sqlalchemy.sql import text
+sql = '''
+    SELECT * FROM table;
+'''
+with engine.connect().execution_options(autocommit=True) as conn:
+    query = conn.execute(text(sql))         
+df = pd.DataFrame(query.fetchall())
+
+####  ->  pd.read_sql( sql, engine)
+
+
+
+==============================
+
+
+1)  A = 10, 20, 30
+In the above assignment operation, what is the data type of ‘A’ that Python appreciates as?
+
+Unlike other languages, Python appreciates ‘A’ as a tuple. When you print ‘A’, the output is (10,20,30). This type of assignment is called “Tuple Packing”.
+
+
+2)  A = 1,2,3,4
+      a,b,c,d = A
+In the above assignment operations, what is the value assigned to the variable ‘d’?
+
+4 is the value assigned to d.  This type of assignment is called ‘Tuple Unpacking’.
+
+
+
+3) a = 10
+     b = 20
+Swap these two Variables without using the third temporary variable?
+
+a, b = b, a 
+
+
+
+5)  a = 10
+     b = a
+     a = 20
+     print b
+What is the output?
+Output is 10.
+
+
+not object pass by value???
+
+=====
+
+
+
+6) How do you find the type and identification number of an object in Python?
+type() gives the type of the object that variable is pointing to, and id() give the unique identification number of the object that variable is pointing to. Ex:
+
+print(type(b)) #
+print(id(b)) #1452987584
+
+
+=======
+
+
+7)  a = 0101
+    b = 2
+    c = a+b
+
+What is the Value of c?
+
+In Python2, any number with leading 0 is interpreted as an octal number. So, variable a points to 65(Equalent in Decimal) then the variable c will be pointing to the value 67 i.e 65+2.In Python3, a=0101  (Doesn’t support syntax)
+
+
+======
+
+9//4 = 2  (2.25)
+-9//4 = -3 (-2.25)
+
+// floor division
+
+=====
+
+10)  What are the basic Data Types Supported by Python?
+Numeric Data types: int, long, float, NoneType
+String: str
+Boolean: (True, False)
+NoneType: None
+
+=======
+
+11) How do you check whether the two variables are pointing to the same object in Python?
+In Python, we have an operation called ‘is’ operator, which returns true if the two variables are pointing to the same object.
+
+Example:
+a = "Hello world"
+c = a
+print(a is c) #Returns true if the two variables are pointing to the same object
+print(id(a)) #64450416
+print(id(c)) #64450416
+
+=======
+What is For Else and While Else in Python?
+For-else and while-else are useful features provided by Python. In simple words, you can use the else block just after the for and while loop. Else block will be executed only if the loop isn't terminated by a break statement.
+
+To put it simply, we can say that if a loop is executed successfully without termination then the else block will be executed.
+
+
+		# list of fruits
+		my_list = ["papaya","banana","pineapple","mango","grapes"]
+		# iterating through the fruit list
+		for i in my_list:
+		   if i=="mango":
+		       print("mango found!")
+		       break
+		else:
+		   print("mango not found!")
+
+
+
+
+
+		   ----
+
+
+		# random list of numbers
+		my_list1 = [14,10,12,17]
+		# defining limit from 10 to 20
+		lower_bound = 10
+		upper_bound = 20
+		for i in my_list1:
+		   if i<lower_bound or i>upper_bound:
+		       print("all elements are not in the limit!")
+		       break
+		  else:
+		   print("all the elements in the list are in the limit")
+
+
+=========
+13) How do you programmatically know the version of Python you are using?
+The version property under sys module will give the version of Python that we are using.
+import sysprint(sys.version)
+
+====
+
+
+
+14) How do you find the number of references pointing to a particular object?
+The getrefcount() function in the sys module gives the number of references pointing to a particular object including its own reference. 
+
+import sys
+x = "JohnShekar"
+y = xprint(sys.getrefcount(x))
+
+Here, the object ‘JohnShekar’ is referred by x, y and getrefcount() function itself. So the output is 3. 
+
+
+
+=======================
+
+
+
+16) What is the difference between range() and xrange() functions in Python?
+range() and xrange() are two functions that could be used to iterate a certain number of times in for loops in Python.
+In Python 3, there is no xrange , but the range function behaves like xrange in Python 2.
+If you want to write code that will run on both Python 2 and Python 3, you should use range().
+
+
+==========
+
+
+18) What happens in the background when you run a Python file?
+When we run a .py file, it undergoes two phases. In the first phase it checks the syntax and in the second phase it compiles to bytecode (.pyc file is generated) using Python virtual machine, loads the bytecode into memory and runs.
+
+
+19) What is a module in Python?
+A module is a .py file in Python in which variables, functions, and classes can be defined. It can also have a runnable code.
+
+20) How do you include a module in your Python file?
+The keyword “import” is used to import a module into the current file.
+
+Example: import sys  #here sys is a predefined Python module.
+
+21) How do you reload a Python module?
+There is a function called reload() in Python, which takes module name as an argument and reloads the module.
+
+
+22) What is List in Python?
+The List is one of the built-in data structures in Python. Lists are used to store an ordered collection of items, which can be of different type.
+
+Elements in a list are separated by a comma and enclosed in square brackets.
+
+Examples of List are:
+
+    A = [1,2,3,4]
+    B = [‘a’,’b’,’c’]
+    C = [1,’a’,’2’,’b’]
+
+List in Python is sequence type as it stores ordered collection of objects/items. In Python String and tuple are also sequence types.
+
+23)  When do you choose a list over a tuple?
+When there is an immutable ordered list of elements, we choose tuple. Because we cannot add/remove an element from the tuple. On the other hand, we can add elements to a list using append () or extend() or insert(), etc., and delete elements from a list using remove() or pop().
+
+Simple tuples are immutable, and lists are not. Based on these properties one can decide what to choose in their programming context.
+
+
+
+
+32) How do you merge one dictionary with the other?
+Python provides an update() method which can be used to merge one dictionary on another.
+Example:
+a = {'a':1}
+b = {'b':2}
+a.update(b)
+print(a) #{'a': 1, 'b': 2}
+
+
+
+33) How to walk through a list in a sorted order without sorting the actual list?
+In Python we have function called sorted(), which returns a sorted list without modifying the original list. 
+
+
+
+34) names = [‘john’, ‘fan’, ‘sam’, ‘megha’, ‘popoye’, ’tom’, ‘jane’, ‘james’,’tony’]
+       Write one line of code to get a list of names that start with character ‘j’?
+Solution:
+names = ['john', 'fan', 'sam', 'megha', 'popoye', 'tom', 'jane', 'james', 'tony']
+jnames=[name for name in names if name[0] == 'j']     #One line code to filter names that start with ‘j’
+print(jnames)
+
+
+35) What is a set?
+A Set is an unordered collection of unique objects.
+
+
+
+36) a = “this is a sample string with many characters”
+      Write a Python code to find how many different characters are present in this string?
+Solution:
+a = "this is a sample string with many characters"
+print(len(set(a))) #16
+
+
+
+
+37) Name some standard Python errors you know?
+TypeError: Occurs when the expected type doesn’t match with the given type of a variable.
+ValueError: When an expected value is not given- if you are expecting 4 elements in a list and you gave 2.
+NameError: When trying to access a variable or a function that is not defined.
+IOError: When trying to access a file that does not exist. 
+IndexError: Accessing an invalid index of a sequence will throw an IndexError.
+KeyError: When an invalid key is used to access a value in the dictionary.
+
+
+
+
+
+43) How to connect to the Microsoft Excel and read write data in to excel using python script?
+
+Reading data from Excel:
+
+# import openpyxl module
+import openpyxl
+
+# Give the location of the file
+path = "C:\SeleniumPractice\data3.xlsx"
+
+workbook = openpyxl.load_workbook(path)
+sheet = workbook["Sheet1"]
+
+rows=sheet.max_row
+cols=sheet.max_column
+
+print(rows) # print the total number of rows
+print(cols) # ptint total number of column
+
+for r in range(1,rows+1):
+    for c in range(1,cols+1):
+        print(sheet.cell(row=r, column=c).value,end='     ')
+    print()
+
+Writing  data into Excel:
+
+# import openpyxl module
+import openpyxl
+
+# Give the location of the file
+path = "C:\SeleniumPractice\Test2.xlsx"
+
+workbook = openpyxl.load_workbook(path)
+sheet= workbook.active
+
+for r in range(1,5):
+    for c in range(1,3):
+        sheet.cell(row=r, column=c).value = "abcdef" #(or)sheet.cell(row=r, column=c, value='xyz')
+
+workbook.save(path)
+
+
+
+
+45). Explain Inheritance in Python with an example.
+Inheritance allows One class to gain all the members(say attributes and methods) of another class. Inheritance provides code reusability, makes it easier to create and maintain an application. The class from which we are inheriting is called super-class and the class that is inherited is called a derived / child class.
+
+They are different types of inheritance supported by Python:
+1.	Single Inheritance – where a derived class acquires the members of a single super class.
+2.	Multi-level inheritance – a derived class d1 in inherited from base class base1, and d2 are inherited from base2.
+3.	Hierarchical inheritance – from one base class you can inherit any number of child classes
+4.	Multiple inheritance – a derived class is inherited from more than one base class.
+
+46). How can you randomize the items of a list in place in Python?
+
+Consider the example shown below:
+
+from random import shuffle
+x = ['Keep', 'The', 'Blue', 'Flag', 'Flying', 'High']
+shuffle(x)
+print(x)
+
+47). Write a sorting algorithm for a numerical dataset in Python.
+The following code can be used to sort a list in Python:
+
+list = ["1", "4", "0", "6", "9"]
+list = [int(i) for i in list]
+list.sort()
+print (list)
+
+48) How to print current date &  time?
+Time module is available.
+
+Example:
+
+import time;
+localtime = time.asctime( time.localtime(time.time()) )
+print ("Local current time :", localtime)

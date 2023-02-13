@@ -1,0 +1,70 @@
+API
+
+What are the advantages of API Testing?  
+	n an API interview, they are likely to ask about the advantages of API testing. So be prepared with the significant ones such as:
+
+		Test for Core Functionality: API testing provides access to the application without a user interface. The core and code-level of functionalities of the application will be tested and evaluated early before the GUI tests. This will help detect minor issues which can become bigger during the GUI testing.
+
+		Time Effective: API testing usually is less time-consuming than functional GUI testing. The web elements in GUI testing must be polled, which makes the testing process slower. Particularly, API test automation requires less code so it can provide better and faster test coverage compared to GUI test automation. These will result in cost saving for the testing project.
+
+		Language-Independent: In API testing, data is exchanged using XML or JSON. These transfer modes are completely language-independent, allowing users to select any coding language when adopting automation testing services for the project.
+
+		Easy Integration with GUI: API tests enable highly integrable tests, which is particularly useful if you want to perform functional GUI tests after API testing. For instance, simple integration would allow new user accounts to be created within the application before a GUI test started.
+
+Some common protocols used in API testing?
+	Many protocols are now available to be used in API testing, such as JMS, REST, HTTP, UDDI and SOAP.
+
+
+10. What are the principles of an API test design?
+	The five most important principles of an API test design are:
+
+	Setup: Create objects, start services, initialize data, etc
+Execution: Steps to apply API or the scenario, including logging
+Verification: Oracles to evaluate the result of the execution
+Reporting: Pass, failed, or blocked
+Clean up: Pre-test state
+
+
+
+
+11. What are the common API testing types?
+	While there are certainly specialty tests, and no list can be asked to be comprehensive in this realm, most tests fit broadly into the following nine categories that you should remember before attending an API testing interview.
+
+		Validation Testing
+		Functional Testing
+		UI testing
+		Load testing
+		Runtime/ Error Detection
+		Security testing
+		Penetration testing
+		Fuzz testing
+		Interoperability and WS Compliance testing
+
+
+30. What is the most popular way to represent a resource in REST?
+	REST uses different representations to define a resource like text, JSON, and XML. 
+XML and JSON are the most popular representations of resources.
+
+
+====
+
+You can also integrate Postman with CI/CD tools like Circle CI, Jenkins, etc.
+
+=====
+In Postman settings:
+	Enable SSL certificate verification option (on/off) ---> is on 
+			Verify SSL certificates when sending a request. Verification failures will result in the request being aborted.
+
+	- Encode URL automatically option (on/off) ---> is on 
+			Encode the URL's path, query parameters, and authentication fields.
+
+========
+15) What is a Pre-Request script?  ---> field in postman
+Pre-request scripts help you to execute JavaScript before a request runs. It allows you to accomplish pre-processing tasks like setting variable values, parameters, headers, and body data.
+
+======
+
+5) What is API?
+Application Programming Interface (API) is a software interface that enables two applications to interact with each other without any user intervention. It is a collection of software functions and procedures. API is defined as a code that helps two different software communicate and exchange data with each other.
+
+=====

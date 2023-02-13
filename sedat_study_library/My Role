@@ -1,0 +1,45 @@
+
+I am responsible for developing new autmation scripts and maintaining the “Automated testing framework”.
+
+		I perform different types of functional tests like; integration , smoke , regression  and end-to-end testing S
+				 also I perform non-functional tests like load testing, stress testing and spike testing.
+
+
+		I create test scenarios and test cases for the stories that i am assigned.
+			Once the user-stories are ready for testing, I execute these test cases and attach the test artifacts to Jira ticket.
+			At the end of the sprint, I provide demo if all tests pass.
+			If I find a defect, I create a bug issue and track it until it is resolved.
+
+		I am also responsible from smoke test suite. 
+			I maintain this suite and I also maintain its CI/CD tool integration. 
+			Smoke Test results are sent to team every mornning and if some tests fail,
+			I find the root cause and inform the team about the nature of this failure.  
+
+
+		I also participate in runnning regression suite before each release. 
+			I monitor the test executions to see if anything is wrong. 
+			I analyse the test result and I provide a pass-fail report. 
+			Again, If I find a defect, I create a bug issue and track it until it is fixed.
+
+
+		Besides these duties, I participate in all scrum meetings.	
+		Especially, in Sprint plannings, I make sure the Acceptance criterias of the user stories are clear and test data is availaable.
+
+
+		As a CROSS FUNCTIONAL team member, I also help other team members. 
+			I participate in code reviews. (Break)
+			I also review my peers test scenarios and test cases and provide my inputs. 
+
+
+		These are briefly my roles.	
+
+======================================================
+
+
+
+
+
+Determine root cause of issues (i.e. database, file systems, etc.) and work with the  Development teams to resolve them 
+
+
+		=== ? I also do production support in every major release. If there is any issue on the deployment I immediately contact with team lead to fix the issue ASAP.

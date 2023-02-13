@@ -1,0 +1,272 @@
+AWS:
+
+
+
+Understanding AWS Core Services
+by David Tucker  -------------------> continye from incluiding "Content and Network Delivery Services"
+
+Cloud - 
+	Introduction to cloud computing: SaaS, PaaS, and IaaS.
+Services 
+	- This includes the following services:
+		Computing and data processing (EC2, Lambda) to manage virtual machines and event-driven computation
+		File Storage (S3) to store and access objects efficiently
+		Networking (VPC, Route 53) to configure networks and routing
+		Database to store SQL (RDS) and NoSQL (DynamoDB, SimpleDB) data
+		Notification (SNS) services for portable devices like cell phones
+		Message (SQS) storage and transfer service for communication and process management
+		Others: Time Sync for accurate current time and CloudFormation to automate work, etc.
+Security 
+	- Shared Security Model, Compliance and Artifact, Web Application Firewall(WAF), Inspector, Trust Advisor, CloudTrail, Cloud Watch, Identity and Access Management (IAM) services
+Billing 
+	- The pricing and billing structure of different services as per usage, quota, and plans
+
+
+
+- We interact with AWS with 3 methods.
+
+	1. AWS Console: Reached from browser to management console.
+					A web and app based interface for interacting AW services
+
+	2. AWS CLI: Command line access for administering AWS resources
+				Same service reach but through CLI
+				Can do repateable work through custom scripts like SDK below
+
+	3. AWS SDK : Programmitaccly access to services
+				 Feature is baked into our application and run on demand	
+				 Supported among a variaty of languages
+				 If you repeat work , can use this by aumating process.
+
+
+Two user types:	
+	1. Root --> Account owner that performs tasks requiring unrestricted access
+	2. IAM  --> User within an account that performs daily tasks.
+
+Regions: Locations where the services launches.
+Some services don't require region.(Global) ex : Route53(DNS Domain registeration service)  --> can register domain
+
+
+======
+
+Using AWS CLI:
+	Access AWS access keys --> get it for IAM users not for Root user
+	Install
+	Configure AWS CLI for a specific user
+		aws configure --profile sedat  --> profile_name == sedat
+				access key
+				secret key 
+				Default region --> us-east-1
+				Default output format --> json
+
+		ex run: aws s3 ls --profile sedat  ---> lists S3 Buckets
+	Interact with AWS through CLI
+
+==========================
+
+Compute Services:
+	A service that enables cloud-based virtual machines for workloads.
+	Ex: web content to visitors
+		running databases
+		calculating statistics from a data set
+
+	Will look at 3 compute services:
+		1. EC2 --> Elastic-Compute-Cloud : Virtual servers in the cloud. provides secure and resizable virtual servers on AWS
+		2. Elastic Beanstalk --> Platform for scaling and deploying web apps and servces
+		3. Lambda --> Enables compute without managing servers
+
+
+=======
+
+EC2 Concepts:
+	Instance types  --> defines processor, memory and storage type. If want to chane --,> need to down it first
+						1. General purpose
+						2. Compute, memory and storage optimized
+						3. Accelerated computing (GPU - ai)
+
+						Price depends on instance type
+
+	Root device types: Need to know two different types
+						1. Instance Store: storage is gone when VM is down. Attached to VM
+						2. Elastic Block Store(EBS) : data persist even VM is gone. Seperated from VM	
+
+	Amazon Machine Image(AMI): Template for EC2 instance including configuration, operating system and data
+							   AWS PROVIDES MANY AMIs that can be picked from 
+							   AMIs can be shared across acoounts
+							   Custom AMIs can be created based on your config
+							   Commercail AMIs are available in AWS Marketplace from commercial vemdors
+	Purchase options plans:
+						1. On-demand --> default model
+						2. Reserved --> provides discounts over on-demand model when you commt to fixed period of time(1 or 3 years).
+										It also provides a capacity reservation for the specific instance type that you specify.
+										Guaranteed to be there
+										Can pay all upfront or partial upfront(rest monthly), no  upfront (all monthly)
+										There are multiple reserved instance types:
+											1. Standard: Highest discount, works for steady workloads
+														 Can't change config settings (can't change cpu, ram ets)	
+											2. Convertible: Enables coversions. works for steady workloads
+											3.Scheduled Reserved Instance: Works for a time window you reserve. Good for predictable workload
+
+						3. Savings Plan: Similar in concept to reserved instances
+										 this is not limited to EC2 like reserved plan above
+										 Supports EC2, Fargate and Lambda
+										 Unlike Reserved instances, it doesn't reserve capacity
+										 1 or 3 year term
+										 Provides savings up to %72	
+						4. Spot : Biggest price reduction
+								  Good when less EC2 demand at that time and trying to use this resource
+								  When you request instance, if your bid is higher than Spot price they will lunch, like stock buy/sell
+								  If the Spot price gets > your bid price ---> your instances will be terminated.
+								  		will get 2 minute prior notification 
+								  Useful if your work doesn't get affected when instanceterminates
+								  Can provide up to %90 discount over on-demand pricing
+								  There is a market price for instance types per availabilty zone called Spot price	
+						5. Dedicated: gives you a dedicated physical server
+									  Most expensive option.
+									  Need to know ywo use cases why needed see below:
+									  	1. If you have a per-server licensing model and you want to make sure you are abiding by the terms of that license
+									  	2. For some compliance requirements: It requiresthat you utilize a dedicated host
+
+
+						Summary: 1. If you have an instance that is consistent and always needed --> purchase Standard or Convertible Reserved Instance
+								 2. If you have batch processing where the process can start and stop without affecting the job --> Spot Instances
+								 3. If you have an inconsistant need for instances that can't be stoppped without affecting the job --> On-demand instances
+								 4. If you have specific per-server licemsing or if you have a compliance requirement for a dedicated server --> Dedicated host
+								 5. If you leverage Lambda and/or Fargate alongside EC2 and want to achieve discounts for 1 or 3 years, choose a Savings Plan
+								 6. If you have predictable but not steady workload in EC2 --> Scheduled reserved instance
+
+===================
+Launcing a EC2 instance:
+	- launch a new EC2 intance based on an AWS AMI
+		Choose AMI
+		Choose Instance type
+		Configure instance
+		Add storage: Additional EBS volumes and instance store volumes
+		Add tags : key : value pairs. A copy of tag can be applied to volumes, instances or both.
+						 Tags will be applied to all instances and volumes
+		Configure Security group : Set of firewall rules that control the traffic for your instance.
+								   Add specific rules to allow specific traffic to reach your instance.
+								   Cuurently any IP adress , any user can atamo to log into server and manage it
+								   		To limit access --> 
+								   			1. chose -> Source -> My Ip
+								   			2. Add Rule -> Type -> HTTP --> Source -> Custom -> 0.0.0.0/0 --> anyone can access to webserver (website we serve?) 
+
+		Reviews
+		Launch --> Click Launch to assign a key pair to your instance and complete launch process
+				   A key pair consists of a public key that AWS stores and private key file that we store. Together they allow to connect to your instance securely.
+				   For windows AMIs, private key file is required to obtain the password used to log into yout instance
+				   For Linux AMIs, the private key file allows you to securely SSH into ypur instance.	
+
+	- explore EC2 launch wizard in AWS console
+	- configure EC2 instance to be used as a web server
+	- terminate an EC2 instance
+
+		In configuring EC2 instance, there is Advance details -> User Data. Here can write shell command to be run during instance cretauoin:
+			ex: #!/bin/bash
+				yum install httpd -y
+				service httpd start 
+
+			In above example, download a webserver then start that webserver 
+
+
+
+==========================
+Elasctic Beanstalk: 
+		Amazon Web Services (AWS) comprises over one hundred services, each of which exposes an area of functionality. While the variety of services offers flexibility for how you want to manage your AWS infrastructure, it can be challenging to figure out which services to use and how to provision them.
+
+		With Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without having to learn about the infrastructure that runs those applications. Elastic Beanstalk reduces management complexity without restricting choice or control. You simply upload your application, and Elastic Beanstalk automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring.
+
+		Elastic Beanstalk supports applications developed in Go, Java, .NET, Node.js, PHP, Python, and Ruby. When you deploy your application, Elastic Beanstalk builds the selected supported platform version and provisions one or more AWS resources, such as Amazon EC2 instances, to run your application.
+
+		You can interact with Elastic Beanstalk by using the Elastic Beanstalk console, the AWS Command Line Interface (AWS CLI), or eb, a high-level CLI designed specifically for Elastic Beanstalk.
+		
+	- Another Compute
+	- services makes it easier to use other AWS services.
+	- We still theoritically running all our compute on EC2 but he process of managing those servers and handling things automatically like provisioning (Cloud provisioning is the allocation of a cloud provider's resources and services to a customer) and load balancing. (In computing, load balancing is the process of distributing a set of tasks over a set of resources, with the aim of making their overall processing more efficient. Load balancing can optimize the response time and avoid unevenly overloading some compute nodes while other compute nodes are left idle.), scaling and monitoring
+
+	- Autmates the process of deploying and scaling workloads on EC2 (PaaS)
+	- Difference: Instead of dealing with servers directly whic we call Infastructure as a Servive(IaaS).],this is more a Platform as a Service type approaxch. 	Because of this it supports a set of technologies
+	- Unlike EC2 where you can really do anything you want as long as you can get it up and running on a server, here Elastic beanstalk works witin a set of technologies.It leverage existing AWS Services and you only pay for other services you leverage --> this brings us a new category for us and these are just services makes it easier to use other AWS services.
+
+	- Supported Application platforms:
+		Java, .NET, Python, PHP, Node.js, Ruby, Go, Docker
+
+
+	- why choose Elastic Beanstalk over EC2?  features of beanstalk ???
+		-Integrated monitoring
+		-Deployment(load balancing, deploying to many servers, etc)
+		-Scaling: handling inceraing demand
+		-EC2 customization
+
+	-Use Cases:
+		Deploy an apllivcation with minimal knowledge of other services.
+		Reuce the overall maintenance needed for th eapplication
+		Few customizations are required
+
+
+									 
+============================================================================
+
+Network and Content Delivery Services (6 of them):
+	Amazon Route  53
+	Amazon VPC (virtual product cloud)
+	AWS Direct Connect
+	Amazon API Gateway
+	Amazon CloudFront
+	Elastic Road Balancing
+
+-----
+Amazon VPC
+
+	 Your own isolated cloud where you can use AWS services ex: launch you EC2 this virtual cloud 
+	 It  enable you to have a virtual network in AWS.
+	 In VPC, you can support both IPv6 and IPv4 addresses
+	 VPC, allows you to configure:
+	 	- IP address range
+	 	- Subnets
+	 	- Route tables
+	 	- Network gateways
+	Supports public and private subnets ( create ares that can't communicate or can't be reached from the internet or you can allow a webservice to be reachable from internet)
+
+	If you have private subnets, you can use network address translation (NAT) FOR THESE PRIVATE SUBNETS
+
+	Enables a connection to your data center 
+
+	Can connect to other VPCs ( peering connection or use transit gateway to be able to connect multiple VPCs)
+
+	Supports private connections to many AWS services
+
+
+	 	Summary:
+	 		Enables virtual networks in AWS
+	 		Supports IPv4 and IPv6 
+	 		Allow for configuration of 
+	 			- IP adress range
+	 			- Subnets
+	 			- Route tables
+	 			- Network gateways
+	 			- Support public and private subnets
+	 			- If you have private subnets, you can utilize NAT(network adress translation) for those private subnets
+	 			- Enables  a connection to your data center
+	 			- Can connect to other VPS's
+	 			- Supports private connections to many AWS services
+
+-----
+
+AWS Direct Connect:
+	 Service that makes it easy for you to establish a dedicated network connection from your datacenter to AWS.
+	 	So let's say, for example, you have a business application that uses application data that's stored within your datacenter, but the application itself is running on AWS. Well, it would be ideal to have a high‑speed connection between your datacenter and AWS directly, as opposed to having to send it through the internet. And that's what AWS Direct Connect provides for you.
+
+------
+
+Amazon Route 53
+
+	this is Amazon's DNS service
+	By using this, we can create highly availbale applications by directing request to different server in the globe if some server is not available
+	at a high level, Amazon Route 53 is a domain name service
+	global service (location independent, not regional)
+	Alost available all time( minimal downtime)
+	Enables global routing ( you can send specific people to specific server depending on their location or to server that response fastest)
+
+	DNS : translates more memorized domain names(in words ex: getiramarika) to their nmerical IP addresses needed for locating and identifying computer services and devices with underlying network protocols
+
+	Changes to these settings are not instant. May take some hours to be picked up by other services 

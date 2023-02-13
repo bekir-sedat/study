@@ -1,0 +1,164 @@
+	
+=========https://www.softwaretestinghelp.com/sdet-interview-questions-and-answers/=========
+
+======================== TALK SLOW AND NICELY ===============
+
+First of all, I would like to thank you for giving me this opportunity and I really appreciate your time.
+
+I have been in the IT industry little over 8 years. 
+
+During these years I have worked mainly in Finance and Logistics domains.
+
+I am working as a Senior SDET now. 
+
+As being part of a QA member in my projects, my goal is always to release the highest quality product. 
+
+Through out my career, I have successfully tested web-based applications, client-server type applications and database applications. (break)
+
+I have strong programming skills and I am very good with Object-Oriented Programming concepts.
+
+I've worked with different programming languages in my career and I am very good with Java, Python, C# and SQL.
+
+I am currrenly holding Oracle's OCA and OCP Java 7 certifications.  ------ [ TALK SLOW AND NICELY ]
+
+My most powerful skill is creating Automated testing frameworks from scratch and integrating these frameworks with CI/CD tools. (break)
+
+In My last project, I created an Automated testing framework from scratch using Python and Pytest as well.  (break)
+I performed ETL Testing and data comparisons between different DataMart and staging tables. 
+
+I have a strong understanding of SDLC and I am very familiar with Agile Scrum methodology.  (break)
+
+If you let me go over the some major testing tools that I used in my previous projects: 
+	I used: 
+    	- Selenium Webdriver for UI Automation. (break)
+
+	    - Cucumber and Gherkin Language to implement BDD approach.  (break)
+
+	    - Postman for manual Api testing.   (break)   ,RestAssured and RestSharp for Api autmation   (break)
+
+	    - SQL Developer and TOAD for manual database testing ,  (break) , JDBC and SqlAlchamy libraries for automated database application testing
+
+	    - For performance tests such as load, stress, spike tests as well as scalibilty and reliability tests, I used JMeter
+
+	    - For the unit testing frameworks, I've used:
+	    	TestNG, Junit, Xunit and Pytest.	
+
+For CI/CD implementation, I am using Jenkins to run scheduled and triggered test suites.  (break)
+Also I used Apache Airflow in my last project to run the scheduled smoke tests. 
+
+For Version Control System, I've been using Git and I have experience with Bitbucket and Github. 
+
+
+Personally, I really like to learn new things and trying constantly improve my skills with new technologies. 
+Also sharing my knowledge with others and helping them makes me really happy. 
+
+If you ask my team-mates about me, they would probably tell that I am a problem solver. I am good at finding a way to solve a problem.(break).
+
+
+So this is briefly all about me ========================
+
+
+
+I am using JIRA for project management and bug tracking.
+
+But, In my latest project, I used Apache Airflow to run automated tests daily from containers. 
+because the application was running in Airflow and tests were integrated To run after ETL process is done. 
+ There is a "transactions" table, consisting of: transaction ID, character column for customer name, real column for the amount, integer foreign key for the region. There is a regions table, consisting of: region ID primary key, character column for region name What is the SQL query to show the total sales amount for each region?
+
+
+
+ Select R.region, SUM(T.amount)  from Transaction T join Region R on T.region = R.region_ID
+
+
+0.00020939
+
+Inventory and other asseet management -- crs
+invester dasboard -- mor
+internal use servise, forecasting report -- ey
+
+	
+
+Modular: The framework should be adaptable to change. 
+Reusable – The commonly used methods or utilities should be kept in a common file which is easily accessible to all the scripts. 
+Consistent – The test suite should be written in a consistent format by following the coding practices
+
+
+
+If I want to give more details about the tools that I use for Aumationn Frameworks
+
+When I need to use Java for testing, 
+	I create my testing framework as a Maven project. 
+	For UI testing, I use Selenium Webdriver. To implement BDD approach, I use Cucumber and Gherkin language.
+	For API testing, I use RestAssured libraries.
+	For database testing, I use Java JDBC libraries.
+
+	I used either TestNG or Junit for unit testing frameworks to run and manage tests
+
+
+When I need to use C#,
+ 	I create my testing framework as a VisualStudio Xnit or NUnit Test Project
+ 	I used RestSharp for API testing
+ 	For UI testing, I use Selenium Webdriver. To implement BDD approach, I use Specflow
+ 	Selenium and Specflow can be used for UI testing but I didn't need to do UI when i used C#
+
+ 	I used xUnit unit testing framweork to run and manage tests
+
+
+With Python,
+	I am doing database testing using sqlalchamy, Pandas, Numpy libraries
+	I am using pytest to run and manage the tests
+	I haven't performed UI and API testing using Python , but i can quickly learn and implement related libraries with it.
+
+
+For continuous integration, I work with Jenkins. 
+
+But, In my latest project, I am using Airflow to create scheduled autometed tests. 
+
+For Version Control System, I use Git. 
+
+I am very familier with Agile Scrum Sofrtware development Methodology and very well exposed to all scrum ceremonies. 
+
+Personally, I really like to learn new things and improve my skills. 
+Also sharing my knowledge with others and helping them makes me really happy. 
+
+If you ask my team-mates about me, they would probably tell that I am a problem solver. I am good at finding a way to solve a problem.(break).
+
+So this is all about me=========================
+
+
+I have extensive experience in manual and automated tests.  ????
+
+In my career, I've created Automation frameworks to test UI's , API endpoints and Databases services.
+
+
+
+
+Weakness --> lack of experience on some tools when new --> may be not good
+
+Can you tell me about a difficult work situation and how you overcame it? --> ask me to developed a ui for --> I did it in pygui
+
+
+so I’d openly communicate that there was a high-stress situation and ask if anyone had the time to pitch in and help troubleshooting
+
+
+==========
+
+
+git add. Usage: git add [file] ...
+git commit. Usage: git commit -m “[ Type in the commit message]” ...
+git diff. Usage: git diff. ...
+git reset. Usage: git reset [file] ...
+git log. Usage: git log. ...
+git branch. Usage: git branch. ...
+git checkout. Usage: git checkout [branch name] ...
+git push. Usage: git push [variable name] master.
+
+
+
+==================
+
+
+
+Inventory asseet management and maintenenace-- cr  ---> 
+invester dasboard -- mor
+internal use servise, internal report -- eyy

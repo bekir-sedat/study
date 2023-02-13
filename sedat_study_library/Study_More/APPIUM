@@ -1,0 +1,102 @@
+APPIUM (All ui test) --> locate element perform actions on them
+
+
+
+Getting Started with UI Testing and Appium 1
+by Marcel de Vries  ---> continue from incluyding "  Creating Your First Tests  " section
+
+ (appium extends webdriver)  ---> I think
+
+ Two ways to run Appium
+ 	Appium can be installed in one of two ways: via NPM or by downloading Appium Desktop, which is a graphical, desktop-based way to launch the Appium server.
+
+ 	1. From GUI
+ 		here we start our serveer with url + port
+ 		driver = new WindowsDriver<WindowsElement>(new Uri(url+port+wb/session), capabilities)
+
+ 	2. From Node.js server (good when used in CICD)
+ 		service = AppiumServiceBuilder().usingAnyFreePort().build()
+ 		service.start()
+ 		driver = new WindowsDriver<WindowsElement>(service, capabilities)  --> notive WindowsElement
+
+node.js ---> server side logic(servers, apis ..) using javascript
+
+Apache Cordova --> making mobile, windows, mac apps usin javascripts
+
+RegisteredUserModeAppId ---> 242343-23432-qwewq-12-1312
+	use this id in capabilities.
+	driver will start this app
+
+
+selenium --> webdriver
+appium (windows app) --> WindowsDriver
+appium android ---> UIAutomator2
+		
+ 
+ selenium webdriver is just for browser autmation. Appium extends to mobile device wimdows app etc.
+
+ node.js server may be started locally where you run tests or you can host Appium server as part of your running tests
+
+ to talk to server, we need a client library tha understands the webdriver protocol and translated this into a client library that we can use easily 
+
+ Jasmine unit testing framework for javascript
+ Espresseo --> aNDROID ui tests framework
+
+
+
+ Appium is api using HHTP. Any library can use it. Java, Python , C#, Javascript  --> usew any these client libraries to talk to Appium
+
+ Client Libarr  <--->  Appium Server( Wbdriver Api is in this Server, Different Drivers (Ios, Android, Windows, Mac))
+ 	Installing specific drivers require specific setup
+ 		We need either a pyhsical device or emulator/simulator
+ 			Appium gives yoy a consistent set of APIs to program against while you write tests againsts the device, emultor or simulator that matches the same platform
+
+
+Define Aappium options before starting test to set device / driver ...
+
+Windows:
+	When we run our tests on Windows, we can test all sorts of applications(Win32, Winforms,WPF, ...UWP)
+	In your tests, we need to indicate which type of applications we want to test by specifying this in the startup options when we start the test.
+	We call these Appium Options. Appium options contains info ex: locatuon of app on the local file sytem. --> Driver will figure out how to drive the app.
+	Driver nedds to be installed on the machine that runs the test 
+	Windows driver is called WinAppDriver
+	Windows Appium driver has also a specail option that can serve as an Appium server itself as well.
+
+Android Platform:
+	We can test against an Android device or emulator
+	Two types of Driver at this momemt. Fisrt one will be depreciated
+		1. UIAutomator Driver
+		2. UIAutomator2
+	UIAutomator2 is part of Android SDK and you primarily need to install the Java and Android SDK to get thinngs up and running
+	On Android, you can test UI using a test framework called Espresso
+	Threre is also an option to use Espresso driver
+	You can switch between drivers pretty easily by specifiying the Appium  options at startuo of the test and defie the driver yoiu want to use.
+	Drivers for Android all use  tool that comes with Android SDK called Android Debug Bridge (ADB)
+	ADB takes care of installing some utilities on device that Appium needs and it will install your app on the device if it is not there when you start your test
+	You can even have the drivers start your emulator for you --> so it makes it very easy to use in CI/CD pipelines
+	CICD --> our tests can be part of build or deployment automation
+
+IOS Devices
+	Can test against real/ emulator
+	In this case Appium Server needs to run on a Mac. The reason is iOS development requies Xcode and Xcode is only available on the mac
+	This means we need to install the Appium server on the Mac host
+	Driver we use called XCUITest driver. It makes use of a so-called webdriver agent that will be running on device under test
+
+
+Running Tests:
+ 1. We need to start and run an Appium Server or in our test code we start the server
+ 2. Send request to Appium server with the capabiulities you need
+ 	 wat type of deviceyou want to test on
+ 	 which application you want to run as part of test run
+ 3. The moment you send request with desired capabilities, The Appium server will take care of the rest. 
+ 	It will parse the required capabilities and  based on the information it finds, it will locate the appropiriate driver for the platform 
+ 	Then it will the device it needs to connect to and will take care of starting the applicatiojn and installing the requires apps on the device to run the tests.
+
+ 4. The call to Appium server is done on the endpoint where you started it.
+
+ 5. You send in an HTTP request and pass it in the required capabilities as JSON string as a part of body of the HTTP request
+
+ 6. Appium server will respond to this request with a response that contains the session identified of the session it created on the server.
+ 	For every subsequent call to Appium server, you always neeed to provide the session identifier.
+ 	This way the server can serve multiple test sessions at once on the same server
+================

@@ -1,0 +1,258 @@
+TestNg
+
+
+1. @BeforeSuite and @BeforeTest and @BeforeMethod can be used in a super base class then other inherited classes can access these.
+
+2. @Test(enabled = false) ==~ @Ignore
+
+3. @AfterMethod(alwaysRun = true)  --> Guarenteed to run even test fails
+
+4. TestNG Parametrized Test ---> 
+      Object[][] objs = {{2,3},{"dd","dsd"}}; or Object[][] objs = new Object[] [] {{2,3},{"dd","dsd"}};
+     
+	@DataProvider(name = "test1")
+	public Object[][] createData1() {
+	 return new Object[][] {
+	   { "Cedric", new Integer(36) },   ----> NOTICE 2 PARAMETERS if {"Cedric", new Integer(36)," Ankara"} --> String,int,String 3 params.
+	   { "Anne", new Integer(37)},
+	 };
+	}
+
+	@Test(dataProvider = "test1")
+	public void verifyData1(String n1, Integer n2) {
+	 System.out.println(n1 + " " + n2);
+
+
+5. If you want to put your data provider in a different class, it needs to be a static method or a class with a non-arg constructor, and you specify the class where it can be found in the dataProviderClass attribute:
+
+	public class StaticProvider {
+	  @DataProvider(name = "create")
+	  public static Object[][] createData() {
+	    return new Object[][] {
+	      new Object[] { new Integer(42) }
+	    };
+	  }
+	}
+	 
+	public class MyTest {
+	  @Test(dataProvider = "create", dataProviderClass = StaticProvider.class)
+	  public void test(Integer n) {
+	    // ...
+	  }
+	}
+
+6. Anntations attributes:
+  @Test(enabled = false, timeout = milliseonds, expectedException = "IOException", description = "SHOWN IN REPORT", priority = 3)
+
+7.	TestNG Prioritization | Priority Feature of TestNG
+	@Test(priority = 2)
+	@Test(priority = 3)
+
+	3 run first
+
+
+8. @Test(groups="smoke")
+   @Test(dependsOnGroups="smoke")  ---> above test run first
+
+   run "smoke" first then "regression" if "smoke" fails, dependent("regression") won't run --> save time
+
+
+8. - TestNG SoftAssert class:
+		SoftAssert soft = new SoftAssert();
+	    soft.assertEquals(2,2,"Error on 1st validation");
+	    soft.assertEquals(1,1,"Error on 2nd validation");
+	    ....
+	    soft.assertAll();
+
+
+9 . TestNG Annotations
+		@BeforeSuite: The annotated method runs before all tests in this suite.
+
+		  @BeforeTest: The annotated method runs before test classes.
+
+		    @BeforeGroups: The annotated method runs before the group’s tests.
+
+		      @BeforeClass: The annotated method runs before the first test method which belongs to any of the test groups. 
+
+		        @BeforeMethod: The annotated method runs before each test method.
+
+		          @Test: The annotated method is a test method. It executes the test.
+
+
+10. @Before
+			Starting a webdriver
+			Setting up DB connections
+			Setting up test data s
+			Setting up browser cookies
+			Navigating to certain page
+			or anything before the test
+
+	@After
+				Killing the webdriver
+				Closing DB connections
+				Clearing the test data
+				Clearing browser cookies
+				Logging out from the application
+				Printing reports or logs
+				Taking screenshots on error
+				or anything after the test
+
+
+11. How to run Cucumber with TestNG?
+• Add cucumber testNG dependency
+• Make CukesRunner extend to AbstractTestNG CucumberTests
+
+
+12. 	RegressionSuite.xml sample
+		
+		<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+		<suite name="RegressionSuite" verbose="1" >
+		    <test name="Regression1">
+		        <classes>
+		            <class name="com.sedat.tests.day8_windows.FakerPractice"/>
+		            <class name="com.sedat.tests.day8_windows.other2"/>
+		            <class name="com.sedat.tests.day8_windows.other3"/>
+		        </classes>
+		    </test>
+
+		</suite>
+
+
+		OR
+		<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+		<suite name="RegressionSuite" verbose="1" >
+		    <test name="Regression1">
+		        <packages>
+		            <package name="com.sedat.tests.day8_windows.*"/>
+		        </packages>
+		    </test>
+
+		</suite>
+
+		or --> more options like groups, methods, ... 
+
+13. To orgize tests more examine below.
+
+		<suite name="RegressionSuite" verbose="1" >
+		    <test name="API_TESTS">
+		        <classes>
+		            <class name="com.sedat.tests.day8_windows.api"/>
+		        </classes>
+		    </test>
+
+		     <test name="DB_TESTS">
+		        <classes>
+		            <class name="com.sedat.tests.day8_windows.db"/>
+		        </classes>
+		    </test>
+
+		</suite>
+
+13. In maven need maven-sure-plugin :
+			<build>
+		        <pluginManagement>
+		            <plugins>
+		                <plugin>
+		                    <artifactId>maven-surefire-plugin</artifactId>
+		                    <configuration>
+		                        <suiteXmlFiles>
+		                            <suiteXmlFile>RegressionSuite.xml</suiteXmlFile>
+		                        </suiteXmlFiles>
+		                    </configuration>
+		                </plugin>
+		            </plugins>
+		        </pluginManagement>
+		    </build>
+
+14. Test run in alphabetical order in same class. use @Test(priority) to change order
+
+15. Context is whereever you run the test 
+
+================================================
+
+16. - TestNG Parameters & Cross Browser Testing in TestNG
+
+public class MultiBrowser {
+
+	public WebDriver driver;
+
+  	@Parameters("browser")
+
+  	@BeforeClass
+
+  	// Passing Browser parameter from TestNG xml
+
+  	public void beforeTest(String browser) {
+
+  	// If the browser is Firefox, then do this
+
+  if(browser.equalsIgnoreCase("firefox")) {
+	 
+	//Initializing the firefox driver (Gecko)
+	  driver = new FirefoxDriver();	  
+
+  }else if (browser.equalsIgnoreCase("chrome")) { 
+
+	  //Initialize the chrome driver
+
+	  driver = new ChromeDriver();
+
+  } 
+
+  // Enter the website address in the browser
+
+  driver.get("https://www.demoqa.com"); 
+
+  }
+
+  // Once Before method is completed, Test method will start
+
+  @Test public void login() throws InterruptedException {
+
+	driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div/div[1]/div/div[1]")).click();
+
+	}  
+
+  @AfterClass public void afterTest() {
+
+		driver.quit();
+
+	}
+
+}
+
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Suite" parallel="none">
+ 	<test name="FirefoxTest">
+ 		<parameter name="browser" value="firefox" />
+ 		<classes>
+ 			<class name="MultiBrowser" />
+ 		</classes>
+ 	</test>
+ 	<test name="ChromeTest">
+ 		<parameter name="browser" value= "chrome" />
+ 		<classes>
+ 			<class name="MultiBrowser" />
+ 		</classes>
+ 	</test>
+</suite>
+
+================================================================
+
+How to rerun the failed tests again in TestNG?
+● In my TestNG framework, failed tests are reported in the testng_failed_.xml file in the target folder.
+● We can add this file in the pom file so that maven will try to run the failed tests every time.
+● If will only run when there are failures in the test.
+
+=========================================
+
+Define the correct order of tags in the TestNG XML file.
+
+<suite>
+  <test>
+    <classes>
+   <class>
+<methods>
