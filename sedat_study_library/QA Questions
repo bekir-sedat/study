@@ -1,0 +1,343 @@
+QA Questions
+
+
+==============
+
+What is Quality Assurance?
+Quality assurance (QA) is a system of testing which guarantees that the customer receives a high-quality product without critical errors. 
+
+
+QA’s goal, like the development team, is to release the highest quality product possible. 
+
+
+
+=======
+
+I do regiularly create stest casese run it and at the end of spint i run minor regression tests. I run major before the relalese. 
+
+====
+4 Benefits of QA
+	1. Increases Customer Confidence
+	2. Saves Time   ---> catching bugs early in development
+	3. Higher Quality Product  --> Without QA, products would take longer to develop and release with more bugs. 
+	4. New Perspective  ---> QA teams often have some input on software development. Their outside perspective can bring a unique point of view to the project. 
+
+
+
+=======
+
+
+2. What is a bug?
+A bug is any kind of error, mistake or failure in software code that prevent the software function from executing properly.
+
+====================
+3. What is the difference between severity and priority?
+These are important distinctions that must be known for proper time management. Severity is how difficult the issue is to fix. Priority is how important the issue is to fix.
+
+Just because an issue is high severity doesn’t necessarily mean it’s high priority and vice versa.
+
+Here’s an example of a high severity, low priority issue:
+
+The application crashes when a rarely used function is run on legacy software that most users can’t access.
+Here’s an example of a low severity, high priority issue:
+
+The wrong company logo is displayed on startup. 
+
+
+==============
+
+
+4. What is the difference between Assert and Verify commands in test automation?
+There is a lot of similarity between the two commands. Both check if the codes conditions are true. The difference is what happens next.
+
+When an assert command fails it will stop executing code and the test will pause.
+When a verify command fails it will plow ahead and execute the rest of the code.
+
+
+
+======
+
+5. What is the difference between Quality Assurance, Quality Control and testing?
+Quality assurance plans the way in which test process will be monitored within a team and organization. Quality control finds defects and suggests ways to improve the software. Testing is the process in which quality assurance and quality control find bugs.
+
+=====
+
+
+7. What is the QA testing life cycle?
+You can talk about the testing process that you're most familiar with, but here is a standard version:
+
+Requirements
+Planning 
+Analysis 
+Design 
+Implementation 
+Execution 
+Conclusion 
+Closure 
+
+
+============
+
+
+8. What is a test plan? 
+A test plan is a document that outlines the details of the intended test. It states before testing begins the required roles, potential risks and solutions, and resources it will use.
+
+talk about how the tests will be designed, how they will be executed, how defects will be managed, and what the test automation reporting will look like.
+
+
+
+
+=======
+
+16. What is a good test case?
+
+Typically, test cases should be small, isolated and atomic. Test cases should be easy to understand and steps should be executed fast. They should independent with each other & fail/pass independently from one another. Fairly, each good test should have defined its expected result
+
+A good test case clearly states the parameters in which the test will be performed and the bugs it hopes to find.
+
+========
+
+13. Are test strategies and test plans the same document?
+
+No. Test plans collect and organize test cases.
+
+Test strategies describe the approach towards testing. In general, test strategies are managed by the QA manager or QA lead while test plans are managed by the QA testers.
+
+=============
+
+12. What is a Test Strategy?
+The test strategy outlines the plan for the testing stage of software development.
+
+Unlike the test plan, which describes one specific test, the test strategy covers the entire testing phase of development and includes a description of the testing tools, test groups, test priorities, test record maintenance, and the test summary.
+
+=========
+
+
+19. When you find a bug in production, how do you ensure the bug gets resolved?
+The best course of action is to immediately write a test case for the bug , work with developers closely in tandem and finally run a regression test again. That way any future tests performed on the software should check specifically for that bug.
+
+
+
+
+===========
+
+22. Tell me about your most difficult project.
+Take a deep breath. Let it all come back to you, the emotions, the late nights trying to find the problem, the inordinate amount of take-out boxes piled up on your test.
+
+This is a great opportunity to let your passion for QA come out. Walk them through what caused you the most difficulty, why it was so hard to find the solution, and how hard you worked to resolve the issue.
+
+
+=========
+
+
+
+
+
+
+
+23. Tell Me about A Time You Missed a Bug
+In the very first question I told you to unselfconsciously put your best foot forward. This is why. Not every question is going to be phrased in a way that puts you in the best light.
+
+In a QA interview the person tasked with hiring needs to know that any potential team members are open about making mistakes.
+
+The worst thing a QA tester can do is act as if they’ve never made an error. Be open and honest. By the time you’re sitting in an interview, it’s a certainty that you’ve missed a bug or made a mistake. Talk them through the mistakes you made, how you resolved the problem, and what you’ve learned from it.
+
+======================
+
+24. How would you test a broken toaster?
+This is a bonus question because some organizations like these sort of questions and others don’t. On one hand it puts the interviewer in a difficult position, and one they almost certainly didn’t expect to be in. But the benefit is that it requires quick, out of the box thinking and presents an opportunity for the interviewee to demonstrate their creativity. 
+
+Due to the spirit of the question, I’m not going to tell you how to test a broken toaster. That’s up to you. 
+
+======================
+
+25. What are important characteristics for leaders in QA?
+A question like this will probably be among any set of QA engineer interview questions or similar positions geared towards leadership. You might also be asked this question because your future manager would like to know what qualities you look for in your leaders.
+
+Either way, the best answer is an honest one. Reflect on this and prepare to talk about what types of environments you work best in, and how leaders can help create that environment.
+
+Some ideas to talk about are strong communication, active listening, honesty, psychological safety, empowerment, autonomy, vision, and more.
+
+
+
+======================
+
+26. What do you think is the most important test metric, and why?
+There's no correct answer to this question, especially because your chosen metric will depend your goals and the type of test you're running—acceptance testing will measure very different metrics from exploratory testing, for example.
+
+To answer this question, prepare to talk about a common QA metrics such as "bugs per test" which can be applied to many different types of testing, and what insight this metric tells you.
+
+Also prepare to talk about the rationale for choosing a specific metric according to the goals of your test and the goals of the wider organization, and how you might go about doing it.
+
+For bonus points, you should check out Niall Lynch's piece on a QA metric that he has developed, called T2Q or Time to Quality—it can be applied pretty universally over any type of test, can be easily measured, and it tells you something meaningful about your test efforts.
+
+
+
+
+======================
+So, sanity testing is done to evaluate the stability of newly added features or code modifications in the current build. Regression testing is done to verify that all areas affected by functionality changes or code changes are stable.
+
+
+=============
+
+Any test that needs to be performed repeatedly should be automated. 
+
+
+=======
+
+Even though each test case should have a narrow focus, there should be cohesion in your test case suite. Your test case suite should have a scope that is adapted to the scale of your project.
+
+==========
+
+
+
+========
+
+black box from end user perspective
+white box, no need fully developed in tems of ui, testing the units(functionality) of the feature
+
+In grey box testing the tester has some knowledge of the software’s internal structure and design (white box) but is still testing from the perspective of an end user (black box). Just like that, grey box testing was born. In grey box testing the design of the test will be developed by looking at the software’s internal structure and the actual test will be performed using the user interface.
+
+=============
+
+11. What is a Use case?
+Use cases describe the cause and effect of a function. 
+
+==========
+Testting Tecniques:  READ VERY GOOD https://www.softwaretestinghelp.com/software-testing-techniques-2/
+
+
+- Equivalence Partitioning
+
+ex Should be between 10-50  
+		Testcase 1 : Number is between 10-50
+		Testcase 2 : Number is less than 10
+		Testcase 3 : Number is greater than 50
+
+
+
+- Boundary Value Analysis
+
+ex: Check the salary of an Employee whose maximum salary is 20,000 and minimum is 10,000. 
+
+--> Boundary Value specification will be:
+											{9999, 10000, 20000, 20001}
+
+Test Case:
+
+S.No	Test Data	Expected Result
+1        9999			False
+2		10000			True
+3		20000			True
+4		20001			False
+
+
+
+
+- Decision Table Testing : Cause-Effect Graph: Each outcome becomes a test case
+
+
+
+Decision table testing is also called Cause-effect graphing. It uses different input conditions (cause) and their system results (output/effect) in a graph which is further converted into a tabular form. This technique provides a comprehensive representation of conditions and their actions i.e. of cause and their effects.
+
+Steps:
+
+	1. Causes (input conditions) and effects (actions) are listed for a module and a cause-effect graph is developed.
+	2. The graph is converted to a decision table.
+	3. The decision table is then converted to test cases.
+
+
+
+- Exploratory Testing
+Exploratory testing is all about exploring the application. Experienced testers can justify this testing technique with their experience and domain knowledge. Not much planning is required as the test cases are prepared while testing is being done. It requires minimum planning & maximum test execution.
+
+
+
+- Use Case Testing:
+
+Use Case testing is a technique wherein the use cases identify all the test cases that cover the complete system.
+Use Case represents the different ways in which the system can be used by the users. The use case divides the system behavior into scenarios, such that each scenario performs some useful action from the user’s point of view.
+
+Example:
+
+When a new user tries to create an account on a xyz website.
+
+
+
+-Check List Based Testing
+Checklist based testing is done using a pre-prepared checklist which is prepared by experienced testers and it keeps on updating with any new defect found while executing the checklist test cases.
+
+While delivering any change request or fix of any defect, the quick checklist is run to verify that no defect has occurred because of the new change. In case the time span available to deliver a product is less as a quick checklist can be of great help. This checklist is not related to User stories.
+
+
+=============
+
+
+
+oftware is highly complex, often with highly complex dependencies and often-hidden/concealed touchpoints between subsystems. Add to that the highly unpredictable way in which an end-user will ultimately use the system, and you have the perfect storm for the creation of or presence of subtle defects.
+
+The only time a defect is someone’s “fault” is if they put it there deliberately. Even if you think the defect is obvious, you likely have the luxury of either a) experience, or b) hindsight that the original coder didn’t have. The person who wrote the code was likely juggling a lot at the time, mentally speaking.
+
+There’s also the issue of easily misinterpreted requirements. Edge cases aren’t always clear. Hell, in my domain (mass spectrometry and gas/liquid chromatography), the “golden path” itself isn’t always clear!
+
+No one is to “blame” for defects. The only time a developer is to blame for a defect is if they put it there deliberately. And, the only time a tester is to blame for a defect is if they found it and chose not to report it.
+
+In all other cases, defects are simply the cost of doing business in software development. They’re a fixed part of an ever-changing landscape.
+
+=============
+
+How Do You Know When Regression Testing Is Done?
+
+You need to find a delicate balance between what you have time and resources to cover as part of the regression testing and the risk the team can assume.
+
+Here are some things the testing team can into account when estimating risk:
+
+If a feature is intensively used by the software’s users, it should be given priority in the Regression Testing plan.
+Technical areas of the product that have proven to be stable in the past, and have been known to generate good test reports, are less risky so the software testers may choose not to include them as part of the Regression Testing.
+Analyzing previously reported defects, either from customers or from the internal QA team, can help to identify weaker areas of the app where the regression efforts should be focused on.
+If there are bugs that have stayed open for a long time without being fixed, that means that those areas have little impact on the user's workflows, and the users have found workarounds for them.
+Regression Testing Techniques
+The most important techniques used when performing regression are: 
+
+Complete regression, also known as retest-all
+Regression Test Selection, and
+Test case prioritization
+
+=========
+
+
+Agile Regression Testing
+When working in an agile environment, new features are introduced every sprint, and the regression test suite should always be kept up to date to assure the appropriate operation of all features after the sprint. The regression suite should continually add test cases matching all the tested and stable features, and test cases that are no longer applicable should be eliminated
+
+
+======
+
+
+Unit Testing vs Regression Testing
+The goal of unit testing is to validate that individual units of code independently work as expected. It's carried out as the code is developed, unit by unit, early in the development cycle. 
+
+In comparison, regression testing is performed later in the development cycle, when there are code updates or bug fixes. Regression testing usually covers the entire application or software.
+
+
+========
+
+
+Sanity Testing vs Regression Testing
+
+
+So, sanity testing is done to evaluate the stability of newly added features or code modifications in the current build. Regression testing is done to verify that all areas affected by functionality changes or code changes are stable.
+
+============
+
+2) What is Testware?
+Testware is test artifacts like test cases, test data, test plans needed to design and execute a test.
+
+============
+
+
+3) What is the difference between build and release?
+Build: It is a number given to Installable software that is given to the testing team by the development team.  -- increment buiild by one
+
+Release: It is a number given to Installable software that is handed over to the customer by the tester or developer.
+
+==============

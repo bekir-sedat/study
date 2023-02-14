@@ -1,0 +1,130 @@
+Development started with simpler logics which are straight, default, transform 
+
+# conftest.py
+
+def pytest_addoption(parser): -----> HOOK
+    parser.addoption("--name", action="store", default="default name")
+
+use pytestconfig fixture for gettin value via --> pytestconfig.getoption("name")
+# test_param.py 
+
+import pytest
+
+@pytest.fixture(scope="session")
+def name(pytestconfig):
+    return pytestconfig.getoption("name")
+
+def test_print_name(name):
+        print(f"\ncommand line param (name): {name}")
+
+def test_print_name_2(pytestconfig):
+    print(f"test_print_name_2(name): {pytestconfig.getoption('name')}")
+
+===============================================
+
+5. Describe your framework  ---> I used Data Driven Framework.  == Test data kept externally, in a file or coming from a method. (datadriven, keyword, hybrid)
+			
+			My framework was in Python.       TALK SLOW AND NICELY ===============
+			It was a Data-driven- framework      ====(test data not in test script)  TALK SLOW AND NICELY ===============
+			I used Pytest as unit testing framework to structure, manage and run my test scripts both from terminal and UI.
+			
+
+
+			I store ALL my automation test scripts under "TEST Package". (break)        TALK SLOW AND NICELY ===============
+				Here I created a Test-Base class and I extended new test classes from this base class for every new feed under development. 
+				I defined the " SET-UP " and " TEAR-DOWN " methods in this base class. 
+
+
+			I created a YAML file called by convention App.yaml in the root
+					        In this file, I defined framework-wise config parameters in key:value pairs such as:
+							- connection strings for different database environments
+							- URI's for different environmets for Sapiens Integration ----> API endpoints for Sapiens Integration
+							- usernames and passwords 
+							
+
+			I created Pytest.ini file in the root as well.
+							I use this file to customize  pytest behavior (break) 
+								In this file, (break)  I defined markers which help me to select and filter the tests to be run
+								I also defined 3rd party plugin config parameters here. 
+									- for example , for pytest-html plugin, (break)  I defined: 
+										RENDER_COLLAPSED  equals to "True" to collapse the test results displayed in the HTML report
+						 
+			I also created  Conftest.py module.  								
+			 				In this module, I defined fixtures and hooks.
+
+		 				   	This module mainly was handy when the tests were started by CI/CD tool.
+		 				   	The hooks that I defined in this module were parsing the command line arguments 
+		 				   	After parsing the parameters, I used them in the fixtures. Then tests were using these fixtures during test execution
+
+		 				   	I also used pytest-html plug-in hooks to create custom summary of the tests in the test report.
+
+
+			 
+			And I had my utilities package.
+				Here I keep all my utility methods. If I want to mention some:
+					a method that returns database connection engines for different environments and different database schemas.
+					a method that returns the list of columns that identify each unique row.
+					a method that creates a HASH value from unique row idetifier values using differnt hashing algoritms
+					a method that returns the columns according to their Logic types defined in the metadata. 
+
+		
+
+			To create HTML report, I added pytest-html plugin 
+
+
+
+
+============================== TSHATS IT  ======
+
+
+from sqlalchemy import create_engine
+
+engine = create_engine("postgresql+psycopg2://scott:tiger@localhost:5432/mydatabase")  ---> dialect+driver://username:password@host:port/database
+
+engine = create_engine("postgresql://scott:tiger@localhost/mydatabase")
+engine = create_engine("mysql+mysqldb://scott:tiger@localhost/foo")
+engine = create_engine("oracle+cx_oracle://scott:tiger@tnsname")
+engine = create_engine("mssql+pymssql://scott:tiger@hostname:port/dbname") --> Microsoft SQL Server
+
+
+with engine.connect().execution_options(autocommit=True) as conn:
+    query = conn.execute(text(sql))         
+df = pd.DataFrame(query.fetchall())
+
+
+
+
+
+
+
+Below is an example of a URL that includes the password "kx@jj5/g", where the “at” sign and slash characters are represented as %40 and %2F, respectively:
+
+postgresql+pg8000://dbuser:kx%40jj5%2Fg@pghost10/appdb
+The encoding for the above password can be generated using urllib.parse:
+
+>>> import urllib.parse
+>>> urllib.parse.quote_plus("kx@jj5/g")
+'kx%40jj5%2Fg'
+
+
+			
+			pytest runner: 1. from UI ---> adding a pytest run configuration and start from UI
+						   2. from terminal   
+
+
+
+yaml Yet Another Markup Language,
+
+
+
+
+
+line 5 ---> My framework was runnning tests to perform verification of ETL process for different feeds and products. 
+
+
+
+for different products 		(target_table, source_feed_name, cob_id) 
+
+
+
+a method that creates the list of Columns which is going to be used in parametrized tests.

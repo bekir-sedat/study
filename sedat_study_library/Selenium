@@ -40,6 +40,10 @@ Bonnie Gatcias WebDriverMaanager
 
 
 ==================
+
+https://w3c.github.io/webdriver/#dfn-element-click-intercepted  ----> All exceptions and explanations
+
+
 - No Such Element Exception :
 	Likely Cause
 		You are looking for the element in the wrong place (perhaps a previous action was unsuccessful).
@@ -86,6 +90,27 @@ Bonnie Gatcias WebDriverMaanager
 					CSS Validator
 					xPath Validator
 					Or use a browser extension to get a known good value: SelectorsHub
+
+ElementClickInterceptedException:
+	The element click command is executed on the center of the element. If the center of the element is obscured for some reason, Selenium will return an element click intercepted error.
+
+	JavascriptExecutor.executeScript("argument[0].click()" , webElement)  ----> Solves the proble
+
+	You’ll find this error mostly while using the Google Chrome browser but hardly ever while using the Firefox browser. The reason for this being common in the Chrome browser is because the Chrome driver always clicks in the middle of the element. So when you’re testing a dynamic application, there are chances that the element you want to click on isn’t at the exact location as expected.
+
+========================
+- direct click
+
+JavascriptExecutor js = (JavascriptExecutor)driver;
+js.executeScript("arguments[0].click();", element);
+
+-------
+
+- scroll to element and click
+
+WebElement element = driver.findElement(element locator);
+((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element); 
+element.click();
 
 
 =========================
