@@ -150,7 +150,12 @@ TestNg
 
 		</suite>
 
-13. In maven need maven-sure-plugin :
+13. To start run tests from pom.xml say for jenkins --> mvn test --options, need two PLUG-IN
+	1. maven compiler plugin
+	2. mave sure-fire plugin
+
+
+	In maven need maven-sure-plugin :(add compliler plugin)
 			<build>
 		        <pluginManagement>
 		            <plugins>
