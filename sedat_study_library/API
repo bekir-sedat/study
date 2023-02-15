@@ -68,3 +68,21 @@ Pre-request scripts help you to execute JavaScript before a request runs. It all
 Application Programming Interface (API) is a software interface that enables two applications to interact with each other without any user intervention. It is a collection of software functions and procedures. API is defined as a code that helps two different software communicate and exchange data with each other.
 
 =====
+
+15. How do you log a request and response in case REST Assured fails a validation? ---> log().ifValidationFails().
+
+given(). baseUri("http://localhost:8080").header("X-REGION", "NAM").log().ifValidationFails().when(.....)
+
+=======
+
+
+How do you use a REST Assured jsonPath to find all employee IDs between 15 and 300?
+
+JsonPath jsonPathObj = employeesResponse.jsonPath();
+
+List<Map> employees = jsonPathObj.get("company.employee .findAll { employee -> employee.id >= 15 && employee.id <= 300 }");
+
+=========
+
+
+What is static import and why would you use it in REST Assured?

@@ -15,6 +15,10 @@ What do you value most in a company?
 
 
 ==========
+Use the STAR Method Whenever You Can
+	STAR stands for the Situation, Task, Action, and Result. STAR is a structured method of answering interview questions and ensures that you will cover each facet of the problem. It’s wise to have an organized, consistent structure to your answers, and the STAR method is one of the better ways to keep you focused.
+
+========
 
 isDisplayed(), isEnabled() and is Selected() 
 
@@ -763,8 +767,13 @@ Actions object will have a lot of actions and finally we call actions.build() wh
 
 ========
 
-What is the same-origin policy in Selenium?
-	The same-origin policy is a critical security mechanism that restricts how a document or script loaded by one origin can interact with a resource from another origin
+Selenium WebDriver - What is same origin policy? How you can avoid same origin policy?methods?
+
+	The “Same Origin Policy” is introduced for security reason, and it ensures that content of your site will never be accessible by a script from another site. As per the policy, any code loaded within the browser can only operate within that website’s domain.
+
+	To avoid “Same Origin Policy” proxy injection method is used, in proxy injection mode the Selenium Server acts as a client configured HTTP proxy , which sits between the browser and application under test and then masks the AUT under a fictional URL
+
+
 =======
 
 		
