@@ -1,5 +1,38 @@
 API
 
+Post ---> 201
+Put, Patch --> 200 if not returning a body
+
+
+- List<Map> employees = jsonPathObj.get("company.employee .findAll { employee -> employee.id >= 15 && employee.id <= 300 }");
+
+- SCHEMA VALID body(JsonSchemaValidator.matchesJsonSchemaInClasspath("SingleSpartanSchema.json"))
+
+given(). spec(requestSpec)
+        .when().get("/spartans")
+        .then().spec(responseSpec);
+
+
+RequestSpecification requestSpec = given()
+                        .accept(ContentType.JSON)
+                        .and()
+                        .auth().basic("admin", "admin")
+                        .log().all();
+
+RequestSpecification userSpec =given()
+                .accept(ContentType.JSON)
+                .and()
+                .auth().basic("user", "user")
+                .log().all();
+
+ResponseSpecification responseSpec = expect().statusCode(200)   ---> notice expect() --returns ResponseSpecification
+                .and()
+                .contentType(ContentType.JSON)
+                .logDetail(LogDetail.ALL);       notice logDetail() --returns ResponseSpecification  //logging with response specficiation
+
+
+=========================
+
 What are the advantages of API Testing?  
 	n an API interview, they are likely to ask about the advantages of API testing. So be prepared with the significant ones such as:
 
@@ -19,10 +52,10 @@ Some common protocols used in API testing?
 	The five most important principles of an API test design are:
 
 	Setup: Create objects, start services, initialize data, etc
-Execution: Steps to apply API or the scenario, including logging
-Verification: Oracles to evaluate the result of the execution
-Reporting: Pass, failed, or blocked
-Clean up: Pre-test state
+	Execution: Steps to apply API or the scenario, including logging
+	Verification: Oracles to evaluate the result of the execution
+	Reporting: Pass, failed, or blocked
+	Clean up: Pre-test state
 
 
 
@@ -43,7 +76,7 @@ Clean up: Pre-test state
 
 30. What is the most popular way to represent a resource in REST?
 	REST uses different representations to define a resource like text, JSON, and XML. 
-XML and JSON are the most popular representations of resources.
+	XML and JSON are the most popular representations of resources.
 
 
 ====

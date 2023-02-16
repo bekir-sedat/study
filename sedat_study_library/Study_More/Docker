@@ -1,13 +1,57 @@
 Docker:
 
+Container is the isolated thing knows nothing about environment and use its own resources.
+ 1. Define dockerfile 
+ 2. Build image from dockerfile
+ 3. Run image
+
+if you use custon dockerfile:
+ 	A.$ docker build -t my_image -f app1.dockerfile .    ---> . is important
+ 														--> . -> build context. Where is the docker file relative to where you are running this command? Just go where docker file is and run above coammnd  from there
+
+ 	B. $ docker run -p <externalPort>:<internalPort> <image_name>	
+
+	$ docker images   --> list images
+	$ dockr  rmi  <image_id>  ---> remove image
+	$ docker ps -a ---> shows images hanging around docker
+	$ docker pull <image>
+	$ docker push <user name>/<image>:<version_tag>
+	$ docker rm <id> --> doesn't delete images. Removes Container
+		To delete images --> $ docker rmi <image_id>
+
+	$ docker logs <image_id> --> show container logs
+
+	To create a network:
+		$ docker network create --driver bridge <network_name>
+=====
+		$ docker network ls  ---> list the networks
+		$ docker network rm <network_name>  ---> removes network
+
+	Running Shell commands in the container:
+		$ docker exec -it <container_id or container_name> sh 
+
+=======
+
+ Key Docker-Compose Commands: USING YAML FILE
+		
+		1. $ docker-compose build   ---> builds images (LOOKS AT BUILD IN YAML)
+
+		2. Once the images are available:
+			$ docker-compose up
+
+		3. Once we done, tear down everthing
+			$ docker-compose down
+
+Images are immutable. Can't Update an image. You need to make a new Image if you want to update
+
 Docker was mainly invented to make programs OS-agnostic in order to facilitate development and deployment. A data scientist, for instance, can write his program on macOS and run it using Docker on the client’s IT infrastructure no matter its OS (macOS, linux, Windows, …).
 ================
 Docker introduces different notions:
-• Dockerfile: a set of actions that are executed with caching in the written order
-• Docker image: the system of files and installation (from the Dockerfile) you will need to run your program without any attached process
-• Docker container: is an instance of the image hosting a copy of all the files and the needed programs with an attached and interactive process through a terminal
-• .dockerignore: a file hosting all the paths of elements you don’t want to host on your docker image
-• entrypoint.sh: a cmd file that determines the commands to be launched when running the container
+	• Dockerfile: a set of actions that are executed with caching in the written order
+	• Docker image: the system of files and installation (from the Dockerfile) you will need to run your program without any attached process
+	• Docker container: is an instance of the image hosting a copy of all the files and the needed programs with an attached and interactive process through a terminal
+	• .dockerignore: a file hosting all the paths of elements you don’t want to host on your docker image
+	• entrypoint.sh: a cmd file that determines the commands to be launched when running the container
 ===========================
 Docker also provides Dockerhub, a cloud service that can host shared Docker images that can be pushed and pulled by teams. It also hosts official language images such as Python’s.
 

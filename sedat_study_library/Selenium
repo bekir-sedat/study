@@ -20,10 +20,29 @@ Use the STAR Method Whenever You Can
 
 ========
 
-isDisplayed(), isEnabled() and is Selected() 
+isDisplayed(), isEnabled() and isSelected() 
 
 
 ========
+Page Loading Strategy in Selenium Webdriver
+
+	1.Normal  --> wait for  "load" event to be fired
+		This command will make the web driver wait until the complete page gets loaded and this wait is looking for the load event to be fired .by default if we are not providing anything this will apply.
+
+	2.Eager  --> wait for  "DOMContentLoaded" event to be fired
+		If we are going to use Eager as a wait Strategy then webdriver will wait until the initial page gets loaded, this strategy won’t wait for loading of stylesheets, images, and subframes, In this WebDriver waits until the DOMContentLoaded event fire is returned.
+
+	3. 3.None
+
+			In this wait, Webdriver waits for initial page to be loaded
+
+Ex: 
+	ChromeOptions chromeOptions = new ChromeOptions(); 
+	chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL); 
+	WebDriver driver = new ChromeDriver(chromeOptions);
+
+
+===========
 driver first load page gets the dom and its version 1
 once page is refreshed gets new dom and its version 2 all referenced in version 1 are lost ---> stale element
 
@@ -95,7 +114,7 @@ https://w3c.github.io/webdriver/#dfn-element-click-intercepted  ----> All except
 					xPath Validator
 					Or use a browser extension to get a known good value: SelectorsHub
 
-ElementClickInterceptedException:
+- ElementClickInterceptedException:
 	The element click command is executed on the center of the element. If the center of the element is obscured for some reason, Selenium will return an element click intercepted error.
 
 	JavascriptExecutor.executeScript("argument[0].click()" , webElement)  ----> Solves the proble
