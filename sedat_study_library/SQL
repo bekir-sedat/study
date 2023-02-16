@@ -140,6 +140,16 @@ ex: Stored Procedure With One Parameter
 
 				EXEC SelectAllCustomers @City = 'London';
 
+ex: Stored Procedure With Multiple Parameters
+				CREATE PROCEDURE SelectAllCustomers @City nvarchar(30), @PostalCode nvarchar(10)
+				AS
+				SELECT * FROM Customers WHERE City = @City AND PostalCode = @PostalCode
+				GO;
+
+				EXEC SelectAllCustomers @City = 'London', @PostalCode = 'WA1 1DP';
+
+				
+
 CREATE PROCEDURE PROCEDURE_NAME
 CREATE TRIGGER TRIGGER_NAME
 

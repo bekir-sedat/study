@@ -63,6 +63,26 @@ Bonnie Gatcias WebDriverMaanager
 
 
 ==================
+Page Factory is a class provided by Selenium WebDriver to support Page Object Design patterns. 
+In Page Factory, testers use @FindBy annotation. 
+The initElements method is used to initialize web elements. 
+Similarly, one can use @FindBy with different location strategies to find web elements and perform actions on them
+
+
+ex:
+
+	public DynamicLoad1Page(){
+        PageFactory.initElements(Driver.getDriver(), this);
+    }
+
+    @FindBy(xpath = "//button[.='Start']")
+    public WebElement startButton;
+
+    @FindBy(id = "loading")
+    public WebElement loadingBar;
+
+    
+==========
 
 https://w3c.github.io/webdriver/#dfn-element-click-intercepted  ----> All exceptions and explanations
 
@@ -396,7 +416,7 @@ An implicit wait is to tell WebDriver to poll the DOM for a certain amount of ti
 
 -XPath contains text, sibling, ancestor, child, preceding, descendant, parent
  - non-brittle selenium find by statements ---> better xpath less btittle (dynamic)
- - we generally prefer to use id, name, class, etc., these locators. However, sometimes we could not find any of them in the DOM, and also sometimes locators of some elements change dynamically in the DOM
+ - we generally prefer to use id, name, class, etc., these locators. However, sometimes we could not find any of them in the DOM, and also sometimes locators of some elements change dynamically in the DOM`
 
 
 
