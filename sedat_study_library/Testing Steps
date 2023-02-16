@@ -1,0 +1,12 @@
+Testing Steps
+
+1. Go through the ACs and Understand the Functionality, Requirements 
+2. Test Plan documentation preparation
+3. Write Test Scenearios
+4. Write the test cases 
+5. Review scenarios and test cases with team
+6. Get the latest build and set-up test environment
+7. Test Executuion
+8. Bug report and tracking if any
+9. Sanity check in this build, Re-test and Regression
+10. Test sign-off
