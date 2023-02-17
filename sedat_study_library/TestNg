@@ -42,7 +42,7 @@ TestNg
 	}
 
 6. Anntations attributes:
-  @Test(enabled = false, timeout = milliseonds, expectedException = "IOException", description = "SHOWN IN REPORT", priority = 3)
+  @Test(enabled = false, timeout = milliseonds, expectedException = "IOException", description = "SHOWN IN REPORT", priority = 3, groups="smoke", dependsOnGroups="smoke", )
 
 7.	TestNG Prioritization | Priority Feature of TestNG
 	@Test(priority = 2)

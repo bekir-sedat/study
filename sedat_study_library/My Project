@@ -1,6 +1,5 @@
 My Project:
 	- I was in a team building a new ETL Automation Application
-	- Team was a subgroup of a bigger team maintaing the Bank's Metadata Server.
 
 	- The project goal was to replace jobs running on a third party ETL tool called Informatica with this new in-house application developed by my team.
 
@@ -39,3 +38,6 @@ source--> staging--> datamart
 
 
 	Load: After the data is transformed, it is loaded into the data warehouse. This step involves creating the physical data structures and loading the data into the warehouse.
+
+
+- Team was a subgroup of a bigger team maintaing the Bank's Metadata Server. ==> mention for etl related jobs
