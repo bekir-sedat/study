@@ -815,4 +815,7 @@ Selenium WebDriver - What is same origin policy? How you can avoid same origin p
 
 =======
 
+
+Assertions verify that the state of the application is same to what we are expecting. Selenium Assertions can be of three types: “assert”, “verify”, and ” waitFor”. When an “assert” fails, the test is aborted. When a “verify” fails, the test will continue execution, logging the failure.
+A “waitFor” command waits for some condition to become true. 
 		
