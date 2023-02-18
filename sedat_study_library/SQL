@@ -148,7 +148,7 @@ ex: Stored Procedure With Multiple Parameters
 
 				EXEC SelectAllCustomers @City = 'London', @PostalCode = 'WA1 1DP';
 
-				
+
 
 CREATE PROCEDURE PROCEDURE_NAME
 CREATE TRIGGER TRIGGER_NAME
@@ -632,7 +632,10 @@ same as above
 SELECT YEAR(birth_date) FROM patients GROUP BY year(birth_date)
 =======
 
+Note: Not all database systems support the SELECT TOP clause. MySQL supports the LIMIT clause to select a limited number of records, while Oracle uses FETCH FIRST n ROWS ONLY and ROWNUM.
 
+
+==============
 
 
 
