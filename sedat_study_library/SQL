@@ -636,6 +636,24 @@ Note: Not all database systems support the SELECT TOP clause. MySQL supports the
 
 
 ==============
+CREATE TABLE Student
+					(	sid         integer(5)   PRIMARY KEY,
+						name        varchar(20)  NOT NULL,
+						age         integer(2)   CHECK(age between 15 and 30),
+						b_date      datetime     DEFAULT now(),
+						course_id   integer(3),
+						foreign key (course_id) references courses(course_id) ON DELETE CASCADE
+  
+
+
+
+
+
+					)
+
+
+
+===================
 
 
 

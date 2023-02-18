@@ -1,7 +1,12 @@
 1) Structural Validations type tests
 	Validation of Data types , Fields, Column names Validation in source and target System
 
-2) Validate Constraints
+2) Validate Constraints (Integrity  test i think):
+	Check the contsraints applied correctly. ex Unique, Not null, default(get defaukt if no value given), Primary key == (Not null + Unique), Check  --> check(age between 15 and 30),
+	Foreign key(employee_id) references Employees(emoployee_id) on Delete cascad
+
+
+
 	Validating the constraints and makeing sure that they are applied on the expected tables.  ---> fetting from Table_constarints_table in database
 
 
