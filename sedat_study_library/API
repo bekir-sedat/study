@@ -1,5 +1,7 @@
 API
 
+webserver ---> 3 layer architecture--> client tier , Business logid tier, Dtabase tier
+
 Post ---> 201
 Put, Patch --> 200 if not returning a body
 
