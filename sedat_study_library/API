@@ -34,7 +34,269 @@ ResponseSpecification responseSpec = expect().statusCode(200)   ---> notice expe
 
 
 =========================
+API vs Webservise:
+	- Webservise is an API wrapped in HTTP
+	- All Webservices are APIs but not all APIs are Webservice
+	- Webservicce needs a networrk but, API don't need a network to operate
 
+	If you use an api in web ---> it is a webservice
+======
+
+Two types of APIs:
+	- SOAP (Simple object access protocol) -- only xml, function driven , only POST
+	- REST (Represen.. state Transfer)
+
+==========
+
+HTTP vs HTTPS (hyper text transfer protocol- secured)
+
+HTTP password tranfer not encrypted. Hackers may intercept and get the data being send in the request or respose?
+HTTPS passwor is encryptod
+
+======================
+URI --> Uniform Resource Identifer
+URL --> Uniform Resorce Locator
+URN --> Unform Resource Name
+
+
+SCHEMA + HOST + PATH
+
+https://www.gool.com/users 
+	- https:// 		----------> SCHEMA (PROTOCOL)
+	- www.gool.com	        ----------> HOST   (DOMAIN) --> where our data 
+	- /users 		----------> PATH   (RESOURCE)
+
+	RESOURCE WHAT WE REQUEST   --*********************8***
+
+
+	ENDPOINT ---> == /users ---== Resource
+
+
+Get endpoints from developers --> host may change but endpoints won't change
+============
+
+Feature vs Resource
+
+Feature  	a term used in manual testing to test some functionality
+Resource 	a term used in API testing referring functionality
+
+==========
+
+What is Payload?
+
+	Body in HTTP request and response message. (Its Data )
+
+========
+
+HTTP Request
+	1. URI
+	2. Headers
+	3. Payload - JSON or XML
+
+
+
+==========
+Postman
+	- can test REST and SOAP
+	- first define the Workspace
+	- Create Collections where folders and HTTP requests reside. Can run all Collection
+
+	- We can see status code, How much size data receives, How long did it take 
+
+	- If cookeies received in response, need to test it too
+
+	- If test scripts(validation points)) added in Postman, Test result  will be shown in the Respomse area of Postman
+
+	- sending json in postman --> select body > raw > Json
+
+	- Running Collections ---> inside Collection ... -> press Run Colloction --> Defime Order, Number of Iterarion and Delay
+
+	- If want to export Collection --> ... export --> this is in json format
+
+	- To create APIs in Postman  --> install NodeJS
+				     --> by using npm package maneger(go this after node js intallition) install json-server	
+				     --> npm install -g json-server
+
+
+				     --> save your xxx.json and go to this folder and run $ json-server xxx.json --> starts server in utl localhost:3000/xxx
+
+       - cookies in response in Postman has key(name): value, Domain (adress ex localhost), Path (ex: /) Expires -- expiration date, Secure? YTrue or false
+         cookies and their associated domains 
+
+
+       - Communication( data will be send/received in jSON/XML format)between client and server is done with json 
+       		if you sending receiving text, excel, pdf etc files --> need to be converted into json/xml
+       		data should be encrpted and decrepted when sending/receiving --> json/xml is achieve this, also sending/receiving iin this format is faster for 
+
+
+        - from XML ---> xpath derived
+        - from JSON --> jsonpath derived
+
+        - json file has json extension
+        -JSON internet media type is application/json
+        - JSON key: value base
+               key is always in String mode
+        - Human readible
+
+        - JSON DATA TYPES:
+        	- Number
+        	- String
+        	- Booelean
+        	- Null
+        	- Object
+        	- Array
+
+        	{ } ---: holds json object , [ ] -- holds array
+
+       - JSON VS XML:
+       			- json is simple to read and write other less simple
+       			- Json supports Array , xml dont
+       			- json files are human readible, other  less
+       			- json supports only text and number data type  --> xml many , text, number, images, charts , graphs etc.
+
+
+
+       - To validate the data, need jsonpath
+       		- sometimes hard to capture the jsonpath ---> use jsonpathfinder.com or jsonpath.com but due to security don't use dont mention
+       		- jsonpath array index starts at 0
+
+
+
+
+        - Postman Assertions ---> pm library ---> these are written in javascript
+        		     --->  need to know some Assertion functions to validate the responce in postman
+
+        - JavaScript Test frameworks --> Mocha, Chai
+        = Postman use Chai Assertion Libraries
+
+        -Test Case in Postman: 
+        	1. pm.test ("Test Get for /user" , function() {  // assseryions }   )	; normal function
+        	2. pm.test ("Test Get for /user" , () =>  {  // assseryions }   -----> Arrow function(lamba?)
+
+
+        	ex: Status code ---> pm.test("Status code is 200", () => { pm.response.to.have.status(200)  });
+        	ex: 		---> pm.test("Status code is 200", () => { pm.expext(pm.response.code).to.be.oneOf([201,204])  });
+        	ex: Status text ---> pm.test("Status code name has "Created, () => { pm.response.to.have.status("Created")  });	
+
+        	ex: Verify Headers (Mostly Content Type  and Connection (keep=alive) headers rest are kind of dynamic)
+
+        			- Check that response header is present
+        				pm.test("Content-Type header is present", () => {pm.response.to.have.header("Content-Type") });
+
+        			- Check response header having a particular value
+        				pm.test("Content-type header is application/json", () => {pm.expect(pm.response.headers.get("Content-Type")).to.equal("application/json; charset=utf-8)
+        				")})
+
+        	ex: Verify Cookies --> usally cookie values are dynamic. But some cookie values are same. We can validate static cookeies.
+        	What is a cookie response?
+				The response cookie are the cookies that you want to place in the browser. The next connection from the browser that accepted the cookie from the response object will provide the cookie in the request object.
+
+				need to verift cookie name and its value
+
+				---> pm.test("Cookie 'language' has value en-us" , {pm.expect(pm.cookies.get('language')).to.eql('en-us'))};
+
+
+		ex: Verify response is received with a time interval
+
+				--> pm.test("Response time is less than 200ms" , () => {pm.expect(pm.response.responseTime).to.be.below(200)}) ;
+
+
+
+		VALIDATING THE RESPONSE BODY
+			1. Verify the type of data types of the json object
+				pm.test("Test data types", {
+								const jsonData = pm.response.json();
+								pm.expect(jsonData).to.be an("object");	
+								pm.expect(jsonData.id).to.be.a("number"); 
+												string
+												array
+							    };
+
+
+
+			2. Verify Field values:		
+					pm.expect(pm.response.json().id).to.eql(2);
+					pm.expect(pm.response.json().name).to.eql("sss");
+					pm.expect(pm.response.json().courses[0]).to.eql("Python");
+
+			3. Verify Json Schema: --> metadata about the json 
+					       --> shows json field and its type ex: "id":integer
+					       --> shows required fields --> "required" : ["id", "name", "courses"]	
+
+					       --> using tv4 libary for schema validation
+					       --> pm.expect(tv4.validate(jsonData , schema)).to.be.true;
+					       --> schema is alo a json file. can define a var schema = {schema}	    
+
+			4. Array value verification 
+					pm.expect(pm.response.json().courses).to.include("Python")
+					pm.expect(pm.response.json().courses).to.have.members(["Python", "C+"); -> order not important
+
+
+	- Pre-Request Scripts  --> executed before sending the request
+
+	- Pre-request ---> Request  ----> Respose ----> Tests
+
+	-order --> Collection-level pre-script --> Folder-level pre-script -> Request-level pre-script ----> REQUEST --> RESPONSE  ---> Collection-level Test-Script --> Folder-level Test-Script  -> Request-level Test-Script 
+
+		Pre-request and Tests available in three leveles
+
+			1. Collection Level
+			2. Folder level(inside collection)
+			3, Request level
+
+	- 2) Types of variables in postman. Scopes are below
+		- Why we need variables --> To avoid dublication. If we use the same varibale in many palaces , create at one level and use this there. So if it changes, it will apply to all usages from one spot.
+			   
+			   - Global variables  --> In workspace Scope , enable you to access data between collections, requests, test scripts, and environments. 
+			   - Collection variables   ---> selecct collection press ... chose "Edit"
+			   - Environmental variables  --> enable you to scope your work to different environments, for example local development versus testing or production. One environment can be active at a time.
+			   - Data variables  --> Data variables come from external CSV and JSON files to define data sets you can use when running collections with Newman or the Collection Runner. Data variables have current values, which don't persist beyond request or collection runs.
+			   - Local variables  --> temporary variables that are accessed in your request scripts. Local variable values are scoped to a single request or collection run, and are no longer available when the run is complete. Local variables are suitable if you need a value to override all other variable scopes but don't want the value to persist once execution has ended.
+
+
+			   Local variables are in Request level. Select request --> go to Pre-Request Script section --> pm.variables.set("local_url", 'value') --> define and set local varaible. These variable are binded in runtime.
+
+			   Global variables can be defined in Prescripts        --> go to Pre-Request Script section --> pm.globals.set("local_url", 'value') --> define and set local varaible
+			   Collection variables can be defined in Prescripts        --> go to Pre-Request Script section --> pm.CollectionVariables.set("local_url", 'value') --> define and set local varaible
+
+			   Environmental variables can be defined in Prescripts        --> go to Pre-Request Script section --> pm.environment.set("local_url", 'value') --> define and set local varaible
+
+			   
+			   If you dont want to persist Glovbal, Collection, Environment varaibles created in Prescript, after response , in Test Script --> unset(key)
+			   	- pm.globals.unset("local_url")
+
+
+			  IN SCRIPTS , can :
+			  			- set
+			  			- unset
+			  			- get   Variables
+
+
+	- Scripts --> Collection, Folder, Single Request Lvels
+	- Varables --> Global, Collection, Environment, Data, Local Levels
+			Data is external file used in Data Driven Testing 
+
+
+
+
+	API Chaining. One API input neeed other APIs Response. Need to chain these APIs
+		- Store API_1 Response in Variables and Use this Variable in API_2s Request
+		- Ex: Gettin Token  ---> gorest.co.in 
+		- Ex: POST a new Student ---> save id in environment variable --> use this variable in GET and DELETE student	
+					 ---> In Test-Scripr(Post getting Response)
+					 		var jsonData = JSON.parse(responseBody)
+					 		pm.environment.set("id", jsonData.id)
+
+
+	Token: If we need a token to perform  POST, GET, PUT, DELETE, PATCH , include token in header as ("Authorization", token)
+
+	To get Token first Login to account (Autentication --> are you a valid user)
+	Then get token --> How to Getting token is documented
+
+	Token has expiration time and Limit(number of times to be used)	
+
+     
+======
 What are the advantages of API Testing?  
 	n an API interview, they are likely to ask about the advantages of API testing. So be prepared with the significant ones such as:
 

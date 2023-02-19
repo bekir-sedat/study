@@ -1,7 +1,7 @@
 My Project:
 	- I was in a team building a new ETL Automation Application
 
-	- The project goal was to replace jobs running on a third party ETL tool called Informatica with this new in-house application developed by my team.
+	- The project goal was to replace existing a third party ETL tool called Informatica with this new in-house application developed by my team.
 
 	- Application was getting the data from all sorts of sources and storing them into the staging tables, 
 	  than it was performing pre-defined transformations defined in the metadata and
