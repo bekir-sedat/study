@@ -6,6 +6,74 @@ Page Object Model, also known as POM, is a design pattern in Selenium that creat
 
 ===============
 
+Advantages:
+	- Open source
+	- Multiple languages
+	- Multiple browser
+	- Multiple operating systems
+	- Supports paralllel testing
+	- Can integrate third party tools , TestNG, Cucumber, Maven, Jenknins, Git
+
+
+Disadvantages
+	- Only web based applications
+	- No reportin
+	- No dediicated support (open source)
+	- No image based testing (can find image width, lenthy )
+
+=======
+How to Handle Authentication Popup in Selenium Web Driver? -- coming from Windows Autentication
+
+	Best way is incluede credentials in the url :
+
+	http://username:password@hotmail.co,
+
+=======
+Headless Browser Testing in Selenium with Java
+	ChromeOptions options = new ChromeOptions();
+	options.addArguments("--headless");
+	// options.setHeadless(true)
+
+	or Can use custom class developed in java --> HTMLUnitDriver  ---> get jar dependecy and use it
+
+=============
+How to find Broken links using Selenium WebDriver
+	- Find all links --> List<Webelement> links = By.tag("a")
+	- String url = links[i].getAtrribute("href")
+	- URL link = new URL(url)
+
+	- HttpURLConnection httpConn = (HttpURLConnection) link.openConnection()
+	  httpConn.connect()
+
+	  int reSPOMSEcODE = httpConn.getResponseCode() --> if 400 url is broken
+
+
+=========
+Handling Cookies in Selenium 
+	Cookie coooki = new Cookie("lan", "tr");
+	
+	driver.manage().getCookies()
+	driver.manage().getCookieNamed(cookie)
+	driver.manage().addCookie(cookie)
+
+	driver.manage().deleteCookie(cookie)
+	driver.manage().deleteCookieNamed(cookie)
+	driver.manage().deleteAllCookies()
+
+========
+How to Encode Password in Selenium using Java || Password Encryption in Java
+
+	- use a utiliy method to encode the decryted password written in sendKeys(decodeMethod)
+
+		method takes "adadaa32===="  ---> returns  new String (Base64.decodeBase64("adadaa32===="))
+
+
+=========
+
+How to automate BarCode using ZXing API in Selenium
+  - uing 3rd party tool ZXing
+
+========
 What do you value most in a company?
 	Profesional growth
 	Salary and Benefits
