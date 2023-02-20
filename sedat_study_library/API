@@ -287,10 +287,20 @@ Postman
 					 		var jsonData = JSON.parse(responseBody)
 					 		pm.environment.set("id", jsonData.id)
 
+				Can generate random named and random emailded user before POST(creating user) in Pre-Request Script :
+							var random_name = Math.random().toString(30).substr(6);
+							var random_email = random_name + "@gmail.com"
+
+							pm.environment.set("name_value" , random_name)
+							pm.environment.set("email_value" , random_email)
+
+				We can use Environmet Variables in JSON BODY as well same was in {{ }} double curly braces
+
 
 	Token: If we need a token to perform  POST, GET, PUT, DELETE, PATCH , include token in header as ("Authorization", token)
 
-	To get Token first Login to account (Autentication --> are you a valid user)
+	To get Token send POST to endpoint ex /api-client with Post body {"username": "user", "client_email": "email" } --> This POST request returns the token save as environmet varibale and use it 
+		(Autentication --> are you a valid user)
 	Then get token --> How to Getting token is documented
 
 	Token has expiration time and Limit(number of times to be used)	
