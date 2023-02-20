@@ -34,6 +34,24 @@ ResponseSpecification responseSpec = expect().statusCode(200)   ---> notice expe
 
 
 =========================
+Authentications 
+	- Authentiaction tests --> AFTER calling the api with prper auth data -- > response body --> {"autehtication": true}
+	- API key  ---> ke:value pair   ---> can be send in Header or in Query Parameters
+	- Basic Aut --> username , password  no enctrpted  --> need to register first
+	- Digest Auth  --> username , password  decrpted (use hashing algorith)
+
+	- Bearer
+
+	-OAuth1 and OAuth2 ---> third party Authentication. Complex to set-up, integrate at the beginning  s
+					   --> need pre steps --> send request with client_id (may be a secret key as well) to be checked then it reurns token	
+	-POSTMAN has other third party ones ex : AWS Signuture
+
+
+
+
+
+
+=========================
 API vs Webservise:
 	- Webservise is an API wrapped in HTTP
 	- All Webservices are APIs but not all APIs are Webservice
@@ -305,7 +323,33 @@ Postman
 
 	Token has expiration time and Limit(number of times to be used)	
 
-     
+    Data Driven Test --> Run the SAME REQUEST multiple times for each data. DATA stored in CSV or JSON
+    	ex: Sending 5 different book names and its id to order --> sending POST/order to order books. (Run P)
+    		In csv Define Book_id and Book_Name
+    		In POST body define {
+    								"id"   : "{{ Book_id }}"	==> notice {{}} in " "
+    								"name" : "{{ Book_Name }}"	
+    							}
+
+   			In postman click ... select Run Collection  --> Window opens select Iteration (Number of  data to be run)
+   																			   Data ---> select csv file location 
+
+   			There are tools for csv --> json converiong tools online
+
+
+
+   	- Upload File with POSTMAN API
+   			In Body --> selech form-data ---> key is "file" and select its type as File --> Value --> select file ----> SINGLE FILE
+   										 ---> key is "fileS" and select its type as File --> Value --> select file ----> mMULTIPLE FILE  --> NOTICE key = files
+
+   										 --> If type is not File but Text then in Value need to put complete path of the text file
+
+
+
+
+   	- Documenattion with Postman (Very nice)
+   		Press ... select View Documentation(Aftre running the Collection)  ---> expport
+
 ======
 What are the advantages of API Testing?  
 	n an API interview, they are likely to ask about the advantages of API testing. So be prepared with the significant ones such as:
