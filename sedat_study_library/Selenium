@@ -933,6 +933,13 @@ Selenium Hybrid Framework
 
 
 
+	- Add logs to test cases --> via logger from log4j jar
+	- Read common values used in test cases from properties file java.uti.Properties.getProperty(key)
+	- Run test case on desire browser by defining  <parameter name="browser" value= "chrome" /> in testng.xml and use @Parameter("browser") before public void setup(String browser)
+	- Add extent report
+
+
+
 	apacche.poi Need Two 1. artifact_is = poi 2.artifact_is = poi-ooxml  dependencies for xcel file read write
 
 	extent-reports dependency, from maveb repository
@@ -942,3 +949,62 @@ Selenium Hybrid Framework
 
 
 	- for logging two things 1. log4j mavn dependecy 2. create log4j.properties 
+
+			in Base class:  --> create driver, logger, property reader 
+
+											public static Logger logger;
+
+											in beforeAll
+													logger = Logger.getLogger("appName");
+													PropertyConfigurator.configure("Log4j.prperties");
+
+													(PropertyConfigurator and Logger is from log4j jar)
+
+
+											in Tests:
+													logger.info(" processing .....")
+
+
+											once tests run, logs will be inside the log folder.
+
+
+
+
+	- Dealing with common, configurable variables
+
+			1. define them in config.properties file  ---> no " "  --> key=value  pairs 
+			2. Create a ConfigReader.java class in Utilities folder to read/set these varibales from 1. ()
+
+					In ConfigReader.java
+					private static Properties configFile;   --> java.util.Properties
+
+					FileInputStream fileInputStream = new FileInputStream("configuration.properties");
+					configFile =  new Properties();
+					configFile.load(fileInputStream);
+
+					public static String getProperty(String key) {
+        				return configFile.getProperty(key);
+   				}
+
+
+
+ - choose browser in TestNG  ----> USE @Parameters("browser") ---> READ FROM testng.xml. I think we can do it config.properties as well
+ 																								in testng.
+
+ 			@Parameters("browser")
+  		@BeforeClass
+
+  		public void setup(String browser)
+
+
+ - Adding extent Report:
+ 			1. add jars
+ 			2. extent-config.xml
+ 			3. Listener Class in Utilities as Reporting.java  --> class Reporting extends org.testng.TestListenerAdapter  ---> listens Context
+ 					This class is complex ---> need to look at it 
+ 			4. need to add in testng.xml folllowing   
+
+
+ 							<listeners>
+ 											<listener  class-name = "com.abs.utilities.Reporting"  /> 
+ 							</listeners>			

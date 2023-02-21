@@ -437,3 +437,7 @@ List<Map> employees = jsonPathObj.get("company.employee .findAll { employee -> e
 
 
 What is static import and why would you use it in REST Assured?
+
+===========
+
+In Rest Assured if Autentication is Bearer , this value is passed in header header("Autorization", "Bearer Token")  ---> no option after auth()
