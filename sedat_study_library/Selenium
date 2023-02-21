@@ -354,6 +354,8 @@ new Actions(driver).moveToElement(clickable)
 ======================================================================================================================================================================
 
 Pagefactory class is in selenuium   ----> import org.openqa.selenium.support.PageFactory;
+	Page object model is a wonderful design pattern to abstract out Web Page elements and its actions from actual tests. This way tests do not have to worry about the creation/finding of WebElements. 
+
 
 				import org.openqa.selenium.WebElement;
 				import org.openqa.selenium.support.FindBy;
@@ -366,13 +368,31 @@ Pagefactory class is in selenuium   ----> import org.openqa.selenium.support.Pag
 				    }
 
 				    @FindBy(xpath = "//button[.='Start']")
+				    @CacheLookup
 				    public WebElement startButton;
 
-				    @FindBy(id = "loading")
+				    @FindAll(id = "loading")
+				    @CacheLookup
 				    public WebElement loadingBar;
 
 				}
 
+
+	@CacheLookup, as the name suggests helps us control when to cache a WebElement and when not to. This annotation, when applied over a WebElement, instructs Selenium to keep a cache of the WebElement instead of searching for the WebElement every time from the WebPage. This helps us save a lot of time.
+
+
+
+	@FindBy(className = "classname")  == @FindBy(how = How.CLASS_NAME, using = "classname")
+
+	@FindBys({ @FindBy(how = How.NAME, using = "username"), @FindBy(how = How.NAME, using = "password")})
+	public List<WebElement> bothcriteria;
+
+	@FindAll({ @FindBy(how = How.NAME, using = "username"), @FindBy(how = How.NAME, using = "password")})
+    public List<WebElement> eithercriterion;
+
+
+     @FindBys annotation is used in case elements need to match all of the given criteria
+	 @FindAll annotation is used in case elements need to match at least one of the given criteria
 ===========================================================================================================================
 For broken images, naturalWidth will be zero whereas it is non-zero for normal images.
 if (img.getAttribute("naturalWidth").equals("0")) ===> broken
@@ -896,3 +916,29 @@ Verify is implemented using SoftAssert class.
 Hard Assertuins(Assert)
 Soft Assertions (Verify Method)
 Waitfor --> wiat for certain condition --> pass/ fail
+
+=================
+
+
+
+Selenium Hybrid Framework 
+	Pageobjects
+	TestCases
+	TestData -> External TestData in xcel format
+	Drivers --> Can use BonniGarcia
+	Utilities -> ReadConfig.java, Reportin.java, XLUtils.java
+	Logs  --> test.log, application.html
+	Screenshots
+	ConfigurationFiles in the root --> pom.xml, testng.xml, log4j.properties, extent-config.xml, run.bat
+
+
+
+	apacche.poi Need Two 1. artifact_is = poi 2.artifact_is = poi-ooxml  dependencies for xcel file read write
+
+	extent-reports dependency, from maveb repository
+
+	Sikuli dependeny for some things selenium can't do i think
+
+
+
+	- for logging two things 1. log4j mavn dependecy 2. create log4j.properties 
