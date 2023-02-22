@@ -2,6 +2,10 @@ Python:  --> Nice Interview question prep
 
 scripting and programming language == interpreted == not compiled == no machine code beforehand
 
+18) What happens in the background when you run a Python file?
+When we run a .py file, it undergoes two phases. In the first phase it checks the syntax and in the second phase it compiles to bytecode (.pyc file is generated) using Python virtual machine, loads the bytecode into memory and runs.
+
+
 A scripting language is a programming language that is interpreted. It is translated into machine code at runtime, rather than beforehand. Scripting languages are often used for short scripts over full computer programs. JavaScript, Python, and Ruby are all examples of scripting languages.
 
 ex of scripting languages: bash. powershell, python, groovy
@@ -138,7 +142,7 @@ useful when you need to apply a transformation function to each item in an itera
 ================
 
 
-reverse a stiring ---> 'Hello World'[::-1]
+reverse a string ---> 'Hello World'[::-1]
 
 ============
 
@@ -472,7 +476,7 @@ Python Namespace Dictionaries
 
 28. What is the usage of help() and dir() functions in Python?
 
-		dir ---> returns list of the attributes and methods of any object 
+		dir ---> returns list of the ATTRIBUTES and METHODS of any object 
 
 		help ---> displays the documentation of modules, functions, classes, keywords, etc.
 
@@ -607,7 +611,7 @@ Python Namespace Dictionaries
 
 	2.Typically, dunder methods are not invoked directly by the programmer, making it look like they are called by magic. That is why dunder methods are also referred to as “magic methods” sometimes.
 
-	3. Dunder methods are not called magically, though. They are just called implicitly by the language, at specific times that are well-defined, and that depend on the dunder method in question.
+	3. Dunder methods are not called magically, though. They are just called implicitly by the language, at specific times that are 			well-defined, and that depend on the dunder method in question.
 		ex :  item in myList   ---> calls implicitly myList.__contains__(item)  
 								--> it actually turns that into a call to the appropriate dunder method __contains__, which means that Python actually runs the expression container.__contains__(value).
 
@@ -914,7 +918,10 @@ Examples of List are:
 List in Python is sequence type as it stores ordered collection of objects/items. In Python String and tuple are also sequence types.
 
 23)  When do you choose a list over a tuple?
-When there is an immutable ordered list of elements, we choose tuple. Because we cannot add/remove an element from the tuple. On the other hand, we can add elements to a list using append () or extend() or insert(), etc., and delete elements from a list using remove() or pop().
+When there is an immutable ordered list of elements, we choose tuple. 
+
+Because we cannot add/remove an element from the tuple. 
+On the other hand, we can add elements to a list using append () or extend() or insert(), etc., and delete elements from a list using remove() or pop().
 
 Simple tuples are immutable, and lists are not. Based on these properties one can decide what to choose in their programming context.
 

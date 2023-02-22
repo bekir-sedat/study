@@ -263,3 +263,30 @@ Define the correct order of tags in the TestNG XML file.
     <classes>
    <class>
 <methods>
+
+========
+
+6. What are the types of listeners in TestNG?
+The types of listeners in TestNG are:
+
+		IConfigurable
+		IExecutionListener
+		IAnnotationTransformer
+		IHookable
+		IInvokedMethodListener
+		IInvokedMethodListener2
+		IConfigurationListener
+		IReporter
+		ITestListener
+		IMethodInterceptor
+		ISuiteListener
+
+=========
+
+TestNG facilitates the passing of parameters to the test methods in two ways: with Data Providers and with testng.xml.
+
+========
+
+
+TestNG.class contains main() actually which calls suite internally to execute. So, you do not need to write main() method in a TestNG class to run it as TestNG takes care of that by defining annotations. You just need to provide proper annotations to methods and rest TestNG will execute them in a manner by implicit call to main method of TestNG class.
+

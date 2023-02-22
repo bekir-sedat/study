@@ -104,10 +104,24 @@ Page Loading Strategy in Selenium Webdriver
 
 			In this wait, Webdriver waits for initial page to be loaded
 
+OPTIONS OPTIONS OPTIONS OPTIONSSS option options OPTION
+
 Ex: 
 	ChromeOptions chromeOptions = new ChromeOptions(); 
 	chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL); 
 	WebDriver driver = new ChromeDriver(chromeOptions);
+
+	options.setAcceptInSecureCerts(true);
+	options.setHeadless(true)
+
+	options.addArguments(string) ("--headless")
+
+	options.setCapability(string, string)
+
+	options.getBrowserName()
+	options.getCapbilityNames()
+	options.getCapablity(sring)
+
 
 
 ===========
@@ -209,6 +223,9 @@ https://w3c.github.io/webdriver/#dfn-element-click-intercepted  ----> All except
 
 	You’ll find this error mostly while using the Google Chrome browser but hardly ever while using the Firefox browser. The reason for this being common in the Chrome browser is because the Chrome driver always clicks in the middle of the element. So when you’re testing a dynamic application, there are chances that the element you want to click on isn’t at the exact location as expected.
 
+
+
+- NoAlertPresentException  --> go when dealing with Alerts. Cretae a utility method isAlerPresent()  --> while( not isAlerPresent())
 ========================
 - direct click
 
@@ -298,6 +315,8 @@ What does the switchTo() command do?
 
 3 --->Alert alert = driver.switchTo().alert()
 
+
+4 ?? to go back driver.swicTo().window(handle) , May be Nothing to do after accept , dismiss
 
 
 ======================================
@@ -686,10 +705,13 @@ Set<String> windowHandles = driver.getWindowHandles()
 Create new window (or) new tab and switch 
 
 // Opens a new tab and switches to new tab
-driver.switchTo().newWindow(WindowType.TAB);
+driver.switchTo().newWindow(WindowType.TAB);  ---> Selenium 4
 
 // Opens a new window and switches to new window
-driver.switchTo().newWindow(WindowType.WINDOW);
+driver.switchTo().newWindow(WindowType.WINDOW);  --->  Selenium 4
+
+
+ driver.execute_script("window.open('');") ----> Selenum 3
 
 
 
@@ -1007,4 +1029,90 @@ Selenium Hybrid Framework
 
  							<listeners>
  											<listener  class-name = "com.abs.utilities.Reporting"  /> 
- 							</listeners>			
+ 							</listeners>		
+
+
+
+
+
+
+
+
+
+
+===============
+
+7. 10. What is a Robot Class?
+		The Robot class helps in providing control over the mouse and keyboard devices. It includes:
+
+		KeyPress()
+		Invoked when you want to press any key
+
+		KeyRelease()
+		Invoked to release the pressed key on the keyboard
+
+		MouseMove()
+		Invoked to move the mouse pointer in the X and Y coordinates
+
+		MousePress()
+		Invoked to press the left button of the mouse
+
+===========
+
+11. What are assertions in Selenium? What are its types?
+	Soft Assert
+	Hard Assert
+			assertNull()
+			assertNotNull()
+			assertEquals()
+			assertNotEquals()
+			assertTrue()
+			assertFalse()
+
+Assert , Verify, WaitFor
+============
+
+14. What are the different types of navigation commands provided by Selenium?
+
+		navigate().forward()
+		navigate().back()
+		navigate().to()
+		navigate().refresh()
+
+
+========
+
+Tips for Selecting Regression Testing Test Cases
+1. Select test cases where there are recent code changes or functional changes
+2. Select test cases that map to the business requirements 
+3. Select test cases in the areas with frequent bugs/defects	
+5. Select all integration test cases
+7. Select test cases based on priorities
+
+
+=======
+https://www.softwaretestingo.com/selenium-tricky-interview-questions/
+
+===
+
+What Defect management / Test management tool you used in your project?
+Ans: We are using the Jira Test Management tool in our project with Selenium.
+
+==========
+
+Did you find any Test Scenarios that not to be automated in your project using Selenium?
+Ans: Yes, We find some Some Test Scenarios in our Current project, Functionalities that require more user interaction, Functionalities that require Dynamic test data submission.
+
+=======
+What are the major challenges in Functional Test Automation?
+Ans:
+	Object Identification.
+	DRIVER WAITS
+
+==========
+
+Bugs and defects are two of the biggest problems that software and product developers have to deal with. 
+A bug is an error in the software that causes it to malfunction, 
+while a defect is a flaw in a product that reduces its usability or value. 
+
+Bugs are usually found during testing, while customers find defects
