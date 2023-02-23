@@ -58,7 +58,9 @@ When a verify command fails it will plow ahead and execute the rest of the code.
 ======
 
 5. What is the difference between Quality Assurance, Quality Control and testing?
-Quality assurance plans the way in which test process will be monitored within a team and organization. Quality control finds defects and suggests ways to improve the software. Testing is the process in which quality assurance and quality control find bugs.
+Quality assurance plans the way in which test process will be monitored within a team and organization. 
+Quality control finds defects and suggests ways to improve the software. 
+Testing is the process in which quality assurance and quality control find bugs.
 
 =====
 

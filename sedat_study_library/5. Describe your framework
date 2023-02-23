@@ -1,24 +1,3 @@
-Development started with simpler logics which are straight, default, transform 
-
-# conftest.py
-
-def pytest_addoption(parser): -----> HOOK
-    parser.addoption("--name", action="store", default="default name")
-
-use pytestconfig fixture for gettin value via --> pytestconfig.getoption("name")
-# test_param.py 
-
-import pytest
-
-@pytest.fixture(scope="session")
-def name(pytestconfig):
-    return pytestconfig.getoption("name")
-
-def test_print_name(name):
-        print(f"\ncommand line param (name): {name}")
-
-def test_print_name_2(pytestconfig):
-    print(f"test_print_name_2(name): {pytestconfig.getoption('name')}")
 
 ===============================================
 
@@ -77,6 +56,12 @@ def test_print_name_2(pytestconfig):
 ============================== TSHATS IT  ======
 
 
+
+
+
+=======================================
+
+
 from sqlalchemy import create_engine
 
 engine = create_engine("postgresql+psycopg2://scott:tiger@localhost:5432/mydatabase")  ---> dialect+driver://username:password@host:port/database
@@ -128,3 +113,28 @@ for different products 		(target_table, source_feed_name, cob_id)
 
 
 a method that creates the list of Columns which is going to be used in parametrized tests.
+
+
+===============================
+
+Development started with simpler logics which are straight, default, transform 
+
+# conftest.py
+
+def pytest_addoption(parser): -----> HOOK
+    parser.addoption("--name", action="store", default="default name")
+
+use pytestconfig fixture for gettin value via --> pytestconfig.getoption("name")
+# test_param.py 
+
+import pytest
+
+@pytest.fixture(scope="session")
+def name(pytestconfig):
+    return pytestconfig.getoption("name")
+
+def test_print_name(name):
+        print(f"\ncommand line param (name): {name}")
+
+def test_print_name_2(pytestconfig):
+    print(f"test_print_name_2(name): {pytestconfig.getoption('name')}")
