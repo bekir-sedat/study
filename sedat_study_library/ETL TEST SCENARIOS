@@ -3,7 +3,7 @@ ETL TESTS
 SCHEMA ====> COLLECTION OF TABLES
 
 - There are system tables and user defined tables ib the database.
-	- In oracla system table "user_tab_columns" shows as its name suggesst = columns and corresponding table
+	- In oracla system table "user_tab_columns" shows as its name suggesst = columns  column details such as datatype and data lenghth and corresponding table
 							 "user_cons_columns" shows the column contraints
 							 "dba_ind_columns" shows indexws ---> INDEXES ARE USED TO INCREASE EFIICIENCY. make sure indexes are there
 							 								 ---> select column_name , index_name from dba_ind_columns where table_name = ... and index_owner = ...
@@ -48,6 +48,14 @@ DATA VALIDATION : Create many test cases fin this stage
 
 
 ====================================================================================================================================
+
+
+
+1 . Table Structure verification VERIFY ALL BELOW
+		- SOURCE TABLE --> column count, column names, data types , data length, constraints, and indexes validation AGAINTS mapping (this is our design)
+		- TARGET TABLE --> column count, column names, data types , data length, constraints, and indexes validation AGAINTS mapping (this is our design)
+		
+
 
 
 4. Source data validation
