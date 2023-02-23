@@ -1,3 +1,195 @@
+ETL TESTS
+
+SCHEMA ====> COLLECTION OF TABLES
+
+- There are system tables and user defined tables ib the database.
+	- In oracla system table "user_tab_columns" shows as its name suggesst = columns and corresponding table
+							 "user_cons_columns" shows the column contraints
+							 "dba_ind_columns" shows indexws ---> INDEXES ARE USED TO INCREASE EFIICIENCY. make sure indexes are there
+							 								 ---> select column_name , index_name from dba_ind_columns where table_name = ... and index_owner = ...
+
+I GET THE REQUIREMENTS FROM DATA MODEL AND METADATA MAPPING DOCUMENTS AND CRTEATE MY TEST CASES ACCORDINGLY TO TEST BELOW
+(JOIN == MERGE IN PANDAS  --> WRITE 2 TABLES HORIAZONTALLY NEXT TO EACH OTHER)
+
+====================================================================================================================================================
+
+											ETL TESTS
+GET REQUIREMENST FROM DATA MODEL
+
+1 . Table Structure verification VERIFY ALL BELOW
+		- SOURCE TABLE --> column count, column names, data types , data length, constraints, and indexes validation AGAINTS mapping (this is our design)
+		- TARGET TABLE --> column count, column names, data types , data length, constraints, and indexes validation AGAINTS mapping (this is our design)
+		
+
+		DESC table; ---> shows the table info
+
+GET REQUIREMENST FROM METADATA MAPPING 
+
+
+
+
+DATA VALIDATION : Create many test cases fin this stage
+	
+	FOR EACH MAPPING
+		1. check number of records in Source table  ---> select count(*) from source_table
+		2. check bumber of records in target table after data is loaded  ---> select count(*) from target_table
+		3. check records pulled from source tables(s) after transformation applied in mapping ie --> SELECT A, B, ALL_TRANFORMED AS Transorms FROM SOURCE_TABLE
+		4 check records in  target --> SELECT A,B, Transorms FROM TARGET_TABLE
+		5. (1 MINUS 2 )
+		6. (2 MINUS 1)
+		7.(1 MINUS 2 ) UNION (2 MINUS 1)
+		8. check dublicates ---> select * from table where rowid in ( select rowid from table group by rowid having count(*) > 1)  ---> rowid is given by Oracle (AAAAASDSADASDADJJJJJAD) may be a hash value
+
+	1. SOURCE DATA ----> SELECT A, B, ALL_TRANFORMED AS Transorms FROM SOURCE_TABLE
+	2. TARGET DATA ---> SELECT A,B, Transorms FROM TARGET_TABLE
+
+	TO MATCH -->  (1 MINUS 2 ) UNION (2 MINUS 1)
+
+
+
+====================================================================================================================================
+
+
+4. Source data validation
+		- Record the source table count and ensure that there won't be any junk or bad data exists
+
+5. Data count check
+		- Compare target data count against source data count along with major filter and join conditions
+
+		source count mut be equal to target, No Dublicates
+
+6. Data Comparison check
+		- get source data apply Transformation, check this with expected in Target table
+
+7. Dublicate data validation
+		- try to insert a dublicate entru in souce tavle based on unique identidiers and ensure that the dublicate record is rejected
+
+8 . NULL Check
+		- inject a data with NULL for NOTNULL and verify it will be rejected
+
+9. Data with primary key and foreign key check
+		- Test the 
+
+10. Data precision check
+
+		- Create test data in source table with different precisions and ensure the loaded data has precision as per requirement
+
+11. Date format check
+		- All date columns are loaded in defined date format or not
+
+12. All business transformation rules validation
+		- Every transformation mentioned in TSD(Transformation Specification Document)needs to be tested, keep seperate test cases for every transformatiom
+
+
+Active Transormations --> number of records may not be same
+Passive Transormations  --> number of records ARE SAME
+ 
+
+Types Of Transformations:
+
+		- Filter Transformation  	--> Active  : ex: SELECT * FROM EMP WHERE SALARY > 300; ---> FILTER == WHERE  ---> records may not same
+		- Expression Transformation --> Passive :  Can be mentined as  concatenation pr replacement for NULL values
+												ex: select CONCAT(firstName, Lastname)  as FullName from emp  --> records are same
+		- Aggregator Transformation --> Active : MIN, MAX, AVG, COUNT 
+		- Joiner Transformation  	--> Active : JOINING tables horizontally 
+		- Union Transformations		--> Active : UNION		
+		- Sorter Transformation     --> Active/Passive BOTH : ORDER BY 	
+		- Rank Transfromation  --> oracle select name, rank() over (order by salary) as rank from emp
+										  select name, dense_rank() over (order by salary) as rank from emp
+
+										  rank is absolute 1, 2,3,4,5,6,7,8,9
+										  dense rank ---> 1,2,4,5,8,9
+
+										  if oracle : 
+
+										  select name, rownum() over (order by salary) as row_number ffrom emp --- will show the row_numb which you can get the nth salary  	
+
+
+
+
+
+
+================
+
+BUGS 
+	Data not matching (compex join condition)
+	Data count mismatc (filter issues)
+	Trim, NULL issues
+	Dublicate data issue
+	Data type isseu
+	Precision errors
+
+
+
+
+
+
+SQL Querties are for creating the tets data
+
+
+METADTA MAPPING
+	columns mapping betwwen source and target
+	transformation logic
+	Data types and length for all columns of source and target
+	feed names
+	process
+	source table, target table
+
+
+
+DATABASE SCHEMA of source and target
+
+
+
+
+
+
+DATA VALIDATION : Create many test cases fin this stage
+	
+	FOR EACH MAPPING
+		1. check number of records in Source table  ---> select count(*) from source_table
+		2. check bumber of records in target table after data is loaded  ---> select count(*) from target_table
+		3. check records pulled from source tables(s) after transformation applied in mapping ie --> SELECT A, B, ALL_TRANFORMED AS Transorms FROM SOURCE_TABLE
+		4 check records in  target --> SELECT A,B, Transorms FROM TARGET_TABLE
+		5. (1 MINUS 2 )
+		6. (2 MINUS 1)
+		7.(1 MINUS 2 ) UNION (2 MINUS 1)
+		8. checjk dublicates ---> select * from table where rowid in ( select rowid from table group by rowid having count(*) > 1)  ---> rowid is given by Oracle (AAAAASDSADASDADJJJJJAD) may be a hash value
+
+	1. SOURCE DATA ----> SELECT A, B, ALL_TRANFORMED AS Transorms FROM SOURCE_TABLE
+	2. TARGET DATA ---> SELECT A,B, Transorms FROM TARGET_TABLE
+
+	TO MATCH -->  (1 MINUS 2 ) UNION (2 MINUS 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 1) Structural Validations type tests
 	Validation of Data types , Fields, Column names Validation in source and target System
 
