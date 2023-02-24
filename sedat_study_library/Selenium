@@ -278,7 +278,10 @@ Set<String> allWindowIds = driver.getWindowHandles();
 
 driver.switchTo().window(windowToBeSwitched);  other tab windows
 
-driver.switchTo().frame(iframeelement);  iframes (ad, video, etc) in main frame
+driver.switchTo().frame(Webelement);  iframes (ad, video, etc) in main frame
+				 .frame(index)
+				 .frame(name)
+						
 	
 			driver.switchTo().parentFrame(); --> this will go back to the parent
 			driver.switchTo().defaultContent(); --> this will go back to default html
@@ -383,7 +386,7 @@ Pagefactory class is in selenuium   ----> import org.openqa.selenium.support.Pag
 				public class DynamicLoad1Page {
 
 				    public DynamicLoad1Page(){
-				        PageFactory.initElements(Driver.getDriver(), this);
+				        PageFactory.initElements(driver, this);
 				    }
 
 				    @FindBy(xpath = "//button[.='Start']")
@@ -950,8 +953,8 @@ Selenium Hybrid Framework
 	Drivers --> Can use BonniGarcia
 	Utilities -> ReadConfig.java, Reportin.java, XLUtils.java
 	Logs  --> test.log, application.html
-	Screenshots
 	ConfigurationFiles in the root --> pom.xml, testng.xml, log4j.properties, extent-config.xml, run.bat
+	Screenshots
 
 
 
@@ -1116,3 +1119,48 @@ A bug is an error in the software that causes it to malfunction,
 while a defect is a flaw in a product that reduces its usability or value. 
 
 Bugs are usually found during testing, while customers find defects
+
+
+
+
+
+
+
+
+
+
+
+==================
+Selenium limitations --> 638
+
+Alert --> 294
+
+Actions  ---> 335
+
+Exceptions --> 172
+
+Select Class --> 259
+
+Pagefactory class --> 379
+
+Expilicit Wait properties --> 429
+
+Cookies --> 59
+
+Options(Browser) ---> 109
+
+Taking Screenshot --> 604
+
+How to find Broken links using Selenium WebDriver --> 40
+
+Page Loading Strategy in Selenium Webdriver --> 95
+
+switchTo()  --> 310
+
+Same Origin Policy --> 924
+
+Selenium Hybrid Framework --> 949
+
+Robot Class  --> 1048
+
+Set<String> allWindowIds = driver.getWindowHandles();

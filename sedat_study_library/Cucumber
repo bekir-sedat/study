@@ -282,3 +282,35 @@ And other times I maintain test data in Excel files, and I use Apache POI librar
 How do I limit the types of variables I can pass?
 • In the gherkin parenthesis you can add (Collaboration | Sales | Marking, etc.)
 • Ex: @When("^I hover over the (Collaboration | Sales | Marketing | Activities | All ) menu$")
+
+
+
+================
+
+Scenario Outline need Examples ---> Data driven test
+
+
+Datatable ---> passed as DataFrame argumnet into step definition
+
+				Scenario: Correct non-zero number of books found by author by list
+					  Given I have the following books in the store by list
+					    | The Devil in the White City          | Erik Larson |
+					    | The Lion, the Witch and the Wardrobe | C.S. Lewis  |
+					    | In the Garden of Beasts              | Erik Larson |
+					  When I search for books by author Erik Larson
+					  Then I find 2 books
+
+			---> In step definition
+
+					Given("^I have the following books in the store by list$")
+					public void haveBooksInTheStoreByList(DataTable table) {
+					    
+					    List<List<String>> rows = table.asLists(String.class);
+					    
+					    for (List<String> columns : rows) {
+					        store.addBook(new Book(columns.get(0), columns.get(1)));
+					    }
+					}
+
+===============================
+

@@ -1,6 +1,4 @@
 
-===============================================
-
 5. Describe your framework  ---> I used Data Driven Framework.  == Test data kept externally, in a file or coming from a method. (datadriven, keyword, hybrid)
 			
 			My framework was in Python.       TALK SLOW AND NICELY ===============
