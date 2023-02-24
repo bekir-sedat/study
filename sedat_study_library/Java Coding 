@@ -1,0 +1,116 @@
+21. How do you reverse a string in Java?
+
+	String str = "hello";
+
+	String reverse = "";
+
+
+	for (int i = 0; i < str.length(); i++) {
+
+     reverse = str.charAt(i) + reverse;
+
+	}
+
+	System.out.println(reverse);
+
+===============
+
+22. How do you determine if a string is a palindrome?
+
+
+	String str = "hello";
+
+	String reverse = "";
+
+
+	for (int i = 0; i < str.length(); i++) {
+
+     reverse = str.charAt(i) + reverse;
+
+	}
+
+	if (str.equals(reverse)) {
+
+    System.out.println("Palindrome");
+
+	} else {
+
+    System.out.println("Not Palindrome");
+
+	}
+
+===========
+
+24. How to find out if the given two strings are anagrams or not?
+
+
+
+
+
+========
+
+25. How do you calculate the number of vowels and consonants in a String?
+
+
+
+
+
+
+==========
+22. How do you determine if a string is a palindrome?
+
+
+public static boolean isPalin(String word){
+	
+	String reverse = "";
+	char[] chars = word.toCharArray();
+
+	for(int i = 0 ;i < chars.lenght;i++){
+
+			reverse = chars[i]+ reverse;
+	} 
+
+	return word.eqauls(reverse);
+
+}
+
+=================
+
+Fibanachi
+
+public int fibinac( int number){
+	
+	if (number <= 1){
+		return number;
+	}
+
+	return fibinac(number - 1) + fibinac(number - 2);
+
+
+}
+
+=======================
+
+
+Prime
+
+public static boolean isPrime(int n) {  
+       if (n <= 1) {  
+           return false;  
+       }  
+       for (int i = 2; i < n/2 ; i++) {  
+
+           if (n % i == 0) {  
+               return false;  
+           }  
+       }  
+       return true;  
+   }  
+}  
+
+
+================
+
+
+
+

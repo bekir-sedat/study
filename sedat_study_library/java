@@ -1,0 +1,100 @@
+
+    public static List<Integer> findMaxHigh(int [] numbers){
+
+        List<Integer> result = new ArrayList<>();
+==============================================================
+
+        Map<Integer,Integer> map = new TreeMap<>();
+
+        for(int i = 0 ; i < numbers.length; i++){
+
+            int num = numbers[i];
+            if(map.containsKey(num)){
+                map.put(num, map.get(num)+1);
+
+            }else{
+                map.put(num,1);
+            }
+        }
+================================================================
+
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
+
+
+        result.add(list.get(0).getKey());
+        result.add(list.get(1).getKey());
+
+        return result;
+        
+    }
+	
+
+=============  EVEN ON LEFT, ODD ON RIGHT============================
+
+	public static int[] divideS(int[] numbers){
+
+        {
+            int j = 0;
+            int temp = 0;
+
+            // quick sort method
+
+            for (int i = 0; i < numbers.length; i++) {
+                // if array of elemen is odd then swap
+                if (numbers[i] % 2 == 0) {
+                    // increment j by one swap the element
+                    temp = numbers[i];
+                    numbers[i] = numbers[j];
+                    numbers[j] = temp;
+                    j++;
+                }
+            }
+        }
+
+
+
+ ===================== ARRAY LENGHT RECURISVE======
+ 
+public static int findArrayLength(int i, int[] array) {
+    if (i < array.length) {
+        return findArrayLength(i + 1, array);
+    }
+    return i;
+}
+
+
+call with i = 0    
+
+  ========================== LENG
+  
+
+
+private static int recLen(String str)  ---> Time Complexity : O(n) 
+    {
+ 
+        // if we reach at the end of the string
+        if (str.equals(""))
+            return 0;
+        else
+            return recLen(str.substring(1)) + 1;
+    }   
+========================================
+
+put RequestSpecification in given().spec(requestSpecs)
+put ResponseSpecification in then().spec(responseSpecs)
+
+End Point = URL + path parameters --> not query params
+
+import static io.restassured.RestAssured.*;
+
+RestAssured.baseURI = "http://api.zippopotam.us";
+
+
+
+
+
+response.prettyPrint()
+
+
+
