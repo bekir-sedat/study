@@ -79,7 +79,35 @@ private static int recLen(String str)  ---> Time Complexity : O(n)
         else
             return recLen(str.substring(1)) + 1;
     }   
-========================================
+==================SORT ARRAY=============
+
+
+    public static int[] sortedArray(int[] ints){
+
+        int[] sortedArray = Arrays.copyOfRange(ints,0,ints.length);
+
+        for (int i = 0 ;i<ints.length;i++){
+            for (int j = 0;j<ints.length;j++){
+            
+                if(sortedArray[i] < sortedArray[j] ){
+
+                    int buf = sortedArray[i];
+                    sortedArray[i] = sortedArray[j];
+                    sortedArray[j] = buf;
+                }
+
+            }
+        }
+
+        return sortedArray;
+    }
+
+
+
+
+
+
+
 
 put RequestSpecification in given().spec(requestSpecs)
 put ResponseSpecification in then().spec(responseSpecs)
@@ -119,4 +147,4 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 
-RestAssured.given().accept(ContentType.JSON).queryParam("a", "d").and().pathParam("id","w").when().get("/ee/{id}").then().sta
+RestAssured.given().accept(ContentType.JSON).queryParam("a", "d").and().pathParam("id","w").when().get("/ee/{id}").then()is
