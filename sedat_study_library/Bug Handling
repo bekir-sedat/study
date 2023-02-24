@@ -1,0 +1,18 @@
+Bug Handling
+	
+	- Test again, make sure its is real bug
+	- Ask other friend if he is getting the same bug 
+	- If yes, i talk to developer and if he agrees, we discuss about the severity of this bug,
+	- I inform my PO and get his response about the priority 
+	- then i create the bug issue in Jira and add STEPS to reproduce this bug, 
+											  add SCREEN HSOTS
+											  add Environmmet and Platform info
+
+											  and assign it to Developer 
+
+	- After developer fix the problem, I retest again. If pass
+	- If my tests pass, I mark it as "Ready for PO"
+
+
+
+============

@@ -116,3 +116,7 @@ Body:           <none>
 
 
 import static org.junit.jupiter.api.Assertions.*;
+
+
+
+RestAssured.given().accept(ContentType.JSON).queryParam("a", "d").and().pathParam("id","w").when().get("/ee/{id}").then().sta
