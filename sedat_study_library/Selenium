@@ -1121,10 +1121,21 @@ while a defect is a flaw in a product that reduces its usability or value.
 Bugs are usually found during testing, while customers find defects
 
 
+========
+
+What is your process to handle defects?
+	
+	- Test again, make sure its is real bug
+	- Ask other friend if he si getting the same bug
+	- If yes, i talk to developer and if he agrees i, create the bug issue STEPS, SCREEN HSOTS and and 
+
+	- After fix, retest , if fixes 
+	- mark as Ready for PO
 
 
+	- Talk to developer, 
 
-
+============
 
 
 
