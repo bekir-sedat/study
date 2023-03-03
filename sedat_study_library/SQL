@@ -548,11 +548,10 @@ This is different from COUNT(expression), which returns only the number of rows 
 
 ===================
 2a: Find the total number of streams by date.
-
-SELECT date,
-     SUM(number_of_streams) AS total_number_of_streams
-		 FROM movie_streaming
-		 GROUP BY date;
+		
+SELECT date, SUM(number_of_streams) AS total_number_of_streams
+																 FROM movie_streaming
+																 GROUP BY date;
 
 =======
 

@@ -30,18 +30,18 @@
     }
 	
 
-=============  EVEN ON LEFT, ODD ON RIGHT============================
+=============  EVEN ON LEFT, ODD ON RIGHT==========or positive negative===========
 
 	public static int[] divideS(int[] numbers){
 
         {
+        
             int j = 0;
             int temp = 0;
 
-            // quick sort method
-
             for (int i = 0; i < numbers.length; i++) {
-                // if array of elemen is odd then swap
+
+                            /////// if array of elemen is odd then swap////////
                 if (numbers[i] % 2 == 0) {
                     // increment j by one swap the element
                     temp = numbers[i];
@@ -66,7 +66,7 @@ public static int findArrayLength(int i, int[] array) {
 
 call with i = 0    
 
-  ========================== LENG
+  ========================== Recuesive length
   
 
 
@@ -82,24 +82,25 @@ private static int recLen(String str)  ---> Time Complexity : O(n)
 ==================SORT ARRAY=============
 
 
-    public static int[] sortedArray(int[] ints){
+    public static int[] sortedArray(int[] numbers){
 
-        int[] sortedArray = Arrays.copyOfRange(ints,0,ints.length);
+        //////int[] sortedArray = Arrays.copyOfRange(ints,0,ints.length);
 
-        for (int i = 0 ;i<ints.length;i++){
-            for (int j = 0;j<ints.length;j++){
-            
-                if(sortedArray[i] < sortedArray[j] ){
+        for (int i = 0 ;i<numbers.length;i++){
 
-                    int buf = sortedArray[i];
-                    sortedArray[i] = sortedArray[j];
-                    sortedArray[j] = buf;
+            for (int j = 0;j<numbers.length;j++){
+
+                if(numbers[i] < numbers[j] ){
+
+                    int buf = numbers[i];
+                    numbers[i] = numbers[j];
+                    numbers[j] = buf;
                 }
 
             }
         }
 
-        return sortedArray;
+        return numbers;
     }
 
 
@@ -142,9 +143,14 @@ Multiparts:     <none>
 Body:           <none>
 
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
 
 RestAssured.given().accept(ContentType.JSON).queryParam("a", "d").and().pathParam("id","w").when().get("/ee/{id}").then()is
+
+
+relaxedHTTPSValidation()
+
+
+relaxedHTTPSValidation()

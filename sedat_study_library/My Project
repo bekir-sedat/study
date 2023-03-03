@@ -1,14 +1,15 @@
 My Project:
 	- I was in a team building a new ETL Automation Application
+	- Team was a subgroup of a bigger team maintaing the Bank's Metadata Server.
 
-	- The project goal was to replace existing a third party ETL tool called Informatica with this new in-house application developed by my team.
+	- The project goal was to replace existing a third party ETL tool called Informatica with this in-house application developed by my team.
 
 	- Application was getting the data from all sorts of sources and storing them into the staging tables, 
-	  than it was performing pre-defined transformations defined in the metadata and
+	  than it was performing  transformations defined in the metadata document and
 	  finally loading these transformed data to their final target DataMart Tables.	
 
 	- I was responsible for testing this Application during each phase of this ETL process. 
-	- I make sure extraction of data from different sources, Transferering and Loading these datas to their target tables are in 100%  match.
+	
 
 
 
@@ -41,3 +42,7 @@ source--> staging--> datamart
 
 
 - Team was a subgroup of a bigger team maintaing the Bank's Metadata Server. ==> mention for etl related jobs
+
+
+
+line 12 ---> - I make sure extraction of data from different sources, Transferering and Loading these datas to their target tables are in 100%  match.

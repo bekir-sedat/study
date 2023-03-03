@@ -49,6 +49,43 @@ DATA VALIDATION : Create many test cases fin this stage
 
 ====================================================================================================================================
 
+1) Structural Validations type tests
+	Validation of Data types , Fields, Column names Validation in source and target System
+
+2) Validate Constraints (Integrity  test i think):
+	Check the contsraints applied correctly. ex Unique, Not null, default(get defaukt if no value given), Primary key == (Not null + Unique), Check  --> check(age between 15 and 30),
+	Foreign key(employee_id) references Employees(emoployee_id) on Delete cascad
+
+
+
+	Validating the constraints and makeing sure that they are applied on the expected tables.  ---> fetting from Table_constarints_table in database
+
+
+3) Data Consistency check
+	for example:  Validating the misuse of integrity constraints like Foreign Key.
+
+
+4) Null Validation  
+	Verify the Null values where it supposed to be Not Null for that field.
+
+5) Data Completeness Validation
+	Verify number of rows matches in the source and the target systems
+	Boundary value analysis. Check value is between min and max values
+	Primary keys validation
+
+6) Data Quality Validation  
+
+	Number check, date check, precision check, data check etc
+
+7) Duplicate Validation  
+	Validating duplicate values in the target system
+
+8) Date Validation check 
+	Verify From_Date should not greater than To_Date for example
+	Verify Data format , NULL values etc
+
+
+=====================================================================
 
 
 1 . Table Structure verification VERIFY ALL BELOW
@@ -148,7 +185,11 @@ METADTA MAPPING
 DATABASE SCHEMA of source and target
 
 
+==============
+Surrogate keys are used to implement the primary keys of almost all dimension tables. In addition, single column surrogate fact keys can be useful, albeit not required. Fact table surrogate keys, which are not associated with any dimension, are assigned sequentially during the ETL load process and are used 1) as the single column primary key of the fact table; 2) to serve as an immediate identiﬁer of a fact table row without navigating multiple dimensions for ETL purposes; 3) to allow an interrupted load process to either back out or resume; 4) to allow fact table update operations to be decomposed into less risky inserts plus deletes.
 
+
+========
 
 
 
@@ -197,41 +238,6 @@ DATA VALIDATION : Create many test cases fin this stage
 
 
 
-
-1) Structural Validations type tests
-	Validation of Data types , Fields, Column names Validation in source and target System
-
-2) Validate Constraints (Integrity  test i think):
-	Check the contsraints applied correctly. ex Unique, Not null, default(get defaukt if no value given), Primary key == (Not null + Unique), Check  --> check(age between 15 and 30),
-	Foreign key(employee_id) references Employees(emoployee_id) on Delete cascad
-
-
-
-	Validating the constraints and makeing sure that they are applied on the expected tables.  ---> fetting from Table_constarints_table in database
-
-
-3) Data Consistency check
-	for example:  Validating the misuse of integrity constraints like Foreign Key.
-
-
-4) Null Validation  
-	Verify the Null values where it supposed to be Not Null for that field.
-
-5) Data Completeness Validation
-	Verify number of rows matches in the source and the target systems
-	Boundary value analysis. Check value is between min and max values
-	Primary keys validation
-
-6) Data Quality Validation  
-
-	Number check, date check, precision check, data check etc
-
-7) Duplicate Validation  
-	Validating duplicate values in the target system
-
-8) Date Validation check 
-	Verify From_Date should not greater than To_Date for example
-	Verify Data format , NULL values etc
 
 
 

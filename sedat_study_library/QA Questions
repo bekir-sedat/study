@@ -87,6 +87,10 @@ A test plan is a document that outlines the details of the intended test. It sta
 talk about how the tests will be designed, how they will be executed, how defects will be managed, and what the test automation reporting will look like.
 
 
+12. What is a Test Strategy?
+The test strategy outlines the plan for the testing stage of software development.
+
+Unlike the test plan, which describes one specific test, the test strategy covers the entire testing phase of development and includes a description of the testing tools, test groups, test priorities, test record maintenance, and the test summary.
 
 
 =======

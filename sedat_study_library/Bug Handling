@@ -20,3 +20,11 @@ Bug Handling
 
 
 ============
+
+
+What is the benefit of using xpath?
+	- Can navigate forward and backword in the doument  ---> css no
+	- Can work with text()  --> css no 
+	- More functions to pin point to element ex: contains(@as), startswith   -->
+	- Can search by index  --> css no 
+	- 
