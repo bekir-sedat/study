@@ -290,3 +290,17 @@ TestNG facilitates the passing of parameters to the test methods in two ways: wi
 
 TestNG.class contains main() actually which calls suite internally to execute. So, you do not need to write main() method in a TestNG class to run it as TestNG takes care of that by defining annotations. You just need to provide proper annotations to methods and rest TestNG will execute them in a manner by implicit call to main method of TestNG class.
 
+
+==================
+
+Case 1: Execute failed test cases using TestNG in Selenium – By using “testng-failed.xml”
+
+Case 2: Execute failed test cases using TestNG in Selenium – By Implementing TestNG IRetryAnalyzer.
+
+		public class RetryFailedTestCases implements IRetryAnalyzer 
+
+		RetryListenerClass implements IAnnotationTransformer:
+
+		<listeners>
+        	<listener class-name="softwareTestingMaterial.RetryListenerClass"/>
+		</listeners>

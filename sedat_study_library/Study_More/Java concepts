@@ -1,0 +1,135 @@
+Java concepts
+
+- Discuss interfaces, overloading versus overriding (and when you need one oer the other)
+Time complexity ---> Order of n O(n)
+
+- Coding problems –  NOT looking for perfect syntax.  Looking for problem solving people who can think logically by translating algorithms into code.   Also looking for people who can explain “WHY”   do it this way as opposed to this way?  Is there another way: 
+
+			Write a method that can accept array of integers and sort them in descending and then find the highest 2 occurance intergers
+			Write a program to check whether a string is an anagram ←very common question
+			Palindrome question: Identify if given string is a palindrome
+			Given an array: divide into odd and even numbers
+			Print the 2 highest elements of a given array. Now, provide what workaround needs to be done to make the code stable  
+			Find recursive # of an array
+			Given range of two numbers like 2 to 5: find end of the number in the range
+			Find two largest integers from array
+			To reverse a string, how do you write the method?  What is the time complexity?
+
+
+QA MINDSET/testing
+
+What you are testing for: 
+	If you are trying to find bugs in your software, then you will want to use positive test cases. These test for the expected behavior of the software. 
+
+	If you are trying to see how your software reacts when it encounters unexpected input, then you will want to use negative test cases. These test for unexpected behavior of the software. 
+
+	Finally, if you are trying to determine if your software can handle extreme conditions (such as large amounts of data), then you will want to use destructive test cases. These purposely attempt to break the software in order to see how it responds.
+
+
+What is the benefit of using xpath?
+	- Can navigate forward and backword in the doument  ---> css no
+	- Can work with text()  --> css no 
+	- More functions to pin point to element ex: contains(@as), startswith   -->
+	- Can search by index  --> css no 
+	- 
+
+
+Write Test cases for a hypothetical login page (as many test cases you can think of - negative, positive, out of the box etc.)
+	
+
+What is your process to handle defects?
+
+List possible test cases for code written during laptop coding exercises. What possible bugs…?
+
+
+
+API testing q’s like:
+
+ How to test Get and POST request
+ Given some parameters: Write the code for API call with Rest assured
+
+Identify API tests to validate the total amount in a checking account
+
+What are  basic features you would add to a test framework ?
+	loggings, reports, screenshots, utilities, jenkins.file 
+
+
+Discuss creating a unit test for the code written: 
+	Give me examples of the test data you would use to test this ß important. Seeing if you can think of outside of the box pos and neg scenarios
+
+
+SQL  : 
+
+Discuss inner vs left joins
+
+We have  Employee table with columns 'empID' and 'salary'. We have one more table 'Manager' with columns 'empID', 'salary'. Employee table has all employee records and manager records. But Manager table has only manager's records.
+
+Sql query to find the employees with the top 2 (highest) salaries. 
+
+Rejoin table ( 1 has employee id , manager id. Manager ID field is null).
+
+
+
+
+
+with Result as( select * , dense_rank () over (order by salary) as 'TopSalary'  from table name) 
+
+select * from Result where TopSalary between 1 and 5
+
+
+
+type of framework ???? Data driven . keyword , hyrbod ---> 3 layer 
+
+where keep test data ???? Under src Test Data folder , some in endpnywise.xml format some json format OR root configuratin.properties 
+
+reporting selenium , API ??? 
+
+
+bugs  ????  
+
+
+
+Snario outlime 
+
+Datatable ---> 
+
+TestNG --> report 
+
+
+sure-fire ---> paralel testing
+		  ---> 	
+
+Cucumber auto reports --> 
+
+
+
+
+CREST Consalidates report 
+							---> Scenario , Cycle    
+
+									bugs ---> 	
+												wrong status code ()
+										 ---> 	
+
+									UI --> two table from different DW --> to hide rows or columns, It Hides but when unhide no data shows
+									   --> Logic types 
+
+
+What is your process to handle defects?
+	
+	- Test again, make sure its is real bug
+	- Ask other friend if he si getting the same bug
+	- If yes, i talk to developer and if he agrees i, create the bug issue STEPS, SCREEN HSOTS and and 
+
+	- After fix, retest , if fixes 
+	- mark as Ready for PO
+
+
+	- Talk to developer, 
+
+
+
+XUNIT --> 
+
+
+

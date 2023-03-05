@@ -1,0 +1,40 @@
+Protractor 7
+
+- Protracror : Is an end-to-end test framework for AngularJS applications
+			 : it has hooks knowing how Angular works
+
+			 : Protractor is built on top of Selenium
+
+Protractor version --> 2<= version <=7 
+
+Angular version < 2.0
+
+
+1. Understand Angular JS
+	- Understand basic template concepts
+	- Model
+	- Ng - Repeat
+
+2. Testing Framework
+	- Jasmine or 
+	- Mocha
+
+
+
+- Protractor waits for Angular page to load --> Don't need to define another wait
+- Protractor knows the bindings of element e: person.name
+		- gets elements by bindings
+- Protractor can get sections of page with repeaters based on other elements of Angular
+	- gets elements by repeaters
+	- it knows ng - repeat
+
+
+
+- Installition:
+	1. install node.js (npm is in this which is package dowloader)
+	2. Run   $ npm install -g protractor   ---> -g i s global install
+	3.  sudo npm i webdriver-manager
+	4. $ sudo webdriver-manager update
+	5. $ sudo webdriver-manager start
+
+	6 . http://localhost:4444/wd/hub/static/resource/hub.html
