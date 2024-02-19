@@ -1,0 +1,4059 @@
+Comparator --> int compare
+To make objects equal(meaningfully) --> implement hashCode + equals methods
+Hashcode is calculated by a hash function an memery address is given ex: @12345 --> at 12345 location in memory.
+	by using hashcode, we find the object very fast --> no iteration that's why its is so fast.
+
+
+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 -> tok
+
+Iterable --> Collection --> List, Queeue, Set
+
+Map --->
+
+
+We have 3-4 cooman base solutions to solve optimally ()
+
+Upto Java 8 --> Only OOPS (still you can do evertyhing but not efficenet without functional interface?)
+With Lambda --> Functional programming which other languages had like javascript
+			--> more readible code
+
+1. OOPS approach, functional programming approacH
+2. Functional approach
+
+Ex: sorting --> bubble, insertion, quick sort ....
+
+	I have a sort method, pass an action to this function, this will run the action is ideal way of programming, instead write if cases inside sort method:
+
+			public  void sort(action){
+				action();
+			}
+
+Java do funtional programming with functional Interfaces
+Behaviour(Interface) Parameterazition : Pass the behaviour to the method;  --> ex: Passing different Comparater to Collections.sort(list, comparator)
+Remember ------> PASSING THE BEHAVIOUR
+
+	sort(Sorter bubbleSort){}
+	sort(Sorter insertionSort){}
+
+	Sorter is a functional interface with sort() method
+
+	public void sort(Sorter sortingType){
+		sortingType.sort();
+	}
+
+
+In development, all your life is interface. Will use behaviour parametrazition everywhere.
+
+
+- default methods introduced not to break existing code. Still can be overridden. default is not access modifier. it is a specifier. has body.
+- With Java 8, interfaces can have static methods
+
+
+-- can make whole class generic
+- can only make method generic notice signutre public static <T> void method(List<T> list)  --> only when method generic
+- for static methods can't use T when t IS DECLARED at class level --> need to use public static <T> void .if no <T> in static method --> error
+
+- when class MyClass<T>   --> all T's will be for object, not for static methods. For stattic methods no need to use MyClass<T> , do only in method if needed public static <T> void method(List<T> list)
+
+public class Demo<T> {
+
+    public T classGeneric() {
+        return null;
+    }
+
+    public static <E> E methodGeneric(E element) {
+        return null;
+    }
+
+}
+
+
+- Any interface with a SAM(Single Abstract Method) is a functional interface, and its implementation may be treated as lambda expressions.
+- Note that Java 8's default methods are not abstract and do not count;
+
+
+
+
+- Lambda functions don't belong to any class. They are ananomys
+  Lambda functions can be passed into methods as arguments.
+  We can treat a lambda method as a value:
+
+  	ex: a = public void doStuff() { System.println.out("doing sometthing")}
+  		myOtherMethod(a)
+
+
+  	- since lambda doesn't belong to class no need method name to call from an object and no need public visibility--> a = void () {System.println.out("doing sometthing")}
+  	- Java compiler is smart to undertsnad returs , no need return type --> a = () -> {System.println.out("doing sometthing")}
+  	- to make it lamda seperate with -> (fat arrow sign)
+  	- if body is one line no need { }  --> a = () -> System.println.out("doing sometthing")
+
+
+  		myOtherMethod(a)
+
+   - (String str) -> str.length ---> a method takes a string returns its length
+   - () -> 77 -----> a method returns 77
+   - (int a, int b) -> {
+   							System.out.println("working");
+   							System.out.println( a + b);
+   	}
+
+
+   	----> Lambdas implemented within Functional Interfaces
+
+   	--> no need types in lamda --> (a,b) --> a  + b
+   	--> if one parameter --> no need ()  -->  s -> s.size()
+
+ - Lamda Crreation: (Remember these two rules)
+ 	1. Need to create a functional interfaces --> If there is a lambda, there should be a functional interface
+ 	2. My lambda function should follow the signure of the method defined in the functional interface
+ 		(if void no return in lambda, if booleean , need a boolean etc...)
+
+ 	3, Type of lambda expression is the Functional Interface.
+
+ 	4 -> Funtional Interface must have only one abstract method
+ 			use @FunctionalInterface  ---> to create a check  for intereface not someone add another method to this intrface
+
+
+ 	5. By Lambda we are skipping a concreate class implementing the interface method, creationg this object and defining the behaviour in it. Directly passing action (functional) not via object (Object oriented way) ----> Functional Programming using lambda
+ 	Ex : interface MyInterface{
+
+ 			boolean accept();
+ 		 }
+
+ 		 MyInterface myLambda = () -> 4 > 3;
+
+
+ - Actuallt Java giving us Fuctional Interfaces under java.utils.function pacekaeg --> mostly no need to define new Interface to use lambda
+
+
+ -- Type part not important --> MyInterface myLambda (There are different interface methods with same method args and return types)
+ 	Action is  important   --->  () -> 4 > 3
+
+ 	--> All I need action(function)
+
+
+- Lombok setup:
+	1. add dedoendebcy to pom xml
+	2. Download plugin
+	3. Enable annotations --> build tools --> compiler --> Annatotation Processors --> enable
+
+	- 3 contructers in llombok
+		- NoArg
+		- AllArg
+		- RequiredArg  --> for omly non initialized final instanse variables --> you need just this in contructer , not other fields --> wont be using, no worry
+
+		- @RequiredArgsConstructor(access = AccessLevel.PRIVATE)  ---> privat constructer
+
+
+		- @Data annotation incluedes:
+			@Getter for all fields
+			@Setter for all non-final fields
+			@toString
+			hashCode and equals
+			@NoArgConstructer --> if a non-initioalize final field then @RequiredArgConstructer
+
+
+- A snapshot version is a version that has not yet been released. The general idea is to have a snapshot version before the released version.
+- The snapshot(s) version control system (SVCS) is an additional version control system layer that exports each individual change to its own file.
+- SNAPSHOT is a special version that indicates a current development copy. Unlike regular versions, Maven checks for a new SNAPSHOT version in a remote repository for every build.
+
+- The idea is that before a 1.0 release (or any other release) is done, there exists a 1.0-SNAPSHOT. That version is what might become 1.0. It's basically "1.0 under development". This might be close to a real 1.0 release, or pretty far (right after the 0.9 release, for example).
+	The difference between a "real" version and a snapshot version is that snapshots might get updates. That means that downloading 1.0-SNAPSHOT today might give a different file than downloading it yesterday or tomorrow.
+
+	Usually, snapshot dependencies should only exist during development and no released version (i.e. no non-snapshot) should have a dependency on a snapshot version.
+
+
+- @Builder doesn't work with if noarg constructer is defined in the class
+
+- 1. Define Interface with one abstract method
+  2. Create an object with implementation of this functional interface, using lambda expression
+  		lambda experession has the same signuter with this one abstract method(very simplified compact represenattion of method implementation)
+  3. Call this objects method somehere passing the accepting argument if any.
+
+
+- Double colon Operator in Lambda. when we call a static or instance method in lambda expression
+===========from JAVA SDK DOCS =======================
+Functional interfaces provide target types for lambda expressions and method references. Each functional interface has a single abstract method, called the functional method for that functional interface, to which the lambda expression's parameter and return types are matched or adapted. Functional interfaces can provide a target type in multiple contexts, such as assignment context, method invocation, or cast context:
+
+     // Assignment context
+     Predicate<String> p = String::isEmpty;
+
+     // Method invocation context
+     stream.filter(e -> e.getSize() > 10)...
+
+     // Cast context
+     stream.map((ToIntFunction) e -> e.getSize())...
+
+The interfaces in this package are general purpose functional interfaces used by the JDK, and are available to be used by user code as well. While they do not identify a complete set of function shapes to which lambda expressions might be adapted, they provide enough to cover common requirements. Other functional interfaces provided for specific purposes, such as FileFilter, are defined in the packages where they are used.
+
+The interfaces in this package are annotated with FunctionalInterface. This annotation is not a requirement for the compiler to recognize an interface as a functional interface, but merely an aid to capture design intent and enlist the help of the compiler in identifying accidental violations of design intent.
+
+Functional interfaces often represent abstract concepts like functions, actions, or predicates. In documenting functional interfaces, or referring to variables typed as functional interfaces, it is common to refer directly to those abstract concepts, for example using "this function" instead of "the function represented by this object". When an API method is said to accept or return a functional interface in this manner, such as "applies the provided function to...", this is understood to mean a non-null reference to an object implementing the appropriate functional interface, unless potential nullity is explicitly specified.
+
+The functional interfaces in this package follow an extensible naming convention, as follows:
+
+There are several basic function shapes, including Function (unary function from T to R), Consumer (unary function from T to void), Predicate (unary function from T to boolean), and Supplier (nilary function to R).
+Function shapes have a natural arity based on how they are most commonly used. The basic shapes can be modified by an arity prefix to indicate a different arity, such as BiFunction (binary function from T and U to R).
+There are additional derived function shapes which extend the basic function shapes, including UnaryOperator (extends Function) and BinaryOperator (extends BiFunction).
+Type parameters of functional interfaces can be specialized to primitives with additional type prefixes. To specialize the return type for a type that has both generic return type and generic arguments, we prefix ToXxx, as in ToIntFunction. Otherwise, type arguments are specialized left-to-right, as in DoubleConsumer or ObjIntConsumer. (The type prefix Obj is used to indicate that we don't want to specialize this parameter, but want to move on to the next parameter, as in ObjIntConsumer.) These schemes can be combined, as in IntToDoubleFunction.
+If there are specialization prefixes for all arguments, the arity prefix may be left out (as in ObjIntConsumer).
+
+=======================================================
+- predicate ==  (boolean-valued function)
+- Consumer<T> --> Represents an operation that accepts a single input argument and returns no result.
+- Function<T,R> --> Represents a function that accepts one argument and produces a result(returns something).
+
+========
+
+Development:
+	map Java classes to database, frontend etc...
+
+Typical examples of binary operations are the addition (+) and multiplication (×) of numbers and matrices as well as composition of functions on a single set.
+	list.stream().reduce(0, (a,b) -> a+b)  --> reduce method takes inital value and a binary operator or BiFunction.
+		binary operator extends BiFunction
+
+Map - Reduce Pattern -->
+
+- reduce --> reduces result into one output from many.
+
+service --> crud operations
+
+contol calls service
+
+-If the distribution of the quantity is normal, then it should be standardized, otherwise the data should be normalized. This applies if the range of quantity values is large (10s, 100s, etc.) or small (0.01, 0.0001).
+
+
+- group by --> we chosee what to group by
+- partition type --> we give a predicate (condition) --> groups according to these true and false consitionof our predicate
+
+
+- where filter is applied before grouping
+	having filter is applied after grouping
+		where is applied before gropp
+		where can't be used after group
+
+- when group by is used, then in select only aggregate funvtions
+
+- when joining table always consider the null values when there  is mo match
+		when do left join if there ios no match of left on right --> all right columns will be null.
+
+- set operators - > union, union all, intersect, minus -(oracle)(except in postgres)
+
+- explain analyze
+    select * from table
+
+
+- Indexing a column speeds up table look ups drastically.
+	to create an index
+		CREATE INDEX <my_index> ON <table>(<column>);
+
+- tradeoff --> when there is index , insert takes longer
+
+- functions in sql were being used more on business logic before ui, api, microservices abstraction
+		reusable code on sql side (method)
+		using sql functions on database side is much faster than using in java  -> but hard to maintain 100s of sql functions
+		now microservices is handling these sql functions --> state of art
+- funtion has return type, stored procedures don't
+= can use dml(update, insert, delete) with store procedures but not with fuctions
+- dml needs COMMIT
+- TO CALL 	functions , we use SELECT function
+- TO CALL procedures, we use CALL procedure
+
+- FUNCTIONS are database specific
+
+- Triggers --> calls uopn an event
+				suppose you update your password, and you want to keep old one in other table
+
+
+
+- distinct() returns distinct elements
+  skip(int) --> skip that amount
+
+
+- unit test method names are usually long
+  in dev usally not good. not match SOLID
+
+
+
+
+  ===================== SPRING ==========================================================
+
+- check spring website / projects(each framework as well) --> each has different community
+- microserevice --> java
+- before spring --. javaee
+- spring creator --> rod johnson
+
+- to work in IT need to know programing language and a framework. EX spring, angular, react
+- coupling --> dependency of one class to another class(es) --> less dependency less copuled\
+- new Object() --> creating a new object always a disadvantage in dev.
+	in spring new keyword will be gone.
+- spring core
+	--> deal with coupling problem, deal with managing creation of objects, brain(?)
+		every other spring components using spring core
+		Spring core will take the control of running the application
+		Spring will create and manage the objects --> no new Object()
+
+- what is IoC inversion of control
+- what is injection dependency
+- In the non-IoC model, Class Awhen it is necessary to actively create class objects Class Band Class C(it holds the right to initialize and control)
+
+- We define which object we need in configuration -> spring will cretae those based on this configuration
+- Spring container --> where all object creation and managemnet
+- Whateer goes in spring container is called BEAN
+- Bean is an object that is created and managed by Spring Cointainer.
+- Spring(IoC) continer is reponsible of connecting beas together to build a working app --> it does so by reading configuration file
+- objects in spring will be created when needed --> verify --> may be using (@Lazy ServiceObject s_object) of constructor of where injection happens
+
+
+
+- We will learn how to create containers. Two types
+	1. Spring BeanFactory Container using BeanFactory
+	2. Spring ApplicationContext Container using ApplicationContext
+
+	**** ApplicationContext extends BeanFactory ***
+
+	Spring provides us the components below. We use it
+	by using BeanFactory and/or ApplicationContext --> we can create container
+
+- BeanFactory is an interface -> org.springframework.beans.factory.BeanFactory
+	This is a Root Interface for Accesing spring bean Container
+	Some  implementation classes
+		XMLBeanFactory
+		DefaultListableBeanFactory
+		SimoleJndiFactoty  ... and more
+
+- AppicationContext is an interface -> org.springframework.context.ApplicationContext
+
+	Generally recemened over BeanFactory
+	Has all the functionalities of BeanFactory
+		**** ApplicationContext extends BeanFactory ***
+
+- we create container using BeanFactory anr ApplicationContext
+- Based on our configuration file there are a lot of different imlpemtation classes of ApplicationContext
+	config might be in XML or other kind ...
+
+- @Configuration --> when spring starts , it look for this class implemets this annotation and creates beans from this class
+  we can have more than one config class defined with @Configuration --> spring will find all these classes
+  	1 config class for database related
+  	1 config for security related ...
+
+ - Spring needs minimun Java 8
+
+ - if config file has more than 1 same object return then use:
+ 			1 @Bean(name="some_name")
+ 				call it like : container.getBean("some_name", objects_class.class)
+ 			2. use @Primary
+ 					this defaults return object to this one
+
+
+ - Defining Congig class
+ 		1.a. use @Configuration on top of this config class
+ 		1.b. use @Bean for methods that returns the objects that we want
+
+ 		2a.	use @Configuration on top of this config class
+ 		2.b use @Component on top of classes  --> these classes will be @Bean
+ 		2.c use @ComponentScan on top of Config class to capture the @Components
+
+ 	If class is not OUR class -> we need to use @Bean Annotation case ********
+
+
+- @Autowired will be done mostly
+			using @AllArgsCnstructor of Lombok --> only if class has one contructer
+			(after spring 4.3 --> no need to @Autowired above contructor)
+
+
+- Service --> business logic
+- repository ---> database -- dao
+- model/entity --> dtabase objects in a package
+- model/dto --> UI objects in another package (will be covered in MVC )
+
+- for any has-a object --> define as : private final MyHasAObject;
+- method parameter is not a dependency --> just has-a relationship
+	method parameters coming from somewhere.
+- pojo classes are not component (bean)
+- no componet for interface -- > can't create instance
+
+- If a class has a dependecy --> @component
+  If a class is in other class(has-a) re;lionship --> @component
+
+- UnsatisfiedDependencyException
+  NoUniqueBeanDefinitionException --> may use @Primary
+  								  --> may use @Qualifier
+  								  --> Autowiring by Name may pick the right Bean. see example below
+
+- @Primary annotation. This annotation is useful when we want to specify which bean of a certain type should be injected by default.
+
+- When @Primary used and non-primary needed , need to use @Qualifier for this non-primary one
+
+- It’s worth noting that if both the @Qualifier and @Primary annotations are present, then the @Qualifier annotation will have precedence.
+
+- Basically, @Primary defines a default, while @Qualifier is very specific.
+
+- Another way to decide between multiple beans when autowiring, is by using the name of the field to inject. This is the default in case there are no other hints for Spring. Let’s see some code based on our initial example:
+
+					@Component
+					@Primary
+					public class FooFormatter implements Formatter {
+					    //...
+					}
+
+					@Component
+					public class BarFormatter implements Formatter {
+					    //...
+					}
+
+
+////////////
+
+					public class FooService {
+
+					    @Autowired
+					    private Formatter fooFormatter;
+					}
+
+
+			in this case, Spring will determine that the bean to inject is the FooFormatter one, since the field name is matched to the value that we used in the @Component annotation for that bean.
+
+
+
+
+- If we extend from one interface, need to uniiquly sepearete implemented instance (Spring thins it is same bean)
+			ex: error -->  expected single matching bean but found 2: overtimeHours,regularHours
+- Spring has a lot of Interfaces and implementation classes which Spring takes as @Primary --> makes one default always
+
+- @Qualifier --> use 1 . contructor     public CommentServiceImp(CommentRepository commentRepository, @Qualifier("emailCommentNotification") CommentNotification commentNotification)
+
+					2. give custom name in component class and call it with tho given name
+
+							@Component
+							@Qualifier("sed")
+							public class EmailCommentNotification implements CommentNotification{
+
+
+
+- Beans annottions -> @Component
+					  @Qualifier("myName")
+					  class A{
+
+					  }
+
+- @Scope("prototype")  or @Scope(BeanDefinition.SCOPE_PROTOTYPE)   --> don't use singleton bean
+				singleton obj1 == obj2
+				prototype obj1 != obj2
+
+- By default Bean instantiation is eager --> we will have error in database will soolve this problem with @Lazy
+
+- Put @Lazy   --> for object not cretaed when continer created
+- We will use mostly Singleton and eager
+
+- We won't be using spring-context dependency --> will use spring-boot and whatever spring-context it uses
+- spring assigns default bean names to each bean --> can use these names in getBean(<name>, xxx.class)
+
+
+ 			What is meant by spring context?
+			The context in the Spring Framework is shorthand for ApplicationContext , which is the programming construct that the framework uses to access components from the Inversion-of-Control (IoC) container where they are cached
+
+
+- @Data with @NonNull --> we will have getter setter and contructer with non-null reuiqred field contsructor
+
+- @Data includes --> @Getter, @Setter, @RequiredArgsConstructor, @ToString, @Value, @EqualsAndHashCode
+		- to decleare a field required --> use @NonNull (all lombok)
+
+										  note --> @NotNull --> Spring ???
+
+- xml configuration is old now. nobody is using
+
+- spring boot fast bootstraping --> creates dependecies .... --> makes dev easier
+		-- bootstrap --> initial load of application to system
+
+- spring boot auto-configuration --> spring boot autmatically configures bare minimum components
+
+- jar --> from main method + we have tomcat server
+		-> jar starts from main method
+
+- Our build will be jar --> then run as  $ java -jar MyApp.jar (which includes server tomcat)
+	before it was war file (there was no server) --> put this war file into external company server(Tomcat, Jboss, WebSphere etc.)
+
+- Visaul studia COde is very good for front end developers --> supports javascript very good
+
+- Spring Boot Application
+- Springboot project files
+
+		- mvnw andd mvnw.cmd --> maven wrapper scripts. You can use these scripts to bulid project even if you don't have Maven insatalled on your machine.
+
+		- with spring boot --> no need to install config a server and no need maven --> CICD WILL BE SO EASY --> just run java -jar MyApp.jar
+			ex: when running test on Jenkins --> maven should be installed by jenkins
+
+		- pom.xml --> Maven build specifications
+
+		- tests --> spring tests if application loads succesfully and we will add our unit tests here
+
+		- application.properties  --> configs
+		- static --> images, css, js(all static content) -> we created this folder under resources -> spring know this folder
+		- templates --> Contains template files that will be used to render the content to browser(Thymeleaf)
+					--> what we see on ui will come from these templates
+
+
+	- pom.xml
+			<parent> This says, project has <spring-boot-starter-parent> as its parent POM
+					 This is coming from spring-boot --> basically mine is extending this parent pom
+					 we will do pom inheritence in microservice
+
+
+	- application.properties --> whenever Springboot app starts, it reads this
+									ex: server.port=9099 --> server is an object port is attribute
+									ex: days=monday,wednesday,friday  --> array
+	  application.yml
+
+
+  - spring-boot-starter --> dependency
+  - you need to think what capbilities these starters provide ex: web starter dependency(Umbrella)
+  - we only care what Spring Boot version we use.
+
+
+- Spring Boot plugin in pom <build>
+	- provides a Maven goal that enables you to run the application using maven
+	- ensures that all dependency libraries are included within the executable JAR file
+
+	- Plugins are basically goals (use in terminal)
+	- spring provides this plugin that we can use with maven as well
+	- ex: we can open terminal then $ mvn spring-boot:run   --> run an application in place
+	- ex: $ mvn spring-boot:build-image
+
+- @SpringBootApplication  has --> @SpringBootConfiguration, @ComponentScan, @EnableAutoConfiguration
+- Our main app under org.avci --> this App class has main method also because of @SpringBootApplication, it act as config class and scans Components (under org.avci packages) --> top level scan
+
+- @EnableAutoConfiguration --> when I put a new dependency this autoconfigures(create bean and manage)
+
+- log.debug  --> logs only in debug mode
+- log.error --> logs when error happenns
+
+- everything in computer runs in  port
+	tomcat --> 8080
+	postgres --> 5432
+
+
+- @Value()
+
+	every microservice should run in different porr
+
+
+- http --> protocol
+		--> front end should understand HTTP
+		--> backend should understand HTTP
+				so we make connection between front end and backend
+
+
+- http://localhost:8999
+
+- Via Tomcat instance  --> HTTP communication with ui and backend
+
+
+- We approach baked response not Single Page App(UI, like angular, reac, vu)
+
+	- in mvc(baked) version url resource request comes ex: GET abc.com/products
+		- actullly abc.com/products is calling a method (find from mapping)
+			then call controller class which has this method and it
+				then create and return the view
+	- dispatcher orchestritaiung above
+- @Controller tells this class is controller
+- In controller class, there will be methods
+  - @RequestMapping is mapping a method to requested resource
+  		@RequestMapping can be in method or class level
+
+  		if it is for class @RequestMapping("/cities") and then we have on method of this same class @RequestMapping("/ankara")
+  				--> end point /cities/ankara
+  				--> @RequestMapping("/cities") applies all for methods with this class
+
+
+- When requests comes --> spring looks all @Controller classes to find the method to execute
+
+- @RequestMapping("/products") --> go to products
+- @RequestMapping   or  @RequestMapping("/")   --> goto base
+
+- @RequestMapping --> default is static folder under resouces --> return "/myCustomFolder/user.html" --> need to provide wrt base folder static
+
+- <html xmls:"http:tymeleaf"  --> means we can use tymeleaf tags in addition to html (it is called namespace)
+
+- MVC is for UI, API, DATABASE
+
+- xmlns == xml namespace
+  xmlns:th="http://www.tyhmeleaf.com"  --> th which is used inside html tags --> ex : <h1 th:text="${key}" /h1>
+
+- abc.com/members  --> members can be api endpont or data
+- abc.com/members/activities --> activities can be api endpont or data
+
+
+- Querry Param Capture
+   @RequestMapping("/info2")
+    public String getCarInfo2(@RequestParam(value = "make",required = false,defaultValue = "Acura") String make, Model model){
+
+        model.addAttribute("yourCar", make);
+        return "/car/car-info.html";
+    }
+
+- Path Param Capture
+	 @RequestMapping("/info3/{make}/{year}")
+	    public String getCarInfo3(@PathVariable String make, @PathVariable Integer year, Model model){
+
+	        model.addAttribute("yourCar", make);
+	        model.addAttribute("year", year);
+	        return "/car/car-info.html";
+	    }
+
+
+
+- If we are using pojos(in model) ---> no @component
+	pojos(in model) --> data carry between ui-api-database
+
+
+
+- HTML is collection of predefined tags --> not a programming langauage
+
+// DON'T CONNECT CONTROLLER TO REPOSITORU
+
+- model is data that's why I see @Data on top :))))
+
+- Service is serving :)) all logic here jhandle request do whatever needs o be done here using other beans
+
+
+- use private final for OBJECTS TO BE INJECTED
+
+if(happy path) then always use else{}
+
+	if(negative case) --> no need else
+
+- <form> in html is iportant for front end developers
+
+-<input > --> may be text , button, radio button, checkbox
+
+- <div> is used to create wrapper for enclosed elements (division)
+
+- css is used to dress up the webpage
+- bootstrap is a css framework
+	add links hrefs in <head> to get the css classes to out dom
+	add <scripts> as well
+
+- grid systems are very important for web page design
+
+- bootstrap divides screen into 12 columns
+
+- bootstrap supports responsive design
+	responsive design ex: meni items changes in mobile(small screens)
+
+- use concept master project to bring elements css' ed by bootstrap
+
+
+- App is connected to one env, use application.properties for parameter changes
+
+- @Value --> reads from application.properties
+
+- make private final variables in @Component class --> wiil get null pointer
+	 private final AccountRepository accountRepository;
+	 // need above in constructor
+
+    public AccountServiceImpl(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+- server is always up an running. Listens events
+	server at port 8080 keeps listens (our app sits on this ip)
+	all reuests comes to this port -> we listen catch and return
+
+- am.com/s/10?  --> am.com/s --> endpoint 10 is path param
+						or
+					am.com/s/10 --> may be endpoint
+
+					after ? querry param
+
+	for path param position is importand
+	for query param key is important
+
+- checks controller (@Controller)classes for mapping an endpoint to a class
+	in controller -> label each method for specific endpoint
+
+
+	api endpoint - process - return web page
+
+- apo's communicate with json data
+
+
+- UI  ---- MODEL  ---- API
+
+	model.addAttribute("accountListParamInHTMLfile", accountService.listAllAccounts())
+	thymeleaf can access accountListParamInHTMLfile(can take anything from server, converts to html )
+
+	Controller doesn't connect to DATABASE. (contoller alway s call methods from Service)
+	Controller always connect to Service
+	Service cconnects to Database
+
+@Controller --> has @Component already
+
+
+@RequestMapping ---> default is GET  --> this tag is for dispather to map
+	@RequestMapping == @GetMapping by default value of RequestMapping
+
+
+
+
+-  <div class="row">
+	    <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">  --> bootstrap columns (total 12)
+	        <div class="row">
+	            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+- bootstap ==~ initial load , initial data
+
+- model.addAttribute("students", DataGenerator.createStudent());  --> students used in view --> th:
+- th:text is used to display the value of model attribute
+- With ${<attribute_key>} refer to any attributes we define in model class in controller methods
+
+			th:text="${students.get(0).firstName}"
+- Model is POJO -->
+
+- th always in html tags ex: in <h>  in <a>
+- th text --> ${}  --> in <h>
+- th href --> @{}  --> in <a>
+					- absolute <a th:href = "@{https://avci.com}" > Avci Home </a>
+					- relative  <a th:href = "@{/account/create-account}" > Create Account </a>
+- Adding query parameter to link
+	localhost:8000/student/welcome?id=3
+		<a th:href="@{/student/welcome(id=3)}" > Link </a>  --> This is important --> https://***.com/student/welcome?id=3
+
+- Capturing query param in controller
+
+- th iterations --> in tables , dropdowns
+
+
+		th:each
+
+		ex: <ul>  --> unordered list
+					<li th:each="course:${coursesList}"  th:text="${course}"></li>	--> lists all element in each <li>
+			</ul>
+
+
+		ex:
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>LastName</td>
+					<td>Phone</td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="employee : ${employees}" >       ---> number of rows == number of employeess in the list
+					<td th:text="${employee.firtname}"> </td>
+					<td th:text="${employee.lastName}"> </td>
+					<td th:text="${employee.phoneNumber}"> </td>
+			</tbody>
+		</table>
+
+	- We will implement th:each for all tables and dropdowns
+
+
+- Conditions
+
+	1. <div	th:text = "${emplyoyees.get(0).age > 18 ? 'OK' : 'NOT OK'}" > </div>
+
+	2. <div>
+			<span th:if = ""${emplyoyees.get(0).age >18}"> OK </span>
+
+			<span th:unless = ""${emplyoyees.get(0).age >18}"> NOT OK </span>
+
+		</div>
+
+
+
+- static files under src/main/resources/static folder  --> css, js, images
+- spring knows and looks under folders templates and static
+
+- CSS
+	<link th:href = "@{/css/myCss.css}" rel = "stylesheet" />
+
+- JS
+	<script th:src = "@{js/myJsFile.js}" type="text/javascript" > </script>
+
+- Image
+	<img th:src="@{/images/welcome-38249.png}"/>
+
+- Fragments (resuable common part in our page: ex: logo, sidebars, footers)
+	1. we put reusable elements under fragment th:fragment --> step 1 create fragment
+	2. we call the part using th:replace
+
+	we create fragments with a name --> call these fragments using replace
+
+	ex: under templates/fragments/index.html file two fragments created
+			<div th:fragment="main-menu">
+		    <a href="https://avci.com/">Avci</a>
+			</div>
+
+			<p th:fragment="footer-menu">
+			    <a href="privacy">Privacy</a>
+			    <a href="term and conditions">Terms</a>
+			</p>
+
+		use those fragments above under another page products.html
+
+			<div th:replace="/fragments/index :: main-menu">Main Menu</div>
+			// Go to that fragment :: means look main-menu under it and replace whatever I provide with corresponding fragment
+
+			<div th:replace="/fragments/index :: footer-menu">Footer</div>
+
+
+
+
+	ex: create one fragment file for header and footer
+		create another to change js files
+
+
+- use messages.properties file under resources when we try to bring external things into view(html files)
+
+	th:text ="#{index.page.title}"    ---> #
+
+	key=value
+
+	ex: index.page.title=AVCI      --> index.page.title can be anything
+
+	- How to read these from htlms?
+		<title th:text ="#{index.page.title}" > </title>  //
+
+
+- WHENEVER WE USE th values in html not valid
+	ex: <title th:text ="#{index.page.title}" > MY TITLE</title>  --> MY TITLE won't be displayed
+
+- th:href  --> reference to api endpoint
+
+- Everthing starts with a Request
+
+
+requirement --> if no account --> only see No Account yet text -- no table
+
+- Creatting empty object with builder --> Account.builder().build()
+
+- for form 3 thinds --> which emoty object , whiche end point willl ber
+
+
+-  <form th:object="${account}" method="post" th:action="@{/create}">
+- <input th:field="*{userId}" type="text" class="form-control" id="userId" placeholder="user id">
+
+
+- th:field="*{userId}" -> is what user selected in UI
+
+- hover on th ebutton to see the endpoints ****
+
+- RequestMapping is for dispatcher to map  -> in class level and method level --> it is good in class level
+
+- tyhmeleaf th tags are always in <html> tags
+
+
+
+- When we work with UI --> we work with two HTTP method --> GET, POST
+
+	default HTTP method --> GET
+
+	http:// avci.com + enter --> GET
+	search something "Java Book" + enter --> POST (submitting a form)
+		even updating a form it is POST in terms of HTTP
+
+- Before spring 4.3 --> only RequestMapping(value="/cars" , method = RequstMethot.GET)
+							 RequestMapping(value="/car/search" , method = RequstMethot.POST)
+
+	after --> GetMapping()  == RequestMapping(value="/cars" , method = RequstMethot.GET)
+			  PostMApping() == RequestMapping(value="/car/search" , method = RequstMethot.POST)
+			  PutMapping()
+			  DeleteMapping()
+			  PatchMapping()
+
+
+	CAN'T replace RequestMapping in class level --. has to be RequestMapping() in class level
+
+
+
+
+- UI --> UI Form is treated as one Java object --> form fields == object fields
+
+- DB --> DB table is treated as one Java object --> table columns == object fields
+
+	UI <--> JAVA <--> DB
+- we use templates for ui to deal with dynamicity (feed from api)
+
+- binding form fields -->
+						<form th:object = "${student}"  th:action = "@{/register}" method = "post" >
+							<input th:field = "*{firstName}"
+
+- Thymeleaf dropdown
+
+		<select th:field = "*{state}">
+			<option th:each= "state : ${states_list}" th:value = "${state}" > th:text = "${state}" </option>
+		</select>
+
+- When the form is loaded, Spring MVC call getter methods
+  When the form is submitted, Spring MVC call setter methods
+
+- To get the objects values from form use @ModelAttribute("myObject") in the parameters of handling method
+
+		@ModelAttribute ---> spring.web.bind
+
+	this captured attribute can be transfereed to diffrent views.
+
+=======================   ORM      ====================
+
+- Spring Data is another project in Spring Boot
+	it provides Repository Level (old one is --> DAO pattern)
+	- In  DAO pattern, we had to write Create, Read, Update Delere implemenations ourself
+	- With new version (Repository Level) --> no need
+
+- connect postgres to spring
+
+- Create tables, columns , alter
+
+- Create relationshios between tables --> joins
+
+- Implement sql queries in java side
+
+- DBMS is a software handling data
+	pOSTGRES, ORACLE HAS their own DBMS
+
+- Data Source: Like a JDBC wrapper for managing Connection automatically. Open, Close, Transaction...\\
+		Most common --> HikariCP(connection pool) --> comes with spring.data dependency
+- Relational Database
+		tables has relations --> joins. 1 to 1 , 1 to Many, Many to 1 , Many to Many
+
+- Spring use Data Source to make the database connection (can use JDBC too but this is used in Spring)
+	most commanly used is HikariCP (Connection pool) today
+	manages connections I guess(you don't need to reconnect as oppesed to JDBC)
+	default data source --> comes with  spring boot
+
+- JDBC comes with JDK --> needs databse specific JDBC Driver to connect to coreresponding database
+
+- transaction --> either execute all or none
+					executed all --> commit()
+					failed  --> rollback()
+
+- In Spring --. @Transactional  --> this annotation handles autmatically 1. Start transaction 2. commit if succesfull 3. rollback
+
+- Class level annatotion includes all method in that class
+
+
+- Spring JDBC Template  --> executes database related annatotions
+		Data Source implements Spring JDBC Template
+		ORM -->
+
+- ORM converts data between relational database and object oriented programming language
+
+	takes java class and converts it to database table
+
+- JDBC works with data (SQL)
+  ORM works with objects
+
+- Hibernate wraps JDBC
+- ORM Frameworks (Object Relational Framework)
+		Hibernate  --> famous
+		iBas/MyBatis
+		Toplink
+
+- Hibernate is an ORM
+
+- Adding Hibernate is wrapping JDBC may decrease performance when working with millionss data --> consider to use JDBC for this specific case
+
+
+- JPA (Java Persistance Api) --> already includes Hibernate
+	is not a tool or framework
+	all ORMs implemenenst this
+	So since all ORMs follow some rules due to JPA, switcinh to another ORM won't be a bifg deal
+
+
+- DAO Pattern is old where you have to define interfaces and classes
+ Repository Level is new with Spring Data. Spring data comes with JPA and Hibernate by default
+
+- Modules in spring and usages(We will use 1)
+
+	1. Spring Data JPA --> provides repository support for JPA --> we will work with Hiibernate here
+	2. Spring Data Commons --> contaons foundational components used in all Spring Data projects
+	3. Spring Data JDBC  --> rovides repository support for JDBC
+	4. Spring Data MongoDB
+	5. Spring Data Rest --. provides access the Spring data repositories at REST resources
+	6. Spring Data for Apache Cassndra
+
+- Spring comes built in database --> H2
+	if H2 is included in modules , need Spring Web module too since H2 works on browser
+	H2 nobody use in production, just for testing
+
+- HIBERNATE ==> ORM FRAMEWORK
+- When spring starts schema.sqla and data.sql runs automatically under resources folder for db
+
+- Using Hibernate, we use java to create tables (@Entity) --> so we create the schema using java --> no need schema.sqls
+
+-- spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect --> IS TO WORK WITH POSTGRES OF SQL
+
+- Spring Data is another project in Spring Boot
+	it provides Repository Level (DAO pattern)
+
+
+- Entity or models work with database
+- DTO work with UI and API
+
+	In Spring Framework, Data Transfer Object (DTO) is an object that carries data between processes. When you’re working with a remote interface, each call is expensive. As a result, you need to reduce the number of calls. The solution is to create a Data Transfer Object that can hold all the data for the call. It needs to be serializable to go across the connection
+
+- Working with database is all working with Annotations
+- @Entity
+	entities in JPA are POJOs represents data
+	an entity represents a table stored in database
+	every instance of an entity represents a row in the table
+	entity classes mut not be declared final
+
+- @Entity creates corresponding class table in db
+
+- @Entity and schema.sql is doing same thing, kind of
+
+- @Id inside @Entity class is needed to define the primary key
+- we need to add one the below to application.properties
+		spring.jpa.hibernate.ddl-auto=create --> Create the schema and destroy previous data
+		spring.jpa.hibernate.ddl-auto=validate --> Validate the schema, make no changes to the database
+		spring.jpa.hibernate.ddl-auto=create-drop ->Create and then destroy the schema at the end of the session.
+		spring.jpa.hibernate.ddl-auto=update --> Update the schema if necessary
+
+- If you want to create your schema with schema.sql or run sql queeries such as Insert in data,sql inside resources the:
+		need --> spring.sql.init.mode=always
+				--> spring executes schema.sql and data.sql when this is used
+- If you want to use Hibernaet which creates tables for us then :
+		need --> spring.jpa.hibernate.ddl-auto=create OR other 4 above
+
+		mostly create and update is used
+
+- Can insert data into tabels in ywo ways
+	1. using data.sql
+	2. using jaaava --> JPARepesitory
+
+- Run order
+		first schema.sql and data.sql is executed if we have --> spring.sql.init.mode=always
+		then spring.jpa.hibernate.ddl-auto=create is executed
+
+		to change order -> use --> spring.jpa.defer-datasource-initialization=true
+							so -->  inseert happens after table creation
+
+
+- Auto primary key generation
+
+	@Id
+	@GeneratedValue(strategy = GenerationTyppe.IDENTITY) --> postgres
+							   GenerationTyppe.SEQUENCE -> MYSQL IS USING
+							   GenerationTyppe.Table
+							   GenerationTyppe.AUTO
+
+
+- to create table with different name other than class name use:
+
+		@Entity
+		@Table(name = "myCustimTableName")
+		class Student{}
+
+- to create different column name in DB instead of defined name in class, use on top of field
+
+		@Column( name = "FirstName")
+		private String name;
+
+- if you don't want to create a column of a field meaning not persist in DB use:
+
+		@Transient
+		public String somethingNotNeededInDB
+
+
+
+- Date, Time and Timestamp
+
+	@Column(columnDefinition = "DATE")
+	private LocalDate birthday;
+
+	@Column(columnDefinition = "TIME")
+	private LocalDate birthTime;
+
+	@Column(columnDefinition = "TIMESTAMP")
+	private LocalDate birthDateTime;
+
+
+- Enums --> to show its string value in DB, AND IT BECAOMES VARCHAR
+		--> if you don't use this annotiaions --> 0,1,2 .. will be saved in db
+
+	  @Enumerated(EnumType.STRING)      //  @Enumerated(EnumType.ORDINAL) --> 0,1
+      private Gender gender;
+
+- Inheritance
+				@MappedSuperClass is used on super class level
+
+-----------------------------------------------------------
+1. Add Packages
+
+		-repository --> create interfaces extends JPARepository<Employee,Long>
+		- entity classes  --> use @Entity
+						  		  @Table(name="table_name")
+						  		  @NoArgConstructor
+						  		  @Data
+
+
+- JPA Reposetories
+	- Repository   --> Interface
+	- CrudRepository  --> extends Repository  --> Interface
+	- PagingAndSortingRepository  --> extends CrudRepository
+	- JPARepesitory  --> extends PagingAndSortingRepository
+
+	Mostly we will use JPARepesitory
+
+
+-
+
+ - @Component, @Controller, @Repository ---> all bean implementation
+
+
+@OneToOne, @OneToMany @ManyToOne ---> Creates Foreign Key --> whoever use these that table will have the foreign key
+
+  class Merhant{
+  @OneToMany (mappedBy = "merchant") // merchant is in Payment --> Payment has foreign key
+  private List<Payment> paymentList;
+  }
+
+  class Payment{
+  @ManyToOne
+  private Merchant merchant;
+  }
+
+
+- Login page is security issue
+
+- In enum MALE("Male")  ---> Male is used in UI
+
+- Javascript enums called as 0, 1, ... no string value
+
+- If a entity class extends a base --> need to create Base constructor. Lombok @AllArgCons doesn't include Base class Args, that's why
+
+- UI or Controller interacts with DTO pojos
+- Database interacts with Entity pojos
+
+- Two kind of objects DTO and Entity is used because Entity have a lot of timestamps or system related fields whic Contoller, UI doesn't need.
+
+- Two make connection we use Mappers
+
+		DTO <--> Mappers  <--> Entity
+
+- Service Objects has the CRUD methods --> save, findById, delete,Update
+
+		when we save  a dto object return type from this save method is dto of the object so returedn value is used by repositoty--entity mappinng
+
+		RoleDTO save(RoleDTO role)
+
+- Servicr works with DTO
+- Generic types abstract really good ex: CrudService<T, ID> --> used by UserService, AccountService ...
+
+- Spring provides CrudService<T, ID> ---> save, update.....+ 50+ more methods or so
+	we just need to extend it and get all ready methods.
+
+
+- custom methods in --> interface CarRepository extends JpaRepository<Car, Long>  ---> behaves like sql query
+
+- DataGenerator implements CommandLineRunner  ---> to genereate fake data when Spring starts
+		whatever
+
+- Our DTOs , entities are not using Spring annotations  --> Service and impl , Controllers, Repositories --> Spring Annotations
+
+- Alwasys do injections in Interface level , not class level
+
+		ex:  @AutoWired
+			 UserService  ----> not UserServiceImpl
+
+
+@Component == @Service == @Controller == @Repository ---> all alias for @Component
+
+- @MappedSuperclass ---> used fro a super class of an @Entity class, so it won't be saved in database, only use as inheritenace
+		we use @Id, @Generated
+
+
+- When using @Id @Generated  --> don't se all arg constructor in entity, use all args except @Id one
+- We need no arg constructir for @Entitty class
+
+
+- @OneToOne   --> using these annatotions spring will create foreign keys between tables
+			  --> creates joins betweeen two tables using foreign key
+
+- @JoinColumn(name='newName')	 --> this changes foreign key column name to newName. Custom join column name
+								 --> IN OneToOne or OneToMany relation may not need this.
+
+-unidirection, bidirection --> employee.department --> department.employee ???
+
+- 	bidirection example below --> I can access department from employee and access employee from department table
+
+		   In employee class
+		A. @OneToOne
+		   private Department department
+
+		   In department class
+
+		B. @OneToOne(mappedBy = "department")  --> mappedBy = "department" won't create foreign key in department table
+		   private Employee employees 		   --> department in Employee table has the ownership of this relation
+
+	Employee table has the foreihng key owmnership
+	wont see foreign key in department table(one forign key between employee and department is okay)
+	I want to find my departmnt by employee.department (usin object relation), not from foreign key
+
+	if you don't need bidirection --> no need for B (or A)
+
+
+- Cascading
+		Entity relationships(ex: onetoone..)  depend on the existence of another entity
+			employee exisst only his department exist
+			if I create an emloyee(using java object creation frim this class), create a department as well --> (persist (database side)
+			if I delete the employee, delete the department as well
+
+	different JPA Cascade types
+		ALL, PERSIST, MERGE, REMOVE , REFRESH , detach
+
+		most used ome --. persist and remove
+
+	ex:     @OneToOne(cascade = CascadeType.ALL)
+			//@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+		    @JoinColumn(name = "department_id")
+		    private Department department
+
+	We mapped entity to database
+
+
+- We nee a repository package and in it an interface extends JpaRepository<T,ID>
+
+			public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
+			}
+
+
+
+
+- One To Many  (one merchant has many payment)
+
+				merchant                   payment
+
+				merchant_id                 payment_id         merchant_id
+				1							1                      3
+				2							2                      3
+				3                           3                      1
+				4                           4                      2
+											5                      1
+											6                      1
+
+
+
+- Hibernate creates foreign key in the coreesponding table where @OneToOne, @OneToMany is used
+
+	if you dont want this ---> use mappedBy in this table class
+
+	in OneToMany relationship --> Many side will have the foreign key so use @OneToOne(mappedBy='') in @One table
+
+
+- OneToMany is used a lot
+
+- In OneToMany --> cascading (i.e. if one exisst other persist, if one deleted other deleted) is not good --> don't use I think
+	-- Use cascading in OneToOne
+
+- Genearted Foreign keys through @OneToOne, @OneToMany @ManyToOne ---> all Number(bigInt) in database
+
+
+
+- FetchType.EAGER
+  FetchType.LAZY
+
+  this is for performance when retrieving the data.
+
+
+  @OneToMany(mappedby = "customer", fetch = FetchType.LAZY) --> don't bring other foreign key(merchant data)
+
+- @ManyToMany ---> needs third table --> called as join table
+			  --> use @JoinTable(name = "myCutomName_rel")  --> rel is kind of convention shows this is a join table
+			  --> van change join table columns too :
+
+			  		 @ManyToMany
+				     @JoinTable(name = "car_item_rel",
+				            joinColumns = @JoinColumn(name="c_id"),
+				            inverseJoinColumns = @JoinColumn(name = "i_id"))   --> inverseJoinColumns --> other table
+				    private List<Item> itemList;
+
+			  --> No primary key restriction in this tables.
+
+			  --> Must to give name ending _rel --> Not must but must
+
+
+- To save enums as string to db --> need @Enumareted(EnumType.STRING)
+
+	 @Enumereted(EnumType.STRING)
+     DiscountType discountType;
+-------
+
+public @interface OneToOne {
+    Class targetEntity() default void.class;
+
+    CascadeType[] cascade() default {};
+
+    FetchType fetch() default FetchType.EAGER;
+
+    boolean optional() default true;
+
+    String mappedBy() default "";
+
+    boolean orphanRemoval() default false;
+}
+
+-----------------------
+
+public @interface OneToMany {
+    Class targetEntity() default void.class;
+
+    CascadeType[] cascade() default {};
+
+    FetchType fetch() default FetchType.LAZY;
+
+    String mappedBy() default "";
+
+    boolean orphanRemoval() default false;
+}
+
+-------------------
+public @interface ManyToOne {
+    Class targetEntity() default void.class;
+
+    CascadeType[] cascade() default {};
+
+    FetchType fetch() default FetchType.EAGER;
+
+    boolean optional() default true;
+}
+
+----------------------
+
+public @interface ManyToMany {
+    Class targetEntity() default void.class;
+
+    CascadeType[] cascade() default {};
+
+    FetchType fetch() default FetchType.LAZY;
+
+    String mappedBy() default "";
+}
+
+
+----Cinema Lab
+
+- Flyway database version control so you cam migrate from any version to the latest version of the schema
+
+- Some tools lile JDL Studio on web --. creates table relattion diagram
+
+- @Temperal()  --> was used before (Localdate java8)
+  Date date
+
+- @Coulumn(columnDefinition = "DATE")
+  LocalDate date
+
+
+- 	@Coulumn(columnDefinition = "text")   --> certain varchar?
+     String description
+
+
+- Use BigDecimal instead Double with Java 8 for better accuracy
+
+- ManyToMany s --> need join(rel) table  --> use @JoinTable(name = "acss_rel")
+
+- When to use Set insteaf List in Many
+
+- spring.flyway.baseline-on-migrate=true  --> only works when tables are ready --> when we define our datasource
+																			ie ---> spring.datasource.url = jdbc:postgresql://localhost:5432/db1
+																					spring.datasource.username = postgres
+																					...
+
+
+
+- did something diiferent in class to go around this which is not done in real times
+	when entities created first then mibration happens
+		used --> 1 comment out --> // spring.flyway.baseline-on-migrate=true
+
+					2.sprring.flyway.enabled = false
+
+				 3 . In AppRunner
+
+				 			@Bean
+				 			public MigrateResult migrateResult(DataSource datasource){
+
+
+				 			}
+
+
+- flyway use two underscore convention V1.0.1__anyname.sql
+
+	V1.0.0 belongs to flyway (its baseline to start versioning)
+	V1.0.0 == V1_0_0
+
+	flyway creates its own table as well
+
+- Entity lifecyle --> read
+
+
+- Every time the need to evolve the database arises, whether structure (DDL) or reference data (DML), simply create a new migration with a version number higher than the current one. The next time Flyway starts, it will find it and upgrade the database accordingly.
+
+
+
+
+
+---- Queries------
+
+1. Derived Query --> ready from JPA
+	Inroducer --> find, read, query, count, get
+	Criteria  --> starts after first "By" keyword
+
+2. @Query("select d.name Department d")  --> if derive query params get longer ( 3-4 params)
+
+	- Department --> this is not actual table name --> class name
+	- use d.name, d.id --> like objects
+
+	- Department d = new Department()  --> no arg constructor
+
+	- JPQL (java persistence query language) --> object ooriented query language defiened as JPA specification
+		is like sql but operates on JPA entity objects Not actual database table data
+		performance may be an issue
+
+
+	- positional bind parameter:  is referenced by its position in the query
+								  defined by ?1, ?2
+
+								  ex: @Query("select e.name from Employee e where e.email = ?1 and e.salary = ?2")
+								      Optinal<Employee> getEmployeeByEmailAndSalary(String email, int salary){
+
+								      }
+								      						OR
+
+								      @Query("select e.name from Employee e where e.email = :email and e.salary = :salary")
+								      Optinal<Employee> getEmployeeByEmailAndSalary(String email, int salary){
+
+								      }
+
+							      							OR
+
+
+							      	  @Query("select e.name from Employee e where e.email = :email and e.salary = :salary")
+								      Optinal<Employee> getEmployeeByEmailAndSalary(@Param(value="email ") String emailCustom, int salary){
+
+								      }
+
+								       if :email is different form String emailCustom --> use @Param
+								      // Optinal<Employee> -> handles null pointer if no employee is returned
+.
+   - nameBy bind --> e.email = :email
+
+3. Native sql --> works with database directly using sql
+
+
+
+- boolean existBy
+
+- int countBy
+
+- Stream streamBy
+
+
+
+- Native sql querries are database specific ---> when database changes --> need to update native querries used
+  JPQL --> we don't need to update if database change
+
+
+
+
+
+-Oprional<User>  --> if user is null, program won't crash
+
+
+- find users addreess containing Abc Street
+
+	select * from Users where address ILIKE concat('%','Abc Street','%')   --> ilike is case insensitive in postgres
+
+	if you're using LIKE then you have to concatenate "Abc Street" % around the string you're searching for.
+
+
+	oracle > 10
+		1. select * from my_table where regexp_like(column_1, '^my_string$', 'i');
+
+		2. select * from my_table where lower(column_1) = lower('my_string');
+
+		3. Change it at the session level
+				Alter session set nls_sort=BINARY_CI --
+
+
+
+
+
+
+- @Modifying --> used to enhance @Query to execute not only SELECT but also ONSERT, DELETE, UPDATE
+
+EX:
+
+@Modifying
+@Transactional
+@Query("UPDATE Employee e SET e.email = 'ab@h.com' WHERE e.id = :id ")
+void updateEmplyee(@Param("id") Integer id){
+
+}
+
+
+
+- Named Queries: (Not Used A lot) may need for interview
+		named queries defined in jpa-named-queries.properties. Need to create META-INF folder
+
+				resources
+					META-INF
+						jpa-named-queries.properties
+			ex: Book.findByTitleNamedFile = SELECT b FROM Book b WHERE b.title = ?1    ---> JPQL
+
+
+
+			Then Under repository class
+
+					List<Book> findByTitleNamedFile(String title)
+
+
+			- if query is sql (not jpql) then use also @Query(native = true)
+
+
+
+	- We can use NamedQuery on top of the class as well --> stupid
+
+
+-Optional<MovieCinema> findMovieCinemaById(Long id);
+	jpa smart so == Optional<MovieCinema> findById(Long id);
+
+
+
+
+
+- DTO <---> MAPPERS <----> ENTITY
+
+	there are a lot of diffrenet mappers
+	check your company what use
+	need to add dependency in pom.xml
+
+	- used modelmapper --> may be most used
+
+
+			<dependency>
+				<groupId>org.modelmapper</groupId>
+				<artifactId>modelmapper</artifactId>
+				<version>3.1.0</version>
+			</dependency>
+
+		this is an externak class. to create bean from the classes we are going to use from this library,
+		need to create @Bean. We create @Bean in Config Class
+		We do this if class is not class that I define
+
+		- Main App starter is also @Configuration
+
+
+					@SpringBootApplication
+					public class TicketingProjectOrmApplication {
+
+					@Bean
+					public ModelMapper mapper(){
+						return new ModelMapper();
+					}
+
+					}
+
+	 	- We create a mapper pagkage and under
+
+
+	 			@Component
+	 			public class RoleMapper {
+
+				    private final ModelMapper modelMapper;
+				    public RoleMapper(ModelMapper modelMapper) {
+				        this.modelMapper = modelMapper;
+				    }
+
+				    public RoleDTO convertToDTO(Role role){
+
+			        	return modelMapper.map(role,RoleDTO.class);
+				    }
+
+				    public Role convertToEntity(RoleDTO roleDTO){
+
+				        return modelMapper.map(roleDTO,Role.class);
+				    }
+				}
+
+
+
+@Componenet, @Service @Controller   ... --> creates bean in the container
+
+
+
+- @Lazy ---> calls bean when needed   ???
+		---> used to break circular dependecy ex: UserService has TaskService and TaskService UserService --> will create loop so error
+												use @Lazy in constructor declareation of one of em,
+
+
+
+- private final RoleService roleService --> force us to initialize this bean so force us to create constructor  --> default @Autowired happens in Spring
+
+
+- DTO and Entity separated because we want to keep some information only in database side , security, admin things
+		that's why we use 2 different object.
+
+
+
+
+- Optional<Role> role_optional = roleRepository.findById(id)  ---> this returns Optional<Role> ,, to get the Role use get() method
+   Role role = 	role_optional.get()
+
+
+ - In J
+
+- When updating a user from ui --> need to find id first which is not coming from ui, see logic below
+  @Override
+    public UserDTO update(UserDTO userDTO) {
+
+        User user_to_be_updated = userRepository.findByUserName(userDTO.getUserName());
+        User user_without_id_from_ui = userMapper.convertToEntity(userDTO);
+        user_without_id_from_ui.setId(user_to_be_updated.getId());
+        userRepository.save(user_without_id_from_ui);
+        return findByUserName(userDTO.getUserName());
+    }
+
+
+
+- deleteById ----> need @Transactional
+
+	@Transactional
+    void deleteByUserName(String username);
+
+
+- We need @Transactional fo INSERT anD DELETE opertions --> otherwise --> exception
+
+
+- returns the list sorted userRepository.findAll(Sort.by("firstName")).stream().map(userMapper::convertToDTO).collect(Collectors.toList());
+
+
+-   @Where(clause = "is_deleted = false")   -----> automaticaly selects active users
+	public class User extends BaseEntity {
+
+	}
+
+
+-   @Override  ---> In Service
+    public void softDelete(String username) {
+        User user = userRepository.findByUserName(username);
+        user.setIsDeleted(true);
+        userRepository.save(user);
+    }
+
+
+- In database, to populate createdTime, updatedTime fields there are some options --> @PrePersist and @PreUpdate
+
+		1. On Create:
+
+			creaete a method (in entity or its base class) when this entry created or updated
+
+				@PrePersist
+				public void onPrePersist(){
+
+					this.insertDateTime = LocalDateTime.now();
+					this.lastUpdateDateTime = LocalDateTime.now();
+					this.inseryUserId = 1L;
+					this.lastUpdateUserId = 1L;
+
+				}
+
+		2: On Update
+
+			    @PreUpdate
+			    public void onUpdate(){
+
+			        this.lastUpdateDateTime = LocalDateTime.now();
+			        this.lastUpdateUserId = 1L;
+
+			    }
+
+
+- When updating insert_time and insert_user_id got NULL . To avoid use constraints as below in base class
+
+
+		 	@Column(nullable = false, updatable = false)
+		    private LocalDateTime insertDateTime;
+
+		    @Column(nullable = false, updatable = false)
+		    private Long insertUserId;
+
+		    @Column(nullable = false)
+		    private LocalDateTime lastUpdateDateTime;
+
+		    @Column(nullable = false)
+		    private Long lastUpdateUserId;
+
+
+- If we inject a bean inside a class, this class has to be a bean (@Component, @Service, ...) too
+
+
+- UUID id --> right click on UUID REFACTOR TYPEmIGRATION TO Long --> now Long id --> did in model to mactch entity
+
+
+================ Security ==============
+
+
+- Ticketing ORM has security changes
+
+- We are adding one layer to application before it starts(app start actually but wait here authiticated user to continue) --> security
+
+- You need to have a autinticated user to continue to application
+
+- This layer puts a block before proceeding in the application
+
+- Security --> User access control to application
+
+- We use UserDetailService object to control user autaontication for ui or api
+	loadUserByUserName method --> loading(carrying user) to UI or API
+
+- This dependency creates user and password by default. We override it and implement our users from db
+	Our user in db should have username, encoded password saved in db and has a Role
+
+	- we create our own implementation by inplementing UserDetailService  --> has method (loadUserByUserName)
+
+			public interface MySecurityService extends UserDetailService{
+
+			}
+
+	- this service serves our user to UI or API secutity autaontication
+
+	- Create Impl class ---> returns new MyUserPrincipal() implements UserDetail spring.security interface
+
+			@Service
+			public class MySecurityServiceImpl implements MySecurityService{
+
+				@Override
+				public UserDetails loadUserByUserName(String username){
+
+					User user = userRepository.findByUserName(username);
+
+					if(user == null){
+						throw new UserNotFoundException("m");
+					}
+
+					return new UserPrincipal(user)
+				}
+
+			}
+
+
+
+
+  -  class MyUserPrinciple implements UserDetails and has a  User class(our user entity)
+
+  		this implementation is used to converrt our User class into Spring Security User class
+  			this class is used to map our User entity's username, password and role into Spring Security standartized user class
+  			throuhn spring.security implementation UserDetails interface
+
+
+
+- pom dependent
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-security</artifactId>
+				</dependency>
+
+
+- This dependency creates user and password by default. We override it and implement our users from db
+	Our user in db should have username, encoded password saved in db and has a Role
+
+- Spring security provides user and useername before overrridung by default as follows:
+  username : user
+  password : use prompted password on console after starting application
+
+  - Using generated security password: 1ea27e84-4ba7-4cb6-8822-608fff8bf123
+
+  - This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+
+-
+
+ - bring third party encoding library (@Bean) under mainApplication.class --> @SpringBootApplication
+
+		@Bean
+		public PasswordEncoder encode(){
+			return new BCryptPasswordEncoder();
+		}
+
+		BCryptPasswordEncoder --> takes raw password --> creates new (use hash?  or some conversion )
+
+	WE NEED this for UI Security only --> No need to implement this basically unless we do UI
+
+	In API, we will use token based on 	encoder structurt
+
+
+- Under project, we have another important package --> config
+
+- Under config package, define configuration classes to define @Beans
+
+
+		@Configuration
+		public class SecurityConfig {
+
+		        @Bean
+			    public UserDetailsService userDetailsService(PasswordEncoder encoder){
+
+			        List<UserDetails> userList = new ArrayList<>();
+			        userList.add(new User("sedat",encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
+			        userList.add(new User("BEKIR",encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_MANAGER"))));
+
+			        return new InMemoryUserDetailsManager(userList);
+			    }
+		}
+
+- We can use thes two user to login now ---> No need default below
+
+		  username : user
+		  password : use prompted password on console after starting application
+
+- Spring provides UserDetailsService Interface to manage users
+
+		org.springframework.security.core.userdetails.UserDetailsService --> loadUserByUsername returns UserDetails interface
+
+		public interface UserDetailsService {
+
+		    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+		}
+
+- User imoplements UserDetails
+	Spring User Class (standaritized class for user)
+
+
+
+- loadUserByUsername --> brings the user to UI once app starts
+
+
+
+- loadUserByUsername returns UserDetails interface
+
+	User implements UserDetails
+
+- UserDetailService loads user (service)
+
+- UI <---> UserDetailService(User) <-----> UserPriciple(Entity class)  <-----> User(our Entity) <-------> Repository  <----->  DB
+
+
+
+1. Create SecurityService implements UserDetailService
+2. Create SecurityServiceImpl implements SecurityService
+3. SecurityServiceImpl
+				@Service
+				public class SecurityServiceImpl implements SecurityService {
+
+				    private final UserRepository userRepository;
+
+				    public SecurityServiceImpl(UserRepository userRepository) {
+				        this.userRepository = userRepository;
+				    }
+
+				    @Override
+				    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+				        User user = userRepository.findByUserName(username);
+
+				        if(user == null){
+				            throw new UsernameNotFoundException("No user found");
+				        }
+				        return new UserPrinciple(user);
+				    }
+				}
+
+
+
+4. UserPrinciple implements UserDetails has has User @Entiity
+	UserPrinciple I think == DTO object --> in class put under entity package with no annatation --> stupis
+
+
+	UserDetailService --> needs UserDetail
+	UserPriciple implements UserDetail
+
+
+- Instead of User(our Entity) implemennt UserDetail, we use another to UserPriciple decouple
+
+	UserPriciple has User relation created
+	 prefer composition over inheritance
+
+- We need to use User class for user when using Spring
+
+- JSESSIONID Cookie keeps the session live until it is removed or expired. Incognito removes automatically once window is closed
+
+		there is request JSESSIONID and response JSESSIONID. Values are diffrenet
+
+		we pass response cookie in the next requests so server know us
+
+
+
+
+
+- We put blocks on pages to show or block using SecurityFilterChain
+		use antMatchers().
+
+
+
+- SimpleGrantedAuthority class methods:
+	hasRole("ADMIN") == hasAuthority("ROLE_ADMIN")
+
+		hasRole("ADMIN")  --> ALREADY has prefix = ROLE_
+
+
+
+- Part 1 is Carry our User to UI or API --> loadByUserName
+
+- Part 2 --> configure the Role access level in application
+
+	- create a MySecurityConfig class  -> @Configuration
+
+		use @Bean
+			public SecurityFilterChain --> can control all security things ---> may need to read docs what to apply
+
+			uses antMatchers
+
+
+
+
+
+
+NEXT CLASS:
+
+- user logout:
+
+	    .and()
+        .logout()
+        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        .logoutSuccessUrl("/login")
+
+- To remember user login
+
+		 .and()
+            .rememberMe()
+            .tokenValiditySeconds(120)
+            .key("myKey")   					   ---> key may be anything
+            .userDetailsService(securityService)   --> need to inject private final SecurityService securityService
+
+
+    if you select remember-me --> this creates a remember-me cookie in the browser
+
+
+
+
+
+- To delegate Admin, manager, Employee to land their landing page
+	1 . create
+		@Configuration
+		public class AuthSuccessHandler implements AuthenticationSuccessHandler {    }
+
+	2 . in SecutityConfig use successHandler(authSuccessHandler)
+
+			.formLogin()
+            .loginPage("/login")
+            //.defaultSuccessUrl("/welcome")
+            .successHandler(authSuccessHandler)
+
+
+   AuthSuccessHandler handles delegation
+
+
+
+- To show/hide naivation icon on left side bar in thyme leaf
+
+	1. Add dependency
+
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+
+	2. Need to add xmlns:sec="http://www.thymeleaf.org/extras/spring-security" in sidebat.html
+
+		thios will introduce new tag --> sec
+
+
+
+
+
+- SecurityContextHolder can bring the information needed during creating a new user or something
+
+		used in ProjectServiceImpl to find the User by username for method listAllProjectDetails of current user
+		used in TaskServiceImpl as well for listAllTasksBy...
+
+	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+
+	SecurityContextHolder class ---> may need to examone more
+
+	this holds logged in users information --> will be used in when saving entity in DB to get updatedBy, createdBy fields
+
+
+
+ - @EntityListeners(MyCustomBaseEntityListener.class) on BaseEntity class for insertTime, update,  updatedbY, createdbY
+
+
+ Security handling  insertTime, updatetime, updatedbY, createdbY --> use SecurityContext to bind
+
+============================== API  ==========================================================================
+
+- Connect to a microservice( or any api ) enpoint , get data and consume
+
+- Swagger2 == OpenAPI ---> documentation
+
+- @ResponseBody  --> informs dispatcher servlet that this method does not return a view name but directly the HTTP response
+
+- UI only works with @GetMapping and @PostMappinng
+- API also has @PutMapping @PatchMapping @dDeleteMapping
+
+
+- @RestController == @Controller + @ ResponseBody
+
+		this is used to tell pring that all the controller's actions are REST endpoints
+
+
+
+- @RestController + @RequestMapping ---> creata API
+
+
+- (@PathVariable("id") Long courseId) --> used in method parameter to capture requested id
+
+
+
+- (@RequestBody CourseDTO course) --> used in method parameter to capture request body to be created for ex. (post,put,patch)
+
+		@PostMapping
+    	public CourseDTO createCourse(@RequestBody CourseDTO course)
+
+
+- Jackson converts DTO(json) <--  --> Java Object
+
+- ResponseEntity class is used to add header and define the stastus code
+
+	import org.springframework.http.ResponseEntity;
+
+
+	@GetMapping
+    public ResponseEntity<List<CourseDTO>> getAllCourses(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Version","V2")
+                .header("Operation","Get List")
+                .body(courseService.getCourses());
+    }
+
+
+
+EX : ResponseEntity.ok(courseService.getCourseById(courseId)) ---> status code == 200
+         -----> when no header ?? I think so
+
+
+
+- To add more field to json response some companies use MyResponseWrapper for DTO
+
+
+		-  ResponseEntity<CourseDTO>  ------> ResponseEntity<MyResponseWrapper>
+			pass CourseDTO to MyResponseWrapper
+
+
+
+		@Getter
+		@Setter
+		@NoArgsConstructor
+		public class ResponseWrapper {
+
+		    private boolean success;
+		    private String message;
+		    private Integer code;
+		    private Object data;
+
+		    public ResponseWrapper(String message, Object data) {
+		        this.success = true;
+		        this.message = message;
+		        this.code = HttpStatus.OK.value();
+		        this.data = data;
+		    }
+    }
+
+
+
+    In controller
+
+    	@GetMapping
+	    public ResponseEntity<ResponseWrapper> getAllCourses(){
+
+	        return ResponseEntity
+	                .status(HttpStatus.ACCEPTED)
+	                .header("Version","Cydeo.V3")
+	                .body(new ResponseWrapper("successfully retrieved",courseService.getCourses()));
+	    }
+
+
+
+- DTO to json ---> happens with Jackson dependency
+
+	- Some Jackson annottions
+	- @JsonIgnore is used not to serialze this field in @Entity class
+
+		can use this in class level as well via @JsonIgnoreProperties(value = {"state","city"},ignoreUnknown = true)
+			ignoreUnknown = true here is related to security
+
+
+  	- 	In Account Class
+
+  			@OneToOne(mappedBy = "account")
+	  		@JsonBackReference //is the back part of reference - it will be omitted from serialization
+	  	  	private User user;
+
+	  	In User Class
+
+
+		    @OneToOne(fetch = FetchType.LAZY)
+		    @JoinColumn(name = "account_details_id")
+		    @JsonManagedReference //is the forward part of reference - the one that gets serialized normally
+		    private Account account;
+
+
+			@JsonBackReference (mostly?) used in OneToOne relations. Can use @JsonIgnore as well ? --> test
+
+		In Accout account I don't want to see User
+
+		This kind of ignore is used insteaf of @JsonIgnore during HAS-A relationships.
+
+	- @JsonIgnoreProperties(value = {"hibernateLazyInitializer"},ignoreUnknown = true)
+
+		is used when fetch = FetchType.LAZY is used. fetch = FetchType.LAZY creates another field hibernateLazyInitializer
+
+	- We don't want to GET password but want to use when POST.
+			(execute setter not getter methid for this field)
+
+			 @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    		 private String password;
+
+    - There are more Jackson annatations( mostly to ignore a field)
+
+
+    Run Spring 16 to test to api responses using above annatoations
+
+
+    - @Transient for DB
+
+    - Jackson annototions are for JSON output
+
+
+
+
+
+- Next Class -- Consuming APIs (Using other APIs ?)
+
+- Three methods
+	1. RestTemplate --> will be depreceated( may be depreceated)
+	2. FeignClient  --> spring cloud --> (cloud is used for microservices) --> (Created by Netflix)
+	3. WebClient    --> for sync, async cases. For Reactive Programming.
+
+			Reactive programming is a declarative programming paradigm that is based on the idea of asynchronous event processing and data streams. Today, reactive programming is used in many different areas, such as GUI programming, web programming, microservices, or reactive systems in general.
+
+			Reactive programming describes a design paradigm that relies on asynchronous programming logic to handle real-time updates to otherwise static content. It provides an efficient means -- the use of automated data streams -- to handle data updates to content whenever a user makes an inquiry.
+
+- We will get JSON from other APIs and consume this
+
+- www.jsonschema2pojo.org
+		give the json here get class
+
+
+- @JsonPrperty("user_id")
+  private Integer Id;
+
+
+
+  	@JsonPrperty is used to custumized the field name in output json
+  	similarly @Column(name = "ctmr_id ")  --> used to customie  Database table column name
+
+
+
+
+  - Three methods
+	1. RestTemplate
+		- add @Bean in config
+
+			    @Bean
+			    public RestTemplate restTemplate(){
+			        return new RestTemplate();
+			    }
+		- use it in @Contoller
+
+		    private final String URI = "https://jsonplaceholder.typicode.com/users";
+
+
+			@GetMapping
+		    public User[] readAllUsers(){
+
+		        ResponseEntity<User[]>  responseEntity = restTemplate.getForEntity(URI,User[].class);
+
+		        return responseEntity.getBody();
+
+		    }
+
+		    @GetMapping("{id}")
+		    public Object readUser(@PathVariable("id") Integer id
+		        String URL = URI + "/{id}";
+
+		        return restTemplate.getForObject(URL,Object.class,id);
+		    }
+
+
+		    @GetMapping("/test")
+		    public ResponseEntity<Object> consumeFromDummyApi(){
+
+		        HttpHeaders headers = new HttpHeaders();
+		        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		        headers.set("app-id","6298ebfecd0551211fce37a6");
+
+		        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+		        ResponseEntity<Object> response = restTemplate.exchange("https://dummyapi.io/data/v1/user?limit=10", HttpMethod.GET,entity,Object.class);
+
+		        return response;
+
+		    }
+
+
+3 methods can used in this @Bean
+
+restTemplate.getForObject(URL,Object.class,id), ---> returns Object
+restTemplate.getForEntity(URI,User[].class).getBody() --> return DTO --> we can modify this inoutput(ResponseWrapper) if needed.
+	both should be fine.
+restTemplate.exchange("https://dummyapi.io/data/v1/user?limit=10", HttpMethod.GET,entity,Object.class); -> To add header
+
+
+
+---  FeignClient ---
+
+Spring Cloud --> another project in Spring World like Spring JPA(I think)
+FeignClient is in Spring Cloud  wiyj many others
+
+- Add dependency
+- Add @EnableFeignClients in Main congif
+
+		@SpringBootApplication
+		@EnableFeignClients
+		public class Spring17RestConsumingApisApplication {
+		}
+
+- Create new package called either client or proxy . client is used mostly for microservoces
+
+- Create an interface under client with @FeignClient(url = "https://jsonplaceholder.typicode.com/",name = "USER-CLIENT")
+
+
+    @FeignClient(url = "https://jsonplaceholder.typicode.com/",name = "USER-CLIENT")
+	public interface UserClient {
+
+	    @GetMapping("/users")
+	    List<User> getUsers();
+	}
+
+- We need to create classes for the returned JSON from this 3rd party. Above interface getUsers() return User. So we need to get this response and create DTOs under our package.
+	www.jsonschema2pojo.org will help
+
+- Inject this UserClient in our @Controller class
+
+ 	private final UserClient userClient;
+
+	@GetMapping("/api/v1/users")
+    public ResponseEntity<ResponseWrapper> getUsers(){
+
+        return ResponseEntity.ok(new ResponseWrapper("UserList Retrieved",userClient.getUsers()));
+    }
+
+- Second 3rd party with needs header. Notice @RequestHeader
+
+	@FeignClient(url = "https://dummyapi.io",name = "EMPLOYEE-CLIENT")
+	public interface EmployeeClient {
+
+	    @GetMapping("/data/v1/user?limit=10")
+	    Employee getEmployee(@RequestHeader("app-id") String id);
+
+	}
+
+
+
+
+	In my Controller
+
+			private final EmployeeClient employeeClient;
+
+			@GetMapping("/api/v1/employee")
+		    public ResponseEntity<ResponseWrapper> getEmployee(){
+		        return ResponseEntity.ok(new ResponseWrapper("Successfully retrieved ",employeeClient.getEmployee("6298ebfecd0551211fce37a6")));
+		    }
+
+
+---------- WebClient    --> for sync, async cases. For Reactive Programming. --> Non-Blocking way == async
+
+- You can create another thread to run something else
+
+- Current (Blocking) ---> one at a time, but 200 at a time actually
+
+	1 servlet --> creates say 200 thread in thread pool
+			  --> can handle 200 requests concurrently
+
+- For high demand need to implement Async (Non-Blocking) architecture (Promise in javascript)
+
+		asysnc --> dump requests in EventLoop , Once it is done let me know
+
+- To implement Async (Non-Blocking) API Requests handling in Spring use
+	1. In Servlet side --> spring-boot-starter-weblux
+	2. In DB side      --> Java Non-Blocking Drivers  (Reactive)
+								ex: spring-boot-data-mangodb-reactive
+									spring-boot-data-redi-reactive
+									spring-boot-data-mangodb-reactive
+
+- Mostly mangodb, cassandra is used for Reactive
+	postgres is also doable but not used alot
+
+
+- In jpa side using ReactiveCrudRepository<T,I>
+
+
+- Mono --> used when expecting one object (single Object) Object --> Mono<Object>
+  Flux --> used when expecting more than one object (List<Object>) ---> Flux<Object>
+
+
+- dependency for reactive way
+
+		   <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-webflux</artifactId>
+        	</dependency>
+
+
+
+- Flux return
+
+
+		   @GetMapping("/flux-movie-cinemas")
+		    public Flux<MovieCinema> readAllCinemaFlux(){
+
+		        return Flux.fromIterable(movieCinemaRepository.findAll());
+
+		    }
+
+- Mono Return
+
+		@GetMapping("/mono-movie-cinema/{id}")
+	    public ResponseEntity<Mono<MovieCinema>> readById(@PathVariable("id") Long id){
+
+	        return ResponseEntity.ok(Mono.just(movieCinemaRepository.findById(id).get()));
+
+	    }
+
+
+		(movieCinemaRepository.findById(id) --> RETURN Optional<Movie>)  --> Movie = Optional_Obj.get()
+
+
+
+- GET
+		   @GetMapping("/flux-movie-cinemas")
+		    public Flux<MovieCinema> readAllCinemaFlux(){
+
+		        return Flux.fromIterable(movieCinemaRepository.findAll());
+
+		    }
+
+
+-POST
+
+			  @PostMapping("/create-genre")
+		    public Mono<Genre> createGenre(@RequestBody Genre genre){
+
+		        Genre createdGenre = genreRepository.save(genre);
+
+		        return Mono.just(createdGenre);
+
+		    }
+
+-DELETE  (Notice Mono<Void>)
+
+	    @DeleteMapping("/delete/genre/{id}")
+	    public Mono<Void> deleteGenre(@PathVariable("id") Long id){
+
+	        genreRepository.deleteById(id);
+
+	        return Mono.empty();
+	    }
+
+
+
+-
+
+--- WEBCLIENT --- TO CONSUME API
+
+
+import org.springframework.web.reactive.function.client.WebClient;
+
+	@RestController
+	public class Consume_WebClient {
+
+	    	private WebClient webClient = WebClient.builder().baseUrl("http://localhost:8080").build();  // CAN USE ANY BASE.
+
+
+    @GetMapping("/flux")
+    public Flux<MovieCinema> readWithWebClient(){
+
+        return webClient
+                .get()
+                .uri("/flux-movie-cinemas")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE) --> FROM REQUEST
+                .retrieve()
+                .bodyToFlux(MovieCinema.class);
+
+    }
+
+        @GetMapping("/mono/{id}")
+    public Mono<MovieCinema> readMonoWithWebClient(@PathVariable("id") Long id){
+
+        return webClient
+                .get()
+                .uri("/mono-movie-cinema/{id}",id)
+                .retrieve()
+                .bodyToMono(MovieCinema.class);
+
+    }
+
+
+====Next Class====== OpenAPI Specification
+
+OpenAPI Specification -> formarly known as the Swagger Specification -> world's standad for defining RESTful interfaces.
+Swagger --> tool for iolementing the specification
+
+Job requirements also look for OpenAPI 3.0
+
+- The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to HTTP APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service with a minimal amount of implementation logic.
+
+- An OpenAPI document MAY be made up of a single document or be divided into multiple, connected parts at the discretion of the author. In the latter case, Reference Objects and Schema Object $ref keywords are used.
+
+- It is RECOMMENDED that the root OpenAPI document be named: openapi.json or openapi.yaml
+
+- We will use yaml file to write specificatios(JSON can be used as well)
+
+- Specs that are required and not required(ALL for 3.0)
+
+- OpenAPI 3.0 has "Component" where we can define reusable things
+
+	components:
+		schemas:
+			key:value
+
+- How to write yaml
+	- comment ---> #
+	- key:value
+		ex: employeeID: "1" or
+			employeeID: '1'
+
+	- Arrays --> two ways to write
+
+			1. myArray:
+				- item1
+				-item2
+				-item3
+
+			2. myArray: [item1, item2, item3]
+
+
+
+
+- OpenAPI --> there are REQUIRED fields to be included inside the yaml file. see below
+
+	info
+	servers
+	security
+	paths
+	tags
+	externalDocs
+	components
+
+
+	https://swagger.io/specification/
+
+
+		openapi
+		info
+			-title
+			-version
+
+		Server
+			-url
+
+		paths
+
+
+
+
+
+- to create API specs --> https://app.swaggerhub.com/
+
+
+
+
+
+- **text** ---> ** ** makes the text bold
+
+
+-Sample API doc below
+			------------------------------------------------------------------------------------------
+
+													openapi: 3.0.0
+										info:
+										  version: '1'
+										  title: Sedat's Title
+										  description: My first Specs
+										  contact:
+										    name: Sedat Yilmaz
+										    url: www.sed.com
+										    email: bseat@hotmail.com
+										servers:
+
+										  # Added by API Auto Mocking Plugin
+										  # Added by API Auto Mocking Plugin
+										  - description: SwaggerHub API Auto Mocking
+										    url: https://virtserver.swaggerhub.com/HUSNUKURUNTU136/das/1
+										  - description: SwaggerHub API Auto Mocking
+										    url: sample.com
+										  - url: dev.sedat.com
+										    description: Dev Server
+										  - url: qa-int.sedat.com
+										    description: QAINT Server
+										  - url: prod.sedat.com
+										    description: PROD Serv
+
+										paths:
+										  /v1/courses:
+										    get:
+										      summary : Courses List
+										      description : Returns All courses
+										      tags :
+										        - Course
+										        - Other Custom tag
+										      parameters:
+										        - name: courseIdAsQueryParam
+										          in : query
+										          required: false
+										          schema:
+										            type: string
+										            format : int32
+
+
+										      responses:
+										        '200':
+										          description: List of Students
+										          content:
+										            'application/json':
+										              schema:
+										                type: array
+										                items:
+										                  type: string
+										                  description: CourseName
+										                  minLength: 1
+										                  maxLength: 100
+										                  example: Java 2
+										                minimum: 1
+										                maximum: 100
+
+										        '404':
+										          description: No Students found
+
+										  /v1/students:
+										    get:
+										      summary : Students List
+										      description : Returns All Students
+										      tags :
+										        - Students
+										      responses:
+										        '200':
+										          description: List of students
+										          content:
+										            'application/json':
+										              schema:
+										                type: array
+										                minimum: 1
+										                maximum: 100
+										                items:
+										                  $ref: '#/components/schemas/Student'
+
+
+										    post:
+										      summary : Create Student
+										      description : Create Student
+										      tags :
+										        - Create Course
+										      requestBody:
+										        required: true
+										        content:
+										          'application/json':
+										            schema:
+										              $ref: '#/components/schemas/Student'
+										      responses:
+										        '201':
+										          description: Course Created
+										          headers:
+										            localization:
+										              description: Local Course
+										              schema:
+										                type: string
+										                format: uri
+										                example: 'www.local.com/courseIdAsQueryParam'
+
+
+										  /v1/students/{studentId}:
+										    get:
+										      parameters:
+										      - name: studentId
+										        in: path
+										        required: true
+										        schema:
+										          type: string
+
+										      responses:
+										        '200':
+										          description:  'Student by id'
+										          content:
+										            'application/json' :
+										              schema:
+										                $ref : '#/components/schemas/Student'
+
+
+										    put:
+										      summary : Update Student
+										      description : Update Student
+										      tags :
+										        - Update Course
+
+										      parameters:
+										      - name: studentId
+										        in: path
+										        required: true
+										        schema:
+										          type: string
+
+										      requestBody:
+										        required: true
+										        content:
+										          'application/json':
+										            schema:
+										              $ref: '#/components/schemas/Student'
+
+										      responses:
+										        '200':
+										          description:  'Student by id'
+										          content:
+										            'application/json' :
+										              schema:
+										                $ref : '#/components/schemas/Student'
+
+
+										    delete:
+										      summary : Delete Student
+										      description : Delete Student
+										      tags :
+										        - Delete Course
+
+										      parameters:
+										      - name: studentId
+										        in: path
+										        required: true
+										        schema:
+										          type: string
+
+										      responses:
+										        '200':
+										          description:  'Delete Student by id'
+
+										        '400':
+										          description: 'Bad Request'
+
+										        '404':
+										          description: 'No Student'
+
+
+
+
+										components:
+										  schemas:
+										    Address:
+										      type: object
+										      properties:
+										        Addressline1:
+										          type: string
+										        AddressLine2:
+										          type: string
+										        City:
+										          type: string
+										        ZipCode:
+										          type: integer
+										          format: int32
+										        state:
+										          type: string
+										          enum: ['IA','IL','FL']
+
+
+										    Student:
+										      type: object
+										      properties:
+										        id:
+										          readOnly: true # in post body id is not coming
+										          type: string
+										          format: uuid
+										        firstName:
+										          type: string
+										          example: Sedta=
+
+										        lastName:
+										          type: string
+										          example: Yildirim
+
+										        address:
+										          $ref: '#/components/schemas/Address'
+
+
+
+
+------------------------------------------------------------------------------------------
+- can create a spring (python-flask, nodejs) projects from https://app.swaggerhub.com/
+	- once create the OpenAPI doc in the swaggerhub,
+		- Export
+			Server Stub
+				spring  ---> this will create the spring project
+
+
+ /Users/bekiryildirim/IdeaProjects/al5/data_structures/src/main/java/example/compartors/Java Developer class
+
+- We can create OpenAPI doc in spring as well
+
+	- add OpenAPI dependency
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+		<dependency>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-ui</artifactId>
+		    <version>1.7.0</version>
+		</dependency>
+
+	-	In application.properties (these are custom endpoints now)
+				springdoc.api-docs.path=/api-docs
+				springdoc.swagger-ui.path=/swagger-custom.html
+
+							default --> http://localhost:8080/v3/api-docs
+							default	--> http://localhost:8080/swagger-ui/index.html
+
+				ABOVE ARE Swagger Api endpoints
+
+
+	- run application
+	- go to http://localhost:8080/api-docs --> in firefox it shows pretty, in chrome need json viewer extension to see pretty
+
+	- http://localhost:8080/api-docs.yaml ---> downloads the yaml version
+	-http://localhost:8080/swagger-custom.html --> goes to swagger page
+
+
+
+- To Customize the API doc more
+	add @Bean in the application
+
+
+		    @Bean
+		    public OpenAPI customOpenApi() {
+		        return new OpenAPI()
+		                // .servers(Arrays.asList(new Server().url("https")))
+		                // .components(new Components().addSchemas(...))
+		                // .paths(new Path()...)
+		                .info(new Info().title("Cinema Application OpenAPI").version("v1").description("Cinema application API documentation"));
+		    }
+
+		    // can add all OpenAPI root elements
+
+
+- To tag all Students related enpoints, use
+
+		@Tag(name="Students", description = "Student CRUD oPERATIONs") on top of StudentController class
+
+- To add a summary for an endpoint, add on top of controller method
+
+		@Operation(summary = "This creates a new Student")
+
+
+-  @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved users (OK)",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Something went wrong", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
+    })
+==========================================================================
+
+====== Security OAuth2 ==========
+
+- almost everbody using this
+- OAuth = Open Authorization
+- Enables to login other website service using other (google) user credentials without sharing user credentials with connected website.
+- Oauth 2.0 is an AUTHORIZATION framework that enables a third-party application to obtain limited access to user's data on another server
+	ex? : Tryig to access IM portal
+			sending user credentuials
+				these go to FIP server which confirm credentials
+					after getting correct cookie we can continue login to IM
+
+	- Authenticate one time, then can access other services
+	- Used in SSO logins
+- in UI part, we cerated our own tokens and implemented
+- OAuth2 is a third patty tool, ie Authondication server, people using this service for token things
+- This service handles token cretaion and etc
+- This is open source tool == free, can donload and use it
+
+
+- Let's look at Basic Authentication first
+	- user needs to send username and password every time and authhentication logic has to be executed EVERY TIME WITH ALL REQUESTS.
+	- so we share the credentials often ovet the network
+	  we send user credentials on the header
+
+	- user/myaccout + username&password
+	  user/orders   + username&password
+	  user/payment  + username&password
+
+
+- Oauth Providers
+	- Keycloak
+	- Github
+	- Google
+	- Paypal
+	- Amazon
+	- face-ins
+	- Etsy
+	- Dropbox
+	- Twitter
+	- and many more
+
+
+- Keycloak in API. Popular in microservices. Used a lot if you don't have UI
+  - other in above list mostly UI related
+
+- Okta is paid
+
+- Oauth 2.0 Components
+	- Resource Server: hosts the protectes resource that client wants to access
+
+	- Client: Application that wants to access user's data.
+
+	- User(resource owner): entity that owns the data and can grant accees to it. (end-user)
+
+	- Authorization Server: Server that authenticates teh user and issues access token after obtaining authorization
+
+
+- We will Implement Authorization Server ???, Validate ? mark
+
+- Oauth 2.0 flow:
+	- client requests authorization obo a user
+	- owner enters credentials --> goes to Authorization server
+	- Authoriztation serever sends access token to client
+	- client use this token to get the resource
+	- Resource server sends the requested resource to client
+
+- OAuth 2.0 is widely used for securing APIs enabling single sign on (SSO) across multiple applications and providing delegated access to user data in a secure and standardized manner. However it is essential to implement OAuth 2.0 correctly to migiigate security risks and protect user data
+
+
+
+- GRANT TYPES
+	- Authorization Code Grant type flow
+		- UI, web app. Ex: login stackoverflow website using gmail account
+		- client should be alredy registered with Authorization Server
+		- gmail gave stackover flow a Client Id and Client Secret.
+		- stackoverflow will use these id and secret when try to request
+		- Stack Overflow send a request to google authorization server with the
+following parameters :
+					client_id
+					scope
+					redirect_uri
+					state
+					response_type
+					flowName
+
+	    state : The application generates a random string and includes it in the
+request. It should then check that the same value is returned after the user
+authorizes the app. This is used to prevent CSRF attacks.
+
+	- Implicit Flow
+	- Resource Owner Credentials Grant type flow
+	- Client Credentials flow
+	- Refresh token flow
+
+	- We may wonder that why in the Authorization code grant type client is making
+	request 2 times to Auth server for authorization code and access token.
+	In the first step, authorization server will make sure that user directly interacted
+	with it along with the credentials. If the details are correct, auth server send the
+	authorization code the client.
+
+	Once it receives the authorization code, in this step client has to prove it’s
+	identity along with the authorization code, client credentials to get the access
+	token.
+
+
+
+
+
+
+
+
+
+=================== DOCKER =============
+
+- Add docker to resume
+
+- Operating system(a software) is a bridge between computer hardware and software(application running on the computer)
+	Manages harware resouces, provides essential services to applications and faciliates user interaction
+
+- History of computers
+	1950s : Each computer has one task. One for calculate, other for something else
+	1960s : One computer has multiple task BUT you can put one disk and just work on it each time
+	1970s : Program Loader started to use it. It was the beginning of Operating systems
+
+
+---------  Operating Sytem Parts  -------------------------------------
+	- Kernel: takes info from application, adjust hardware accordingly
+		- Core (heart) of the Operating System responsible for managing hardware resources and providing essential services to applications
+		- It controls the execution of process, manages memeory allacotion, handles input/output operations and maintains system security
+		- Kernel operates in priviliged mode and interacts directly with compiter's hardware
+
+
+	- User Interface
+		Graphical User Interface(GUI) --> allow user to interact with system with visual elements
+									 ex: windows, icons, menus, buttons
+
+		Command Line Interface (CLI) --> interact with text commands
+										 provides more control and flexibility for advanced users and system admins
+
+	- Process Management
+		Process Schedular
+		Process Control Block (PCB)
+
+	- Memory Management
+		Memory Allocation
+		Virtual Memory
+
+	- File Management System
+		File System
+		File Operations
+
+	- Device Management
+		Device Drivers:
+			- these are software components that allow operating syste to communicate with hardware devices such as printers, network cards, storage controllers.
+			- They translate high-level commands from OS into low-level instructions that the hardware understands
+
+		I/O Operations
+
+	- Security
+		Authentication and Authorization
+		Encryption
+
+-----------------------------------------------------------------------------------------------
+
+- ports are door that application serves at. To get this service(application), go to this door (port)
+- Network is a line(group phone call) that connects different applications(services)
+
+- Virtual Machines
+	- VM is a software-based emulation of a pyscical computer system that runs on operating system and applications just like a pyscial machine
+	- It allows multiple virtulized operating sytems to run simultanaously on a SINGLE pyscical hardware platform
+	- Each virtual machine operates independently and isolated from other virtual machines running on the same host
+	- In virtual machines each application thinks it is the only application is runnung on this computer
+	- VMs offer flexibility, scalibility and cost savings by abstarcting hardware resources and providing a platform-independent environment for running applications
+	- Widely used in data centers, development environments, cloud computing infrasturtures
+
+
+- One server(not virtualized) for one app --> waste of resources
+- Put many applications in a virtualized way on one machine(ie on server)
+
+
+- One Server(not virtulaized) Layers       Another Server layers
+	Application  								Application
+	Operating System  							Operating System
+	Physical Hardware  							Physical Hardware
+
+ - We can put two apps above in the same server but risky(security concerns, failure of server)
+
+ - Using Virtual Machine Way
+
+ 			Application 		 Application 			Application
+ 			Operating Sys 		 Operating Sys  		Operating Sys
+
+ 							 Virtualization Software
+ 								Pysical Hardware
+
+
+- Virtualization Software(VM) --> aka Hypervisor (to run many apps on same machine)
+							  --> Enables many apps in same SERRVER
+							  --> Use resouces effectively
+							  --> Different Operating Sytems for each App
+
+
+- Docker Way,ie --> Container (One OS, better than VM)
+
+ 			Application 		 Application 			Application
+
+ 								Operating Sytem
+ 							 	 Docker Engine
+ 								Pysical Hardware
+
+
+- Old times --> spend money for servers for each app
+  New time  --> Use docker to launch apps on the same server
+
+
+- Need to answer, why do we need Docker question.
+	- memory management
+	- easily make my appliocation runnable on everywhere
+	- before docker(VM), we needed to install OS for each VM(container)
+	- Docker containers all on top of one docker kernel(engine i think)
+	my app is working on my computer but my runnable code may not work on another computer(config issue, for example, no JDK on other computer)
+	- to make our code runnable on others need to provide OS, JDK code
+
+
+- To run our app on any environment we need OS
+
+- docker image (bucket) for our app
+
+	- code
+	- JDK 17
+	- OS(no kernel)
+
+- Docker runs everywhere
+
+- Aim --> Run our app on server. Put all necessary things in docker
+
+- Docker is a tool that allows you to build, test, and deploy applications quickly. So it provides quickly deploy and scale into any environment and know your code will run
+
+- Docker is not a programming language, is not a framework for building sotware
+- Docker is a tool that helps to solve comman probles such as installing, removing, upgrading, distributing, trusting and running sotware
+- It is open source Linux software
+
+- Docker Image --> a template
+
+- Docker Container --> to run Docker image, we need to put this image into a container
+				   --> docker images run in container
+				   --> container is like run button in Intellij. Everthing is ready
+				   		 we have test file, OS(UI-GUI, no kernel), JDK --> runnable application
+
+
+- Docker Engine: Mac or Windows users CAN'T use Docker engine directly.
+				 Docker Engine runs only Linux ****
+				 need to download Docker Desktop
+				 Docker Desktop comes with a basic linux operating system
+
+				 Docker Engine will run in Docker Desktop locally on my machine.
+
+				 	comes with arcitectures(Operating Systems) below
+				 				- x86_64/amd64 for Intel Mac and Windows
+				 				- arm64       for Apple Silicon
+
+
+				 Linux distributions(We use Docker Desktop, I think to use directly, need oen below)
+				 	- Ubuntu (has GUI)
+				 	- Binaries
+				 	- rhel
+				 	- Debiam
+				 	- CentOS
+				 	- Raspbian
+				 	- Fedora
+				 	- sles
+
+- Linux is a really good operating system for development and many large corporations like Amazon use it for their backend
+
+- Docker Engine Parts (we have $ docker -version now)
+
+			Server docker deamon --> Manages Data volumes and network
+			REST API             --> takes CLI docker commands and gives to deamon
+			Client docker CLI    --> commands to exceute what you want
+									  ex: manage Containers and Images
+
+
+
+
+- To use Docker ---> Start Docker Desktop (which has docker engine - docker deamon)
+	then can start using docker commands
+
+- To get the Ready Docker Images
+		go to ---> https://hub.docker.com/
+
+- To get/download somone's image from hub
+
+
+		- First We need to login to Docker Desktop
+		$ docker pull <imageName>  --> if image is public
+
+- To see available images in Docker Desktop(local machine)
+
+		$ docker images 0R
+		$ DOCKER image ls
+
+
+- To run our application which is in image(template), we need to put it in the container
+
+	1. Create container
+
+			$ docker container run -p hostPort:containerPort <imageName>  OR
+			$ docker container run -p hostPort:containerPort <imageID>    OR
+			$ docker container run -p hostPort:containerPort  firstFewCharsofImageId
+			-p hostPort:containerPort  ---> if you don't provide --> can't reach the container from local
+
+			when above command is run, application starts running in the container
+
+			localhost --> this is my computer closed to outside
+			localhost:8080  ---> my computer has a door which open to outside from 8080 door(port)
+
+
+			In Docker world: Docker Engine in in our Computer
+
+								Docker Engine
+					----------------------------------------
+					|										|
+					|						Container2		|
+					|							port2	    |
+					|										|
+					|										|
+					|	Container1						    |
+					|		port1							|
+					|										|
+					|						Container3	    |
+					|						  port3			|
+
+					------------------------------------------
+
+
+			- We need to use -p HOST:CONTAINER to reach application from our localHost
+
+			$ docker container run <imageID> -p 8080:8080
+
+
+- List of containers
+
+		$ docker container ls -a   --> all stopped or running
+		$ docker container ls      --> only running
+
+- To Stop container
+
+		$ docker container  stop <containerId>  OR control + C
+
+
+- To restart container
+
+		$ docker container start <container_ID>  --> starts with previous serrings
+		remember before we started by running an image
+
+- Remove container(after stop)
+
+		$ docker container rm <containerId>
+
+			--> cannot remove( delete ) runnung container --> need to stop first
+			--> to delete(remove) --> need -f flag so:
+
+					$ docker container rm -f <container_ID> --> deletes running container
+
+(Container is a virtial machine) --> all running on a linux machine inside Docker deamon in Docker Desktop
+
+- If we don't want to see logs while image starts and running on out terminal
+
+	$ docker container run -p hostPort:containerPort -d <imageName>
+
+			-d ---> means detached
+
+
+
+
+
+- interview questions:
+	- why we use docker
+	- which docker commands did you use ?
+			how did you contanerizied your image --. docker container run -p 8080:8089 <image_Id>
+
+	- what is docker image --> application template --> thnk like all application class
+
+	= What is container
+
+	- have you create any docker file
+
+
+----- Creating a Docket Image ---
+
+- Dockerfile is a script that describes steps for Docker to take to build a new image
+- Name should be Dockerfile by default. Can be changed but need flag etc
+
+- in java, image can be build from pom.xml also --> find this
+
+- Docker image builder executes the Dockerfile from top to bottom and instructions can configure or change anything about an image
+
+- Building images from DockerFiles makes tasks like adding files to a container from your computer simple one line instructions.
+
+- Commands
+				- FROM         ----> Specify base image (Mandatory, have to have a base image)
+				- RUN 		   ----> Execute specific command
+				- ENTRYPOINT   ----> Specify the command to execute the container
+				- CMD          ----> Specify the command at the time of container execution (can be overwritten)
+				- COPY         ----> Simple copy of files / directories from host machine to container image
+				- ADD          ----> COPY + unzip / download from URL (not recommended )(github files)
+				- ENV          ----> Add environment variables
+				- EXPOSE       ----> Open designated port
+				- WORKDIR      ----> Change current directory (like cd )
+				- MAINTAINER   ----> deprecated
+								     now LABEL maintainer="maintainer@example.com"should be specified as
+
+
+Example :
+
+			FROM ubuntu:18.04        			----> Build OS (ubuntu is windows of linux)
+			RUN apt-get update -y    			----> Update OS
+			RUN apt-get install default-jdk -y  ----> Build JRE
+			COPY ./src ./src        			----> Copy the application to server
+			RUN javac  /src/myApp?.java         ----> When system runs run the application(compile my app's main method)
+			WORKDIR /src
+			CMD ["java","myApp"]   ---> runs
+
+
+
+			- apt-get ---> APT(Advanced Packaging Tool) is a command-line tool used on Debian-based Linux distributions such as Ubuntu to manage software packages.(like pip I think). it is a powerful package management utility that allows useers to install, uptae, remove and manage software packages on their sytem
+
+					install --> sudo apt-get install firefox
+					update  --> sudo apt-get update
+					remove  --> sudo apt-get remove firefox
+					search  --> apt-cache search python
+					clean package cache --> sudo apt-get clean  --> e
+
+
+
+
+- To find base image, go yo hub.docker.com
+		search jdk
+
+	 base image should be comaptible with other software versions used in our app --> need to search and find which image satisfies
+
+
+- 1. FROM openjdk:17-jdk  ----> this has OS already
+
+- 2. Copy app folder or better option is copying final jar file
+		- maven clean install --> creates a jar(our app build) file under Target folder
+
+
+		- maven clean --> deleted Targer folder
+		- maven install  ---> create jar under Targer folder
+
+	 COPY /target/Spring-24-Docker-0-0-1-SNAPSHOT.jar       /user/app/
+
+- 3.  Need to go copied folder in our image
+
+		WORKDIR /user/app
+
+- 4. We need to execute jar file (if we search how to run jar file, can see the)
+
+	CMD ["java","-jar","Spring-24-Docker-0-0-1-SNAPSHOT.jar"]
+
+
+
+
+- After creating Dockerfile --> create image from this
+- Images are immutable. Need to create new image if you need to change something
+
+		----------
+			FROM openjdk:17-jdk
+			COPY ./target/SedatDockerTest-0.0.1-SNAPSHOT.jar .
+			WORKDIR .
+			CMD ["java","-jar","SedatDockerTest-0.0.1-SNAPSHOT.jar"]
+
+		--------
+
+		$ cd to where Dockerfile is
+		$ docker image build -t bekirsedat/<imageName> .	       --> bekirsedat is my docker hub repo name.
+																   --> . where we create this image(same folder in this cases)
+																   --> -t is for tag ?
+
+
+		- Now we have a runnable image, after above
+
+		- To run our created image
+
+			$ docker container run -p hostPort:containerPort <imageName>
+
+
+-------------------- remote
+
+- To push our local image to Docker hub:
+
+		$ docker image push <imageName>  ---> id not working?
+
+
+- If we delete the image locally but if it is on the remote hub --> we can start it same way we start container locally
+	docker will look at remote repository to find the image
+
+	1. default search Dockerhub
+	2.
+
+
+
+- It is good to give names to Containers
+	we may have a lot of containers and running at teh same time
+	sometimes we want to stop some of them ---> name is useful
+	we should know which container running which application --> use --name <name>
+
+		ex:
+
+
+
+
+-------- Doceker Volume --------------
+
+- Apps parts may be splitted into different containers ??
+ Images are read only
+ Whatever created in a container stays in that container
+
+
+- Volumes
+	- Docker volumes provide a way to persist data generated y Docker containers
+	- When a container is created, it typically exists in an isolated environment with its own filesystem
+	- This file system is ephemeral meaning that any data written to it will be lost when the containeris stopped or removed
+	- Docker volumes overcome this limitation by allowing data to be stored outside the container's filesystem
+		- either on the host machine or in a cloud-based storage dservice
+	- This data can be shared among multiple containers, allowing for data persistance and sharing between containers
+
+	- Benefits of Docker volumes
+		- DATA persistance
+		- Shared Storage
+		- Backup and Restore
+		- Performance
+
+	- Volumes are managed by Dockerand provide persistant storage that persists even if the container is removed
+
+
+
+------------ Docker Network --------------
+- Conternized applications communicate securely and efficiently with each otgher and with external systems.
+
+- In Docker,a network is a communication bridge that allows containers to communicate with:
+		- other container
+		- host machine
+		- external networks
+
+- Docker provides varios types of networks to faciliate different communicatiin needs:
+
+	1. Bridge Network:
+		- this is default network cretaed when Docker is installed.
+		- newly started containers will connect automaticall to the dafault bridge network
+		- Containers connected to Bridge network can communicate with each other
+		- but by default they are isolated from external networks unless specific ports are exposed
+
+
+	2. Host Network:
+		- Host network is provided by the host driver which insructs Docker not to create any special network namespace or resources for attched containers
+		- It removes network isolation between container and the host machine where Docker is running.
+		For ex: if you run a container that binds to port 8080 and uses host networking, the container's application is available on port 8080 on host's IP address
+		- Thi scan provide better performance but may sacrifice network isolation
+
+
+	3. None Network:
+		- none network uses null friver.
+		- Containers connected to "none" network have no network connectivity ouside themselfs.
+		- This can be useful for runing isolated containers or for troubleshooring network-related issues.
+
+
+	4. Overlay Network:
+	 	- This type of network enables communication between containers running on diffrent Docker hosts
+	 	- It is useful for creating multi-host deployments or distributes applications
+
+	5. Macvlan Network:
+		- Macclan allows containers to have their own MAC addresses and appear as pyhsical devices on yhe network.
+		- This can be useful for integrating Docker containers into existing network infrastructers
+
+- Similar to group calls on phone, for ex: front end container, back-end container and more will be on the same call(network in this case) to talk to each other
+
+
+- To see the list of the Docker nertwors
+
+		- $ docker network ls ----> showed 	- bridge
+											- host
+											- none
+									on my computer
+
+
+
+- We will use bridge network
+
+-------- DOCKER COMPOSE --------
+
+- Docker compose is a tool used to define and run multi-container Docker applications
+- Instead of creating sepeate image, try to config them, compose make it easier to create/manage ...
+- it allows you to define a group of related services, such as web servers, databases and other dependencies ia a single configuration file called docker-compase.yml
+- docker compose file connects(configs) services(diffrent containers ) --> makes life easier before launching these services to containers and deal to connect them after launhing individually --> This is what I understood
+
+		- A Service is an abstract definition of a computing resource within an application which can be scaled/replaced independently from other components.
+
+		- network --> Layer(line) that allow services to communicate with each other.
+		- volumes --> Persistent data stores implemented by the platform.
+
+		- image  --> Specify the image to start the container from
+
+		- container_name --> Specify a custom container name, rather than a generated default name.
+
+		- environment --> Define environment variables set in the container.
+
+		- ports --> Expose ports. Either specify both ports (HOST:CONTAINER), or just the container port (an ephemeral host port is chosen).
+
+		- retstart --> Define the policy that the platform will apply on container termination
+							- always
+							- on-failure
+							- unless-stopped
+							- no
+
+		- volumes --> Define mount host paths or named volumes that MUST be accessible by service containers.
+
+					- Volumes are managed by Dockerand provide persistant storage that persists even if the container is removed
+
+
+			ex: services:
+				  postgres:
+				    image: postgres # this is official image from docker hub
+				    container_name: postgresService
+				    environment:
+				      POSTGRES_USER: "postgres"
+				      POSTGRES_PASSWORD: "admin"
+				      POSTGRES_DB: "ticketing-app"
+				    ports:
+				      - "5432:5432"
+				    restart: always
+				    volumes:
+				      - myInitDb: /var/lib/postgresql/data # I got this folder from dockerfile of this postgres image. Goto hub, find postgres, click on any version(latest, for ex) They used this volume in the image
+				      - /host/path:/container/path
+
+			- myInitDb: /var/lib/postgresql/data --> this creates a named volume called myInitDb(in Docker Engine whereever it is(on my local machine for ex)) and mounts it to the: /var/lib/postgresql/data directory within the container.
+					Whatever saved in the container --> mount that and save in Docker Volume
+			- /host/path:/container/path --> mounts a directory form host machine: /host/path to a directory in the container --> /container/path. --> Host and container shares files or directories
+
+
+
+- Generally, if we are dealing with micro-services --> we use docker-compose --> this is said in class
+
+- With Docker Compose you can:
+
+	- Define Services
+	- Managa Dependencies
+	- Simplyfy deployment
+	- Replicate Environments
+
+
+- Docker Compose yaml: --> (This is like schema of Docker Engine(look at the picture))
+
+	version:
+	services:
+	networks:
+	volumes:
+
+
+
+- $ docker compose up    --> stars
+
+
+- $ docker compose down  --> downs
+
+  ----------------------- docker-compose.yaml File ------------
+version: "3.7"
+services:
+  mypostgres:
+    image: postgres # this is official image from docker hub
+    container_name: postgresService
+    environment:
+      POSTGRES_USER: "postgres" # this key from official image
+      POSTGRES_PASSWORD: "admin" # this key from official image
+      POSTGRES_DB: "ticketing-app" # this key from official image
+    ports:
+      - "5432:5432" # to open my service to outside
+    restart: always # up always
+    networks: # services will be on this same network to talk to each other. Network makes containers to talk to each other
+      - myNetwork
+    volumes:  # save my data. Mount myInitDb(local to Docker) with /var/lib/postgresql/data
+      - myInitDb:/var/lib/postgresql/data # I got this folder from dockerfile of this postgres image. Goto hub, find postgres, click on any version(latest, for ex) They used this volume in the image
+  ticketapp:
+    build : . # this will build our image from docker file in this root, no need to create image up front. Can create image first and use it as well then yse image keyword not build
+    container_name: appContainer
+    ports:
+      - "8080:8080"
+    networks:
+      - myNetwork
+    depends_on:  # first compose postgres service first
+      - postgres
+networks:
+  myNetwork:
+    driver: bridge
+volumes:
+  myInitDb:
+------------------------------------------------------------
+
+- Above two service --> two containers will be created
+- Since psotgres running locally at port 5432, change localhost to mypostgres
+- in our application properties:
+
+		spring.datasource.url=jdbc:postgresql://localhost:5432/ticketing-app
+									|
+									|
+									V
+		spring.datasource.url=jdbc:postgresql://mypostgres:5432/ticketing-app
+
+
+
+- deleting
+
+		$ docker image rm <imageName> OR $ docker image prune
+		$ docker container rm <containerName> OR $ docker container prune
+		$ docker volume rm <volumeName> or --> $ docker volume prune --> deletes all
+
+
+
+---------------  Docker Logs --------
+
+	$ docker logs <containerName>
+
+- can store logs and data form database in volumes
+
+
+
+-----------
+
+ - $ docker container ls == $ docker ps
+
+
+ - Running Shell commands in the container:
+		$ docker exec -it <container_id or container_name> sh
+
+
+
+- WORKDIR: Working directory in the linux container.
+ 		When running a base image like Node or ASP.NET Core or Java, there will be al ot of directorier in the container when it is running
+
+ 		ex: WORKDIR /var/www
+
+- COPY: This one is important. A lot of times you need to COPY in configuration files or settings or code:
+ 		these can be binaries, compiled code or scripted language like javascript.
+ 	   COPY instruction has a where am i strting from, that's the dot on the left
+ 	   copy from left dir to right dir
+ 	    COPY . .  ---> two dots. Left is from the root where i am now, right dot means WORKDIR == /var/www in this case.
+
+ 	    ex: Copy all my application files :
+ 	    	COPY . .  ==  COPY . ./  ==  COPY . /var/www  ---> all same
+
+
+
+
+
+=============================== AWS =============
+
+- Cloud --> someone else's computer
+
+- Our Application will be run on computers on the cloud(on aws computers)
+
+-server = hihg performance, high speed, high memory computer withiout monitor
+
+- We can store our images in Docker Hub or any other cloud service registries
+
+- Instead of pushing our image to Docker Hub, we will push to cloud registy
+
+- Cloud : push image to cloud. put data  in S3(cloud), get a cloud server
+			--> everthing is all in cloud
+
+
+- database 		  				--> use RDS  --> is a PaaS --> we don't know which server they use to store
+- image registry service 		--> ECR -> under Containers Service
+- server                        --> EC2  --> is a IaaS
+
+
+- AWS provide:
+				- IaaS: Infrastructure as a service --> virtualized computing resources. Servers,storage, network...
+				- PaaS: Platform as a service
+				- SaaS: Software as a service
+
+
+ - On premise: Cook pizza at home    prepare+cook+table+drinks+eat
+   IaaS:       Take and Bake         cook+table+drinks+eat
+   PaaS:       Pizza is delivered    table+drinks+eat
+   SaaS:       Dine out 			 eat
+
+- Our ticketing app is an example of SaaS
+
+
+
+			Applications   Iaas-PaaS NOT manages. We manage
+			Data           Iaas-PaaS NOT manages.  We manage
+			Runtime        Iaas NOT manages.  We manage
+			Middleware     Iaas NOT manages.  We manage
+			O/S            Iaas NOT manages.  We manage
+			Virtualization (HYPERVISOR)
+			Servers
+			Storage
+			Networking
+
+
+
+
+- Amazon region --> where server building is
+
+- Cost is th emost importing thing of aws
+	ex: For container service, there are some options
+
+				1. Elastic Container Registry          ---> cheapest
+				2. Elastic Container Service
+				3. Elcastic Kubernates Service
+				4. Red Hat Openshift Service on AWS
+
+
+
+
+
+- After purscahing a postgres service from aws
+		- aws computer starts working potsgres in it.
+					need to give inbound rules (click on instance, click in security, edit inbound
+												add rule, type is postgresql, select 0.0.0.0/0 --> means anyone)
+				we take endpoint fron here and paste into application.properties
+
+					spring.datasource.url=jdbc:postgresql://mydb.adasd.east1.rrds.amazom.com:5432/ticketing-app
+
+							now we moved our database to cloud by doing so
+
+
+
+
+- We used to push our image to Docker hub. We will move our image from local to cloud
+	this time we will use AWS service     --> ECR (Elastic Container Registry)
+												- fully managed container registry
+												- makes below easy:
+													- store
+													- manage
+													- share
+													- deploy upu container images and artifacts anywhere
+
+		- ECR == Docker hub
+		- ECR provides us private and public image repository like Docker hub(bekirsedat)
+
+
+		- How to push our image?
+				- select image  --> click on view push commands --> tell you what to do
+
+						- get token first:
+											$ aws configure  --> provide details
+
+						- then  click on view push commands --> tell you what to do
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Though most common use of SED command in UNIX is for substitution or for find and replace
+
+
+- Git undo for $ git add . ------> $ git restore --staged .
+
+- Write like --> th:text="${role.description} in view Spring will adjust role.getDescription()  or role.setDescription() automatically
+
+- th:field --. automatically create name and id attributes
+
+- Converter Interface in Spring Framework  --> need when working Thymeleaf
+		scenario : dropdown values coming as "1", "2" from html ex: {role.id}
+					need to get this object from id
+
+		@FunctionalInterface
+			public interface Converter<S,T>
+			A converter converts a source object of type S to a target of type T.
+			Implementations of this interface are thread-safe and can be shared.
+
+
+- redirect: /other is kind of running other controller method again. --. model attibures defined in /other will be available.
+
+- @ConfigurationProperties --> allows to map the entire Properties and Yaml files into an object easily. It also allows to validate properties with JSR-303 bean validation. By default, the annotation reads from the application. properties file
+
+ - In Spring Boot, we can use @Value to access the value from the default application.properties or application.yml.
+
+ 		ex: in application.properties
+ 					email=test@avci.com
+					thread-pool=12
+
+			in class:
+					@Component
+					public class GlobalProperties {
+
+					    @Value("${thread-pool}")
+					    private int threadPool;
+
+					    @Value("${email}")
+					    private String email;
+
+					    //getters and setters
+
+					}
+
+
+
+		- For  @ConfigurationProperties
+
+				@Component
+				@PropertySource("classpath:global.properties")
+				@ConfigurationProperties
+				public class GlobalProperties {
+
+				    private int threadPool;
+				    private String email;
+
+				    //getters and setters
+
+				}
+- Spring Boot loads application.properties from the root classpath by default. For custom .properties files (not application.properties), we need to use @PropertySource to load the properties, and the access is the same using @Value.
+
+
+	 ex: in --> YourName.properties
+	 					email=test@avci.com
+						thread-pool=12
+
+
+				@Component
+				@PropertySource("classpath:YourName.properties")
+				public class GlobalProperties {
+
+				    @Value("${thread-pool}")
+				    private int threadPool;
+
+				    @Value("${email}")
+				    private String email;
+
+				    //getters and setters
+
+				}
+
+		- The equivalent in @ConfigurationProperties
+
+				@Component
+				@PropertySource("classpath:YourName.properties")
+				@ConfigurationProperties
+				public class GlobalProperties {
+
+				    private int threadPool;
+				    private String email;
+
+				    //getters and setters
+
+				}
+- The @Value is suitable for simple structure configuration files; for complex structures, we can use @ConfigurationProperties to map or bind the .properties or yml configuration values to Java objects.
+
+		ex: application.properties
+						#App
+						app.menus[0].title=Home
+						app.menus[0].name=Home
+						app.menus[0].path=/
+						app.menus[1].title=Login
+						app.menus[1].name=Login
+						app.menus[1].path=/login
+						app.compiler.timeout=5
+						app.compiler.output-folder=/temp/
+
+						app.error=/error/
+
+
+			-		@Component
+					@ConfigurationProperties("app") // prefix app, find app.* valuesmm --------> *******
+					public class AppProperties {
+
+					    private String error;
+					    private List<Menu> menus = new ArrayList<>();
+					    private Compiler compiler = new Compiler();
+
+					    public static class Menu {
+					        private String name;
+					        private String path;
+					        private String title;
+
+					        //getters and setters
+					    }
+
+
+- @ConfigurationPropertiesBinding
+	Qualifier for beans that are needed to configure the binding of @ConfigurationProperties (e.g. Converters).
+
+
+
+
+-  @GetMapping("/update/{username}") ----> we will see this in the url when called
+   @PostMapping("/update/{username}") ----> we will see this in the url when called
+
+
+-   <a th:href="@{/user/update/{id}(id=${user.userName})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+   above button calls --> @GetMapping("/update/{username}")
+
+
+- <form th:action="@{/user/update/{username}}" method="post" th:object="${user}">
+
+		above button calls --> @PostMapping("/update/{username}")
+
+
+- When CONTROLLER working with UI --> CONTROLLER METHODS ARE ONLY @GetMapping and @PostMapping
+- When CONTROLLER working with api --> CONTROLLER METHODS ARE ONLY @DeleteMapping and ...
+
+
+- Spring in the behind using DTOs POJOs getters and setters methods for the fields --> need to cretae these method in Pjoss --> Lombok
+
+
+- Springs  @DateTimeFormat(pattern = '')
+
+		ex:  @DateTimeFormat(pattern = "yyyy-MM-dd" )
+    		 private LocalDate startDate;
+
+
+ - In DTOs, we need something unique to identify the instance
+
+
+
+ - PostMapping("/delete/{id}")   ---> if id exists in the DTO fields, Spring doesn't need @PathParam("id") Long id and set it in the code ---> Spring Autmaticaly binds the pathe parama coming from request to the DTO onbject (auto setId(id))
+
+ - SPRING is good for getters and setters
+ ==========
+
+ LIVE CLASS
+
+ - Validitions and our exception checks not same
+
+ - Validation annototions in pojos
+
+ BindingResult bindingResult befire  Model model
+
+
+ - @NonNull --> lombok annototion adds to requires constructor arg
+ - @NotNull --> for validation
+
+
+ 	@NotNull
+ 	BigDecimal balance
+
+ -
+ 	@Pattern(regexp = "^[a-zA-Z]*$]")
+ 	@Size(min = 2, max = 32)
+ 	String message;
+
+
+   @NotNull
+    private UUID sender;
+    @NotNull
+    private UUID receiver;
+    @Positive
+    @NotNull
+    private BigDecimal amount;
+    @NotNull
+    @Size(min = 2,max = 250)
+    @Pattern(regexp = "^[a-zA-Z0-9]*$")
+    private String message;
+    private Date createDate;
+
+===   validation steps below
+
+Adding validations to our Bank Simulation App.
+
+1.we are suppose to add validation dependency to our pom.xml file
+     <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+2.Use needed annotations for fields validation of your models/Pojos
+
+    private UUID id;
+    @NotNull
+    @Positive
+    private BigDecimal balance;
+    @NotNull
+    private AccountType accountType;
+    private Date creationDate;
+    @NotNull
+    private Long userId;
+    private AccountStatus accountStatus;
+
+3.We need to create the file (message.properties) under the resource package
+    #property names
+    account.balance= Balance
+    account.userId = User ID
+    account.accountType = Account Type
+
+
+    #messages
+    NotNull.account.balance = {0} cannot be null.
+    Positive.account.balance = {0} cannot be negative number.
+    NotNull.account.userId = {0} cannot be null.
+    NotNull.account.accountType = {0} cannot be null.
+
+4.Update the correct method in the controller to make validation work.
+        @PostMapping("/create")
+    public String createAccount(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("accountTypes", AccountType.values());
+            return "account/create-account";
+        }
+        System.out.println(account);
+        accountService.createNewAccount(account.getBalance(),new Date(),account.getAccountType(),account.getUserId());
+        return "redirect:/index";
+    }
+
+5.Update view/html files to display the errors.
+       <span th:if="${#fields.hasErrors('accountType')}">
+            <ul class="alert alert-danger">
+                <li th:each="err :${#fields.errors('accountType')}" th:text="${err}"></li>
+            </ul>
+        </span>
+
+============================================================
+
+
+- MA=ANY TO MANY relations needs 3rd table
+
+- 1 customer has 1 active address, but many inactive addresses can have 1 customer or 1 address can have 1 customer
+
+		customer --> address --> 1 to 1
+		addresss --> customer ---> Many to 1
+
+		category --> product --> many to many
+
+ - git checkout -b part-1  --> creates new branch (-b) and checout
+ - git branch part-1 creates branch from here I guesss
+
+
+- To push the current branch and set the remote as upstream, use (if no remote part-1 available)
+
+    git push --set-upstream origin part-1
+
+=========
+
+
+
+
+
+
+
+
+
+
+Bank Simulation App - ORM
+
+1. update pom.xml adding orm and database dependecies
+    -Spring Data Jpa
+    -Postgres Driver
+    -Modal Mapper
+
+2.Create bank-simulation database and connect through intellij
+
+3.update application.properties file with adding database information
+
+4.change model package to dto
+    -update class names to AccountDTO, Transaction DTO
+    -change annotation from @Data,@Builder to
+        -getter
+        -setter
+        -allArgConstructor
+        -noArgConstructor
+    -change AccountDTO id from UUID to Long
+    -change sender and receiver UUID to AccountDTO in the Transaction DTO class(comment out NotNull annotation first)
+
+5.Find builders in the controller and update them
+
+    Account Controller  - new AccountDTO();
+    Transaction Controller - new TransactionDTO
+
+        AccountDTO sender = accountService.retrieveById(transactionDTO.getSender().getId());
+        AccountDTO receiver = accountService.retrieveById(transactionDTO.getReceiver().getId());
+
+        added getId() for these methods parameters.
+
+6. Update account and transaction service interface UUID fields to Long with Type Migration
+
+7.Update implementation classes builders to noArg constructor for now (temporary)
+    -both createNewAccount and makeTransfer methods
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
+Latency refers to the delay that happens between when a user takes an action on a network or web application and when it reaches its destination, which is measured in milliseconds.
+
+

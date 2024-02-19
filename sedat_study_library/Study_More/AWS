@@ -3,7 +3,7 @@ AWS:
 
 
 Understanding AWS Core Services
-by David Tucker  -------------------> continye from incluiding "Content and Network Delivery Services"
+by David Tucker  -------------------> continye from incluiding "File Storage Services"
 
 Cloud - 
 	Introduction to cloud computing: SaaS, PaaS, and IaaS.
@@ -72,13 +72,24 @@ Compute Services:
 	Will look at 3 compute services:
 		1. EC2 --> Elastic-Compute-Cloud : Virtual servers in the cloud. provides secure and resizable virtual servers on AWS
 		2. Elastic Beanstalk --> Platform for scaling and deploying web apps and servces
-		3. Lambda --> Enables compute without managing servers
+		3. Lambda --> Enables compute without managing servers (Pay when your code is running, ideal for variable or intermediate workloads)
+					  Can run code for virtually any application or  back-end service all with zero admintration
+					  can use for event-driven computing, When something happens, your code runs, including changes to S3 bucket or an Amzon DynamoDB table	
+					  can respond to HTTP rerquests using Amazon API Gateway 
+					  can invoke your code using API calss made using the AWS SDKs
+					  can build serverless applications that are triggered by AWS Lambda functions and deploy them automatically using AWS CodePipeline and AWS CodeDeploy
+
+					  1. Upload your code to AWS Lambda
+					  2. Setup yout code to trigger from other AWS services, HTTP endpoints or in-app activity(ex: mobile app)
+					  3. Lambda runs your code only when triggered using only the compute resources needed.
+					  4. Pay just for the compute time you use.
+
 
 
 =======
 
 EC2 Concepts:
-	Instance types  --> defines processor, memory and storage type. If want to chane --,> need to down it first
+	Instance types  --> defines processor, memory and storage type. If want to change these--,> need to down it first
 						1. General purpose
 						2. Compute, memory and storage optimized
 						3. Accelerated computing (GPU - ai)
@@ -270,3 +281,129 @@ Amazon Route 53
 	DNS : translates more memorized domain names(in words ex: getiramarika) to their nmerical IP addresses needed for locating and identifying computer services and devices with underlying network protocols
 
 	Changes to these settings are not instant. May take some hours to be picked up by other services 
+
+
+------
+
+Elastic Load Balancing
+	Elasticity: ability for the infrastructure supporting an application to grow and contract on how much it is used as a point in timw.
+	Elastic Load Balancing : route users to correct infrastructure
+							 distrubytes traffic across multiple targets (ex: if we have two server, direct to one)
+							 integrates with EC2, ECS ( aws container service for docker ) and Lambda
+							 supports one or more availability zones in a region
+
+							 3 types of Load Balancer 
+							 	1. Application Load Balancer (ALB)
+							 	2. Network load Balancer (NLB)
+							 	3. Classic load Balancer (ELB)
+
+	Scaling on Amazon EC2:
+		1. Vertical Scaling( Scale-up) : You scale up your instance type to a larger instance type with additionol resources
+										 need to stop service than start after scale up --> not best way
+		2. Horizontal Scaling : Prefered --> you scale-out and add additional instances to handle the demand of your app
+											 this is where Elastic Load balanacing is used
+											 After adding additional servers, we rely on ELB to distrubtes loads 
+
+-----
+
+Amazon CloudFront and API Gateway	
+		when you hear anything about Content delivery network --> remember it is related to Amazon CloudFront s
+	
+	Amazon CloudFront : - Service leverages the edge locations within AWS infrastructure
+						- This is a Content delivery network (CDN) which means there are servers around the world that you can send your content to why you do this? --> because this enables users to get content from server closest to them
+						- supports both dynamic and static content
+						- utilizes AWS edge locations
+						- Includes advanced security features
+							- AWS Shield for DDoS
+							- AWS WAF
+
+	Amazon API Gateway : - Fully manages API management services --> can create APIs and disturebute them through Amazon CloudFront
+						 - Directly integrates with multiple AWS services
+						 - Provides monitoring & metrics on api calls 
+						 - Supports VPC and on-premise private applications
+
+
+-----
+
+AWS Global Accelerator
+	- is a networking service that sends your user's traffic through Amazon Web Service s global network infrastructure, improving your internet user peformance by up to 60%.
+	- diffrence with CloudFront --> this utilizes ip adresses that route to edge locations instead of DNS
+	- Once user reaches the edge locations, traffic is routed through AWS network
+	- Can route requests to many AWS resources
+		- Network load balancer (NLB)
+		- Application load balancer (ALB)
+		- EC2 instances
+		- Elastic IP address
+
+	Performance Improvements:
+		Distance between user and initial endpoint is minimized by using edge locations
+		Traffic is optimized by using AWS network instead of public Internet
+		Results in improvement of first byte latency jitter and throughput
+		Provides superior fault tolerance by nor relying on DNS resolution
+
+		And it does also provide superior fault tolerance by not relying on DNS resolution, and let me speak to this for just a minute. So with most solutions, what can happen is, is that we use a hostname, and that hostname, the IP address, might get cached. So if you're using something like Route 53 for failover, what happens is, is that if the client remembers an old IP address and it needs to failover to a new region, for example, in some cases, that switchover might not be seamless.
+		because of Global Accelerator, we are using IP‑based resolution, so it is able to make that transition seamlessly
+
+Use Cases: 
+			- If you are using Non-HTTP Protocol. ie, using UDP, MQTT or VOIP 
+			- If your solution needs IP (and not DNS resolution)(ie. requires static IP)
+			- If you need the best approach for failover and fault-tolerance
+
+		So let's talk about when you would consider AWS Global Accelerator, especially over a solution like CloudFront, because they are similar. First of all, if you're using a non‑HTTP protocol, things like UDP, MQTT, or VOIP. So you might be using UDP in a gaming context or in a video/audio‑type context. With MQTT, you might be leveraging this for IoT‑based devices. And then VOIP, if you're doing, again, internet telephony. Now if we look at another use case, and that's going to be if you have a situation that requires a static IP and not a DNS‑based resolution, then in this case, you're going to need to use Global Accelerator. Also, if you need instant failover with the highest level of high availability, then in this case, you would certainly want to take a look at the AWS Global Accelerator.
+
+
+
+Scenario Based Review
+	So next, we're going to walk you through some scenarios so that you can see how you have mastered the content that has been presented within this module. So first of all, we're going to look at Jane, and her company maintains two different corporate data centers, and they want their data centers to work directly alongside AWS for specific workloads. So in this case, they probably have some data that's stored within their own data center, but they want to have some public applications on AWS, and they need to have those public applications to be able to communicate with their data center. And so she's wondering if there's any way to have a persistent connection to AWS because she's worried about just sending everything out on the public internet, that that could potentially be slow, and ideally, she'd like some of this communication to happen kind of behind the firewall. So, what service from AWS would you recommend that her company implement to meet these criteria? Okay, next, we're going to talk about Tim. And we've met Tim before in a previous course, and his company is looking to serve content through their site to users all around the globe, and they're looking to optimize their performance to users around the world. Now they want to leverage a content delivery network. Now previously, we asked what element of the AWS global infrastructure Tim would be leveraging, but in this case, we're going to get even more specific, and we're going to ask the question, which service would enable optimized performance globally for this company's content? Okay, we've got one more scenario.Here, we're going to be looking at Ellen, and her company has an internal application that runs on an EC2 server. Now currently, there is some downtime because demand is greater than capacity for the server. So for example, the server could probably handle about 150 users without fail, but in this case, we have up to 200 simultaneous users, so this is a problem. So here, Ellen is trying to decide if she should use bigger servers, so in essence changing the instance type, or more servers, so more servers of the same kind that they already have. So which scaling approach, based on the ones that we've discussed, would you recommend for Ellen's company? And then what services should they use alongside that approach? So, we'll cover these answers in the next clip.
+
+Solutions:
+	Summary
+So we've covered a lot of new AWS services here within this module. Let's quickly give an overview of what we've learned, and then we'll dive into the scenarios that we discussed in the previous clip. So first of all, we introduced virtual private clouds on AWS, and we also understood the purpose of AWS Direct Connect, which gives you that direct connection between your data centers, your office locations, and AWS. We examined DNS with Amazon Route 53. We understood what DNS does and how Amazon Route 53 can help us build highly available applications. And then we reviewed Amazon CloudFront, as well as API Gateway. And then finally, we introduced Elastic Load Balancing and the different scaling approaches that you can take when you are leveraging it. Now let's look back at our scenario with Jane. So Jane's company has two different corporate data centers, and they're looking to have their data centers work closely with AWS. So what service from AWS would you recommend for her company? Well, in this case, AWS Direct Connect is a great fit. They can build direct connections between their data centers and AWS, which means that that traffic does not have to go over the public internet. That also means that a lot of this communication can happen behind the firewall for them. Next, we're going to talk about Tim, and his company serves content through their site to users all around the globe, and they really are looking to optimize performance, and they want to leverage a CDN, or content delivery network, so what service would optimize that performance globally? Well, in this case, this would be Amazon CloudFront. That is the content delivery network that is present on AWS. So anytime you hear a question on the exam talking about a content delivery network, think about Amazon CloudFront and how that could help the users that are leveraging that service. So next, we have Ellen, and her company is running that internal application on an EC2 server, and they're having the downtime. So which scaling approach would you recommend? Well, in this case, we would recommend horizontal scaling, or scaling out, using Elastic Load Balancing. This is preferable over using just bigger servers because it can handle whatever future load you can throw at it. However, if you get bigger servers, it's possible you're just going to have to take those servers down again and make them even bigger. We want to limit downtime, and we're going to do that by taking a horizontal scaling approach. And by using Elastic Load Balancing, we can make sure that we are routing users to the best server for them to use.
+======= End of Networking ==========
+
+
+File Storage Services
+
+	Amazon Simple Storage Service (S3) --> core AWS service
+		- Stores files as objects in buckets --> bucket has some settings, these setttings will apply tp files dropped here
+		- Provides different storage classes for different use cases
+		- Stores data across multiple available zones
+		- Enables URL access for files
+		- offers configurable rules for data lifecyle
+		- Can serve as a static web host
+
+	Amazon S3 Non-Archival Storage Classes
+		- S3 Standard
+			.Default storage class and is for frequently accesssed data
+		- S3 Intelligent-Tiering
+			.Moves data to the correct storage class based on usage
+		- S3 Standard-IA
+			.for frequent acceesed data with standard resilience
+		- S3 One Zone-IA
+			.for frequently accesed data that is only stored in one availibility zone --> low cost, less resiliency
+
+
+	S3 Intelligent Tiering
+		Only this class automatically moves files based on access
+		Moves between frequent(class) and infrequent(class) access. You will move your data between these classes
+		Same performance as S3 Standard
+
+	S3 Lifecycle poicies:
+		- Objects in a bucket can transition or expir based on your criteria
+		- Transitions can enable objects to move to another storage class based on time
+		- it's important to note here you can't move something back and forth based on usage, that's only available with Intelligent‑Tiering, but you can do it based on time. And you also can delete objects with expiration based on age. So if you want a certain file to only last for 30 days, for example, you could configure that also using lifecycle policies. 
+		- Expiration can delete objects based on age
+		- policies can also factor in versions of a specific object inthe bucket
+
+	S3 Transfer Acceleration: (Utilize this for fast upload)
+		Feature that can be enabled per bucket that allows for optimized(faster) uplaoding of data using the AWS Edge locations as a part of Amazon CloudFront
+
+	Demo : Host a website on Amazon S3
+				- Create a new S3 bucket
+				- Upload objects to an S3bucket
+				- Accessing object from S3 bucket from URL
+				- Congigure a bucket for website hosting
+
+
+	Amazon S3 Glacier
+

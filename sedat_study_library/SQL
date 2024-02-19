@@ -746,3 +746,51 @@ Advanced Functions:
 	SESSIONPROPERTY
 	SYSTEM_USER
 	USER_NAME
+
+
+==================================
+
+Window functions can be called in the SELECT statement or in the ORDER BY clause. However, they can never be called in the WHERE clause. 
+
+=======
+
+List of SQL DATE Functions ----> https://www.mssqltips.com/sqlservertip/6866/sql-date-functions/
+
+	SELECT GETDATE(), DAY(GETDATE()) , DAY('20210101'), DAY('2021-05-30 15:46:19.277');
+	SELECT GETDATE(), MONTH(GETDATE()) , MONTH('20210101'), MONTH('2021-05-30 15:46:19.277');
+	SELECT GETDATE(), YEAR(GETDATE()) , YEAR('20210101'), YEAR('2021-05-30 15:46:19.277');
+	SELECT EOMONTH(GETDATE()), EOMONTH('20210101'), EOMONTH('May 1, 2021');
+
+	SELECT DATEADD(DAY,1,'2021-01-01') as 'Add 1 Day',
+		   DATEADD(WEEK,1,'2021-01-01') as 'Add 1 Week',
+		   DATEADD(MONTH,1,'2021-01-01') as 'Add 1 Month',
+		   DATEADD(YEAR,1,'2021-01-01') as 'Add 1 Year';
+
+	SELECT DATEDIFF(DAY,'2021-01-01','2021-02-01') as 'Number of Days in January',
+		   DATEDIFF(WEEK,'2021-01-01','2022-01-01') as 'Weeks in the Year',
+		   DATEDIFF(MONTH,'2021-01-01','2022-01-01') as 'Months in the Year',
+		   DATEDIFF(YEAR,'1900-01-01',GETDATE()) as 'Years Since 1900';	   
+
+=================
+
+ Window Functions:
+
+ - A window function performs a calculation across a set of table rows that are somehow related to the current row. This is comparable to the type of calculation that can be done with an aggregate function. But unlike regular aggregate functions, use of a window function does not cause rows to become grouped into a single output row — the rows retain their separate identities. Behind the scenes, the window function is able to access more than just the current row of the query result.
+
+ Ex:   SELECT duration_seconds,
+       SUM(duration_seconds) OVER (ORDER BY start_time) AS running_total
+  	   FROM tutorial.dc_bikeshare_q1_2012
+
+  	   You can see that the above query creates an aggregation (running_total) without using GROUP BY. Let's break down the syntax and see how it works.
+  	   The first part of the above aggregation, SUM(duration_seconds), looks a lot like any other aggregation. Adding OVER designates it as a window function. You could read the above aggregation as "take the sum of duration_seconds over the entire result set, in order by start_time."
+
+  	   If you'd like to narrow the window from the entire dataset to individual groups within the dataset, you can use PARTITION BY to do so:
+
+  	   SELECT start_terminal,
+       		duration_seconds,
+       		SUM(duration_seconds) OVER (PARTITION BY start_terminal ORDER BY start_time) AS running_total
+  		FROM tutorial.dc_bikeshare_q1_2012
+ 		WHERE start_time < '2012-01-08'
+
+ 		The above query groups and orders the query by start_terminal. Within each value of start_terminal, it is ordered by start_time, and the running total sums across the current row and all previous rows of duration_seconds.
+
